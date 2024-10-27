@@ -1,6 +1,6 @@
 ---
 title: 'Second: Resumen'
-slug: 'third-post'
+slug: 'segundo-resumen'
 description: 'Detalle de proyecto'
 tags: ["AWS"]
 pubDate: 'Oct 22 2024'
