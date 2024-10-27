@@ -7,8 +7,8 @@ import Prose from '../components/Prose.astro';
 ---
 
 <BaseLayout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
+	title="Sobre mí"
+	description="Resumen de experiencias hasta la actualidad"
 >
   <div class='container'>
 		<main class='prose text-lg dark:prose-invert'>
@@ -25,26 +25,56 @@ import Prose from '../components/Prose.astro';
           </div>
           <Image src={Ava} alt="Muhammad Syakirurohman" width={300}  class="rounded-3xl rotate-3 mx-4 md:mx-0"/>
         </div>     
-        <div>
-          <p>
-            Experiencies
-          </p>
+        <div class="mt-12">
+          <h2 class="text-3xl font-bold mb-8">Experiencia Profesional</h2>
+          
+          <div class="space-y-10">
+            <!-- Trabajo actual -->
+            <div class="border-l-4 border-blue-500 pl-4">
+              <div class="flex justify-between items-center">
+                <h3 class="text-xl font-semibold">Taligent</h3>
+                <span class="text-sm text-gray-600 dark:text-gray-400">
+                  Noviembre 2022 - Presente
+                </span>
+              </div>
+              <p class="text-lg font-medium text-blue-600 dark:text-blue-400 mb-2">
+                Líder Técnico - Ingeniería de Datos
+              </p>
+              <ul class="list-disc list-inside space-y-2 text-base">
+                <li>Diseño e implementación de arquitecturas de datos avanzadas, desarrollando soluciones robustas en AWS y SAP</li>
+                <li>Optimización del rendimiento y escalabilidad de sistemas críticos en entornos cloud</li>
+                <li>Diseño, desarrollo e implementación de arquitectura ECS, utilizando servicios Fargate y Auto Scaling de EC2</li>
+                <li>Construcción y ejecución exitosa del plan de migración de servicios desde ECS hacia EKS</li>
+                <li>Implementación de pipelines de CI/CD mediante GitHub Actions y AWS CodePipeline</li>
+                <li>Liderazgo de equipos en la implementación de Arquitecturas de datos</li>
+                <li>Optimización de costos e infraestructura en entornos cloud</li>
+              </ul>
+            </div>
 
-          <p>
-            Experiencia
-          </p>
-
-          <p>
-            Experiencia
-          </p>
-
-          <p>
-            Trabajo 2
-          </p>
-
-          <p>
-            Trabajo 3
-          </p>
+            <!-- Trabajo anterior (ejemplo) -->
+            <div class="border-l-4 border-blue-500 pl-4">
+              <div class="flex justify-between items-center">
+                <h3 class="text-xl font-semibold">Freelance</h3>
+                <span class="text-sm text-gray-600 dark:text-gray-400">
+                  Febrero 2019 - Noviembre 2022
+                </span>
+              </div>
+              <p class="text-lg font-medium text-blue-600 dark:text-blue-400 mb-2">
+                Solutions Architect AWS + Developer
+              </p>
+              <ul class="list-disc list-inside space-y-2 text-base">
+                <li>Diseño e implementación de arquitecturas robustas para web hosting y microservicios</li>
+                <li>Implementación de soluciones de seguridad para contenedores en ECS</li>
+                <li>Desarrollo de sistemas de monitoreo avanzados con Grafana, Prometheus y Fluentd</li>
+                <li>Desarrollo e implementación de arquitecturas de orquestación con Apache Airflow en AutoScaling y MWAA</li>
+                <li>Desarrollo de microservicios y APIs con frameworks de Python</li>
+                <li>Construcción de soluciones dockerizadas para aplicaciones monolíticas y microservicios</li>
+                <li>Diseño e implementación de arquitecturas serverless con AWS Lambda y AWS SAM</li>
+                <li>Desarrollo de infraestructura como código utilizando Terraform</li>
+                <li>Integración de servicios AWS para soluciones cloud escalables y complejas</li>
+              </ul>
+            </div>
+          </div>
         </div>
         </article>
     </main>
