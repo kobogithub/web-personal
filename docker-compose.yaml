@@ -1,0 +1,19 @@
+### Service Web Personal ####
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: web-personal
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    # Si necesitas variables de entorno
+    environment:
+      - NODE_ENV=production
+    # Si necesitas healthcheck
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
