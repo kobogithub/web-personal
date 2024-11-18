@@ -8,6 +8,7 @@ import Ava from '@src/assets/img/ava.jpg';
 import Prose from '../components/Prose.astro';
 import { projects } from './projects/projects';
 import ProjectList from '../components/ProjectList.astro'
+import SkillsList from '../components/SkillsList.astro'
 import PostItem from '../components/PostItem.astro';
 
 type BlogPost = CollectionEntry<'blog'>;
@@ -50,6 +51,13 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
         <div class="flex justify-between gap-2 mb-1">
           <h2 class="text-lg font-bold mb-3">My Projects</h2>
           <a href="/projects/" class="inline-block py-2 underline dark:prose-invert">All projects &raquo;</a>
+        </div>
+        <ProjectList projects={top6Projects}/>
+      </div>
+      <div>
+        <div class="flex justify-between gap-2 mb-1">
+          <h2 class="text-lg font-bold mb-3">My Skills</h2>
+          <a href="/skills/" class="inline-block py-2 underline dark:prose-invert">All skills &raquo;</a>
         </div>
         <ProjectList projects={top6Projects}/>
       </div>
