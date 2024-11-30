@@ -1,6 +1,6 @@
 # Personal Website
 
-Este proyecto es un sitio web personal construido con tecnologías modernas y configurado para ser desplegado usando Docker.
+Este proyecto es un sitio web personal construido con tecnologías modernas y configurado para ser desplegado usando Docker y Github Pages con CI/CD de GithubActions
 
 ## 🚀 Tecnologías
 
@@ -107,6 +107,68 @@ El archivo `docker-compose.yaml` incluye:
 - Reinicio automático del contenedor
 - Variables de entorno para producción
 - Healthcheck para monitoreo de la salud del servicio
+
+## 🔄 CI/CD con GitHub Actions
+
+El proyecto utiliza GitHub Actions para automatizar el despliegue a GitHub Pages cada vez que se realizan cambios en la rama principal.
+
+### Flujo de Trabajo de Despliegue
+
+```yaml
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v4
+      - name: Install, build, and upload your site
+        uses: withastro/action@v3
+        with:
+          node-version: 20
+          package-manager: pnpm@latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+### Características del Despliegue Automático
+
+- **Trigger Automático**: Se activa con cada push a la rama `main`
+- **Trigger Manual**: Puede ser ejecutado manualmente desde la pestaña Actions
+- **Optimizado para Astro**: Utiliza la acción oficial de Astro para el build
+- **Configuración Específica**:
+  - Node.js v20
+  - PNPM como gestor de paquetes
+  - Despliegue automático a GitHub Pages
+
+### Flujo de Desarrollo y Despliegue
+
+1. Los cambios se pushean a la rama `main`
+2. GitHub Actions automáticamente:
+   - Clona el repositorio
+   - Instala las dependencias con PNPM
+   - Construye el sitio con Astro
+   - Despliega a GitHub Pages
+3. El sitio se actualiza automáticamente en la URL de GitHub Pages
 
 ## 🛠️ Desarrollo Local
 
