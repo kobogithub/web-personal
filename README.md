@@ -120,7 +120,7 @@ El archivo `docker-compose.yaml` incluye:
 
 1. Clonar el repositorio:
 ```bash
-git clone <url-del-repositorio>
+git clone https://github.com/kobogithub/web-personal.git
 cd web-personal
 ```
 
