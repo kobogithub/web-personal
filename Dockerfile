@@ -28,5 +28,5 @@ COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 # Copiar codigo fuente al repositorio HTML de Nginx
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Exposicion del puerto 8080
-EXPOSE 8080
+# Exposicion del puerto 80
+EXPOSE 80
