@@ -7,6 +7,7 @@ pipeline {
         DOCKER_TAG = 'latest'
         GITHUB_REPO = 'https://github.com/kobogithub/web-personal.git'
         GITHUB_BRANCH = 'jenkins'
+        GITHUB_CREDENTIALS = 'kobogithub'
     }
     
     stages {
@@ -16,6 +17,7 @@ pipeline {
                 cleanWs()
                 git branch: "${GITHUB_BRANCH}",
                     url: "${GITHUB_REPO}"
+                    credentialsId: "${GITHUB_CREDENTIALS}"
             }
         }
         
