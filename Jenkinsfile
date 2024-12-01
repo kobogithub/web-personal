@@ -10,13 +10,13 @@ pipeline {
         GITHUB_CREDENTIALS = 'kobogithub'
     }
     
-    stages {
-        stage('Checkout') {
-            steps {
-                cleanWs()
-                // Sintaxis corregida para el paso git
+    stage('Checkout') {
+        steps {
+            dir('workspace') {  // Creamos un directorio específico
+                deleteDir()     // Limpiamos el directorio
                 checkout([$class: 'GitSCM',
-                    branches: [[name: "${GITHUB_BRANCH}"]],
+                    branches: [[name: "*/${GITHUB_BRANCH}"]],  // Asterisco añadido
+                    extensions: [[$class: 'CleanBeforeCheckout']],  // Limpieza antes del checkout
                     userRemoteConfigs: [[
                         url: "${GITHUB_REPO}",
                         credentialsId: "${GITHUB_CREDENTIALS}"
@@ -24,7 +24,8 @@ pipeline {
                 ])
             }
         }
-        stage('Build Docker Image') {
+    }
+    stage('Build Docker Image') {
             steps {
                 script {
                     // Construye la imagen Docker
