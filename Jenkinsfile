@@ -13,14 +13,17 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Limpia el workspace y hace checkout del repo
                 cleanWs()
-                git branch: "${GITHUB_BRANCH}",
-                    url: "${GITHUB_REPO}"
-                    credentialsId: "${GITHUB_CREDENTIALS}"
+                // Sintaxis corregida para el paso git
+                checkout([$class: 'GitSCM',
+                    branches: [[name: "${GITHUB_BRANCH}"]],
+                    userRemoteConfigs: [[
+                        url: "${GITHUB_REPO}",
+                        credentialsId: "${GITHUB_CREDENTIALS}"
+                    ]]
+                ])
             }
         }
-        
         stage('Build Docker Image') {
             steps {
                 script {
