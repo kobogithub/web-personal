@@ -235,3 +235,5 @@ copy_to_s3 = SqlToS3Operator(
 check_table >> copy_to_s3
 ```
   Ejecutamos el DAG y podemos visualizar los datos cargados en el bucket s3.
+
+Concluimos con el DAG
