@@ -7,7 +7,7 @@ pubDate: 'Nov 08 2024'
 coverImage: './airflow-to-oracle.png'
 ---
 
-# Airflow To Oracle
+# Airflow To Oracle (AWS)
 
 ## Intro
 En el mundo de la orquestación de datos, Apache Airflow se ha convertido en una herramienta fundamental para la automatización y programación de flujos de trabajo. Sin embargo, cuando nos enfrentamos a la necesidad de integrar sistemas heredados o versiones anteriores de bases de datos empresariales, podemos encontrar desafíos técnicos significativos.
