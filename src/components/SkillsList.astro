@@ -1,70 +1,44 @@
 ---
-import { Image } from 'astro:assets';
-import type { Skills } from '../pages/skills/skills.ts'
-import { kFormatter } from '../utils'
-import GithubWhite from '@src/assets/img/github-mark-white.svg';
-import GithubBlack from '@src/assets/img/github-mark.svg';
-
-const { skills } = Astro.props
-
+import type { Skills } from '../pages/skills/skills.ts';
+import IconifyIcon from './IconifyIcon';
+const { skills } = Astro.props;
 ---
+
 <div class="grid grid-cols-12 gap-5">
   {
-    skills.map((skill: Skills) => 
+    skills.map((skill: Skills) => (
       <div class="col-span-12 sm:col-span-6 lg:col-span-4 border dark:border-zinc-700 rounded-xl shadow-sm p-5">
-        <div class="flex justify-between items-center">
-          <div class='flex gap-2'>
-            {
-              (skill.tags || [] )?.map((tag: string) => (
-                <span
-                  class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
-                    text-sm text-zinc-700 dark:text-zinc-300 no-underline px-2 py-0.5
-                    transition-all duration-700
-                  hover:border-zinc-700 dark:hover:border-zinc-300'
-                  >
-                  {tag}
-                </span>
-              ))
-            }
-          </div>
-
-          {skill.stargazers_count !== undefined && (
-            <div class='shrink-0'>
-              <a
-                href={skill.html_url}
-                target="_blank"
-                class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
-                    text-xs text-zinc-700 dark:text-zinc-300 no-underline px-2 py-0.5
-                    transition-all duration-700
-                  hover:border-zinc-700 dark:hover:border-zinc-300
-                    flex items-center gap-1
-              '>
-                <Image src={GithubBlack} height={12} class='dark:hidden' alt='Github stars' />
-                <Image src={GithubWhite} height={12} class='hidden dark:block' alt='Github stars' />
-                {kFormatter(skill.stargazers_count)} stars
-              </a>
-            </div>
-          )}
+        <div class="flex items-center gap-2 mb-2">
+          <IconifyIcon icon={skill.icon} client:load />
+          <h3 class="font-semibold">
+            {skill.name}
+          </h3>
         </div>
-        <h3 class="font-semibold my-2">
-          <a class="underline" href={skill.demoLink} target="_blank" rel={skill.demoLinkRel}>{skill.name}</a>
-        </h3>
-        <div class="line-clamp-2 text-zinc-600 dark:text-zinc-300 mb-4 min-h-[50px]">
+        <div class="text-zinc-600 dark:text-zinc-300 mb-4 min-h-[50px]">
           <p>{skill.description}</p>
         </div>
-        <div class="flex justify-end gap-3">
+        <div class="flex flex-wrap gap-2 mb-4">
           {
-            skill.postLink &&
+            (skill.tags || [])?.map((tag: string) => (
+              <span
+                class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
+                  text-sm text-zinc-700 dark:text-zinc-300 no-underline px-2 py-0.5
+                  transition-all duration-700
+                hover:border-zinc-700 dark:hover:border-zinc-300'
+              >
+                {tag}
+              </span>
+            ))
+          }
+        </div>
+        {skill.postLink && (
+          <div class="flex justify-end">
             <a class="underline flex items-center gap-2" href={skill.postLink}>
               Article
             </a>
-          }
-      <a class="underline flex items-center gap-2" href={skill.demoLink} target="_blank" rel={skill.demoLinkRel}>
-            Demo 
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-          </a>
-        </div>
+          </div>
+        )}
       </div>
-    )
+    ))
   }
 </div>
