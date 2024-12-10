@@ -1,3 +1,4 @@
+---
 ### Service Web Personal ####
 services:
   app:
@@ -17,3 +18,13 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    networks:
+      - home
+
+networks:
+  home:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.0.0/16
+          gateway: 10.10.0.1
