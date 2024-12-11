@@ -8,11 +8,14 @@ import Ava from '@src/assets/img/ava.jpg';
 import Prose from '../components/Prose.astro';
 import { projects } from './projects/projects';
 import ProjectList from '../components/ProjectList.astro'
+import SkillsList from '../components/SkillsList.astro'
 import PostItem from '../components/PostItem.astro';
+import { skills } from '../pages/skills/skills.ts';
 
 type BlogPost = CollectionEntry<'blog'>;
 
 const top6Projects = projects.slice(0, 6);
+const top6Skills = skills.slice(0, 6);
 const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 5);
 ---
 
@@ -23,7 +26,7 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
         <h1 class="text-4xl font-bold mb-4">Hola 👋, Kevin Barroso 👷</h1>
         <Prose>
           <div class="text-lg">
-            <p>Arquitecto de Soluciones con amplia experiencia en contenedores y cloud computing. Lidero equipos en la implementación de arquitecturas de datos, optimizando el rendimiento y la escalabilidad. Implementacion de servicios en arquitecturas ECS. Construcción, desarrollo e implementacion de arquitecturas Kubernetes en EKS. </p>
+            <p>Arquitecto de Soluciones/SRE Ssr con amplia experiencia en contenedores y cloud computing. Lidero equipos en la implementación de arquitecturas de datos, optimizando el rendimiento y la escalabilidad. Implementacion de servicios en arquitecturas ECS. Construcción, desarrollo e implementacion de arquitecturas Kubernetes en EKS. </p>
             <p>Mi pasión es crear sistemas robustos y eficientes que impulsen la innovación, inspirando a los equipos a alcanzar la excelencia técnica. Ssr en AWS, Kubernetes, CI/CD, seguridad en la nube y automatización de infraestructura. Destaco por mi comunicación efectiva, resolución de problemas complejos y gestión de proyectos ágiles.</p>  
           </div>
         </Prose>
@@ -46,12 +49,19 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
         <div class="text-right">
         </div>
       </div>
-      <div>
+      <div class='mb-12'>
         <div class="flex justify-between gap-2 mb-1">
           <h2 class="text-lg font-bold mb-3">My Projects</h2>
           <a href="/projects/" class="inline-block py-2 underline dark:prose-invert">All projects &raquo;</a>
         </div>
         <ProjectList projects={top6Projects}/>
+      </div>
+      <div>
+        <div class="flex justify-between gap-2 mb-1">
+          <h2 class="text-lg font-bold mb-3">My Skills</h2>
+          <a href="/skills/" class="inline-block py-2 underline dark:prose-invert">All skills &raquo;</a>
+        </div>
+        <SkillsList skills={top6Skills}/>
       </div>
 		</main>
 	</div>

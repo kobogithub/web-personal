@@ -1,19 +1,30 @@
-import { defineConfig } from 'astro/config';
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
+import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
-import { autoNewTabExternalLinks } from './src/autoNewTabExternalLinks';
-
 import partytown from "@astrojs/partytown";
+import react from "@astrojs/react";
+import { autoNewTabExternalLinks } from "./src/autoNewTabExternalLinks";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://kobouharriet.online',
-  integrations: [mdx(), sitemap(), tailwind(), partytown()],
+  site: "https://kobouharriet.site",
+  integrations: [
+    mdx(),
+    sitemap(),
+    tailwind(),
+    partytown(),
+    react(), // Agregamos la integración de React
+  ],
   markdown: {
     extendDefaultPlugins: true,
-    rehypePlugins: [[autoNewTabExternalLinks, {
-      domain: 'localhost:4321'
-    }]]
-  }
+    rehypePlugins: [
+      [
+        autoNewTabExternalLinks,
+        {
+          domain: "localhost:4321",
+        },
+      ],
+    ],
+  },
 });
