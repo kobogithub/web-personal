@@ -10,10 +10,12 @@ import { projects } from './projects/projects';
 import ProjectList from '../components/ProjectList.astro'
 import SkillsList from '../components/SkillsList.astro'
 import PostItem from '../components/PostItem.astro';
+import { skills } from '../pages/skills/skills.ts';
 
 type BlogPost = CollectionEntry<'blog'>;
 
 const top6Projects = projects.slice(0, 6);
+const top6Skills = skills.slice(0, 6);
 const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 5);
 ---
 
@@ -47,7 +49,7 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
         <div class="text-right">
         </div>
       </div>
-      <div>
+      <div class='mb-12'>
         <div class="flex justify-between gap-2 mb-1">
           <h2 class="text-lg font-bold mb-3">My Projects</h2>
           <a href="/projects/" class="inline-block py-2 underline dark:prose-invert">All projects &raquo;</a>
@@ -59,7 +61,7 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
           <h2 class="text-lg font-bold mb-3">My Skills</h2>
           <a href="/skills/" class="inline-block py-2 underline dark:prose-invert">All skills &raquo;</a>
         </div>
-        <ProjectList projects={top6Projects}/>
+        <SkillsList skills={top6Skills}/>
       </div>
 		</main>
 	</div>
