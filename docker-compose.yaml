@@ -2,9 +2,7 @@
 ### Service Web Personal ####
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: web-personal
     container_name: web-personal
     ports:
       - "80:80"
