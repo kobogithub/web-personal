@@ -97,4 +97,60 @@ export const skills: Skills[] = [
     tags: ["Containers", "DevOps"],
     icon: "simple-icons:podman",
   },
+  {
+    name: "Tmux",
+    description: "Experiencia en multiplexor de terminal",
+    tags: ["Shell"],
+    icon: "simple-icons:tmux",
+  },
+  {
+    name: "Concourse CI",
+    description: "Experiencia pipelines de CI/CD",
+    tags: ["Containers", "DevOps", "CI/CD"],
+    icon: "simple-icons:concourse",
+  },
+  {
+    name: "PostgreSQL",
+    description: "Experiencia en base de datos para Warehouse o Aplicaciones",
+    tags: ["Containers", "Database"],
+    icon: "simple-icons:postgres",
+  },
+  {
+    name: "Metabase",
+    description: "Desarrollo de visualizaciones y dashboard",
+    tags: ["Containers", "BI"],
+    icon: "simple-icons:metabase",
+  },
+  {
+    name: "Redash",
+    description: "Desarrollo de reportes y wallboards",
+    tags: ["Containers", "BI"],
+    icon: "simple-icons:redash",
+  },
+  {
+    name: "Airflow",
+    description:
+      "Orquestacion de tareas en entornos docker, kubernetes, bare-metal o MWAA",
+    tags: ["Orchestration"],
+    icon: "simple-icons:airflow",
+  },
+  {
+    name: "Fluentd",
+    description: "Collector de Logs y centralizacion en DB ElasticSearch",
+    tags: ["Containers", "Monitoring"],
+    icon: "simple-icons:fluentd",
+  },
+  {
+    name: "Prometheus",
+    description: "Exposicion de metricas a nivel nodos o contenedores",
+    tags: ["Containers", "Monitorin"],
+    icon: "simple-icons:prometheus",
+  },
+  {
+    name: "Grafana",
+    description:
+      "Dashboard de monitoreos en servidores propios como en gran escala",
+    tags: ["Containers", "Monitoring"],
+    icon: "simple-icons:grafana",
+  },
 ];
