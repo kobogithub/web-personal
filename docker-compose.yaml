@@ -2,12 +2,10 @@
 ### Service Web Personal ####
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: web-personal:10
     container_name: web-personal
     ports:
-      - "80:80"
+      - "8085:80"
     restart: unless-stopped
     # Si necesitas variables de entorno
     environment:
@@ -15,6 +13,32 @@ services:
     # Si necesitas healthcheck
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80"]
-      interval: 30s
+      interval: 31s
       timeout: 10s
-      retries: 3
+      retries: 4
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    labels:
+      - "server.environment=${ENV:-dev}"
+      - "server.network=public"
+      - "server.description=Web Personal de kobouharriet.site"
+      - "server.project=briefcase"
+      - "server.monitoring.enabled=true"
+    networks:
+      - public
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: "192.168.0.13:24224"
+        tag: "docker.web-personal"
+        fluentd-async: "true"
+
+networks:
+  public:
+    external: true
