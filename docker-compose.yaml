@@ -2,10 +2,10 @@
 ### Service Web Personal ####
 services:
   app:
-    image: web-personal:9
-    container_name: web-personal-9
+    image: web-personal:10
+    container_name: web-personal
     ports:
-      - "8086:80"
+      - "8085:80"
     restart: unless-stopped
     # Si necesitas variables de entorno
     environment:
@@ -36,7 +36,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: "192.168.0.13:24224"
-        tag: "docker.web-personal-9"
+        tag: "docker.web-personal"
         fluentd-async: "true"
 
 networks:
