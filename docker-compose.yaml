@@ -2,43 +2,29 @@
 ### Service Web Personal ####
 services:
   app:
-    image: web-personal:10
-    container_name: web-personal
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: web-personal-dev
     ports:
-      - "8085:80"
+      - "8085:4321"
     restart: unless-stopped
-    # Si necesitas variables de entorno
     environment:
-      - NODE_ENV=production
-    # Si necesitas healthcheck
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
-      interval: 31s
-      timeout: 10s
-      retries: 4
-    deploy:
-      resources:
-        limits:
-          cpus: "0.50"
-          memory: 512M
-        reservations:
-          cpus: "0.25"
-          memory: 256M
-    labels:
-      - "server.environment=${ENV:-dev}"
-      - "server.network=public"
-      - "server.description=Web Personal de kobouharriet.site"
-      - "server.project=briefcase"
-      - "server.monitoring.enabled=true"
+      - NODE_ENV=development
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./package.json:/app/package.json
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./astro.config.mjs:/app/astro.config.mjs
+      - ./tailwind.config.mjs:/app/tailwind.config.mjs
+      - ./uno.config.ts:/app/uno.config.ts
+      - ./pnpm-lock.yaml:/app/pnpm-lock.yaml
+      - ./nginx:/app/nginx
+    command: npx astro dev --host
     networks:
-      - public
-    logging:
-      driver: "fluentd"
-      options:
-        fluentd-address: "192.168.0.13:24224"
-        tag: "docker.web-personal"
-        fluentd-async: "true"
+      - private
 
 networks:
-  public:
+  private:
     external: true
