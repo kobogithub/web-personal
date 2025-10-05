@@ -4,6 +4,7 @@ declare module 'astro:content' {
 			Content: import('astro').MarkdownInstance<{}>['Content'];
 			headings: import('astro').MarkdownHeading[];
 			remarkPluginFrontmatter: Record<string, any>;
+			components: import('astro').MDXInstance<{}>['components'];
 		}>;
 	}
 }
@@ -151,9 +152,16 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"blog": {
-"2022-07-2-third-post/index.md": {
-	id: "2022-07-2-third-post/index.md";
-  slug: "segundo-resumen";
+"2024-11-08-airflow-to-oracle/index.md": {
+	id: "2024-11-08-airflow-to-oracle/index.md";
+  slug: "airflow-to-oracle";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-01-05-home-manager/index.md": {
+	id: "2025-01-05-home-manager/index.md";
+  slug: "home-manager";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">

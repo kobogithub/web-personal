@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm';
+import Prose from '../components/Prose.astro';
+---
+
+<BaseLayout
+	title="Contacto"
+	description="Ponte en contacto conmigo para proyectos, colaboraciones o consultas"
+>
+  <div class='container'>
+    <main class='prose text-lg dark:prose-invert'>
+      <article>
+        <div class='mb-10'>
+          <h1 class="text-4xl font-bold mb-6">Contacto</h1>
+          <Prose>
+            <div class="text-lg">
+              <p class="mb-6">
+                ¡Me encantaría saber de ti! Si tienes algún proyecto interesante, 
+                una propuesta de colaboración, o simplemente quieres conectar, 
+                no dudes en enviarme un mensaje.
+              </p>
+              <p class="mb-8">
+                Ya sea que necesites ayuda con arquitectura cloud, desarrollo de aplicaciones, 
+                o consultoria técnica, estoy aquí para ayudarte a hacer realidad tus ideas.
+              </p>
+            </div>
+          </Prose>
+        </div>
+
+        <!-- Información de contacto alternativa -->
+        <div class="mb-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-gray-50 dark:bg-zinc-800 p-6 rounded-lg">
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+              <svg class="w-6 h-6 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+              Email Directo
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Si prefieres escribirme directamente:
+            </p>
+            <a href="mailto:kevin@kobouharriet.site" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium">
+              kevin@kobouharriet.site
+            </a>
+          </div>
+
+          <div class="bg-gray-50 dark:bg-zinc-800 p-6 rounded-lg">
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+              <svg class="w-6 h-6 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Tiempo de Respuesta
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              Generalmente respondo en 24-48 horas.
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">
+              Para urgencias, usa el email directo.
+            </p>
+          </div>
+        </div>
+
+        <!-- Formulario de contacto -->
+        <div class="mb-12">
+          <h2 class="text-3xl font-bold mb-8">Envíame un Mensaje</h2>
+          <ContactForm client:load />
+        </div>
+
+        <!-- Información adicional -->
+        <div class="border-t border-gray-200 dark:border-zinc-700 pt-8">
+          <h3 class="text-2xl font-bold mb-4">¿En qué puedo ayudarte?</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <ul class="space-y-2">
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Arquitectura Cloud (AWS)
+              </li>
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Kubernetes & Contenedores
+              </li>
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                CI/CD & DevOps
+              </li>
+            </ul>
+            <ul class="space-y-2">
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Desarrollo de APIs
+              </li>
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Consultoría Técnica
+              </li>
+              <li class="flex items-center">
+                <svg class="w-5 h-5 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Mentoring & Coaching
+              </li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </main>
+  </div>
+</BaseLayout>
