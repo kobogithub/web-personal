@@ -113,7 +113,7 @@ export const skills: Skills[] = [
     name: "PostgreSQL",
     description: "Experiencia en base de datos para Warehouse o Aplicaciones",
     tags: ["Containers", "Database"],
-    icon: "simple-icons:postgres",
+    icon: "simple-icons:postgresql",
   },
   {
     name: "Metabase",
@@ -132,7 +132,7 @@ export const skills: Skills[] = [
     description:
       "Orquestacion de tareas en entornos docker, kubernetes, bare-metal o MWAA",
     tags: ["Orchestration"],
-    icon: "simple-icons:airflow",
+    icon: "simple-icons:apacheairflow",
   },
   {
     name: "Fluentd",
