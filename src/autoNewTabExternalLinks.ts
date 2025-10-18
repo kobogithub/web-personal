@@ -48,14 +48,15 @@ const getUrl = (element: any) => {
 
 const isExternal = (url: string, domain: string) => {
 	try {
-		// URLs relativas son internas
-		if (!url.startsWith('http')) {
+		// URLs relativas son internas, pero protocol-relative URLs (//) son externas
+		if (!url.startsWith('http') && !url.startsWith('//')) {
 			return false;
 		}
 
-		const urlObj = new URL(url);
-		// Limpiar el dominio de protocolo y puerto
-		const siteDomain = domain.replace(/^https?:\/\//, '').replace(/:\d+$/, '');
+		const urlObj = new URL(url, 'http://dummy.local');
+		// Extraer solo el hostname del dominio configurado
+		// Manejar casos: "localhost:4321", "https://kobouharriet.site", "kobouharriet.site"
+		const siteDomain = domain.replace(/^https?:\/\//, '').split(':')[0];
 
 		// Comparar hostnames exactos para evitar bypass con dominios maliciosos
 		// Ejemplo: kobouharriet.site.attacker.com NO será detectado como interno
