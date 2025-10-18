@@ -36,7 +36,7 @@ export default function ContactForm() {
   const [submitMessage, setSubmitMessage] = useState('');
   const [cooldownSeconds, setCooldownSeconds] = useState(0);
 
-  const COOLDOWN_MS = 60000; // 1 minuto
+  const COOLDOWN_MS = 60000; // 1 minute
   const STORAGE_KEY = 'lastContactSubmit';
 
   // Check rate limit on mount and set up countdown timer
@@ -44,7 +44,7 @@ export default function ContactForm() {
     const checkRateLimit = () => {
       const lastSubmit = localStorage.getItem(STORAGE_KEY);
       if (lastSubmit) {
-        const timeSince = Date.now() - parseInt(lastSubmit);
+        const timeSince = Date.now() - parseInt(lastSubmit, 10);
         if (timeSince < COOLDOWN_MS) {
           const remainingSeconds = Math.ceil((COOLDOWN_MS - timeSince) / 1000);
           setCooldownSeconds(remainingSeconds);
@@ -58,18 +58,16 @@ export default function ContactForm() {
 
     // Update countdown every second
     const interval = setInterval(() => {
-      if (cooldownSeconds > 0) {
-        setCooldownSeconds(prev => {
-          if (prev <= 1) {
-            return 0;
-          }
-          return prev - 1;
-        });
-      }
+      setCooldownSeconds(prev => {
+        if (prev <= 1) {
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [cooldownSeconds]);
+  }, []);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -292,10 +290,10 @@ export default function ContactForm() {
 
         {submitMessage && (
           <div className={`p-4 rounded-lg ${
-            submitMessage.includes('error') || submitMessage.includes('Hubo un error') || submitMessage.includes('espera')
-              ? 'bg-red-50 text-red-800 border border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800'
-              : submitMessage.includes('espera')
+            submitMessage.includes('espera')
               ? 'bg-yellow-50 text-yellow-800 border border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800'
+              : submitMessage.includes('error') || submitMessage.includes('Hubo un error')
+              ? 'bg-red-50 text-red-800 border border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800'
               : 'bg-green-50 text-green-800 border border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800'
           }`}>
             {submitMessage}
