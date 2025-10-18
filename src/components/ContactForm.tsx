@@ -113,7 +113,7 @@ export default function ContactForm() {
         });
       } else {
         // Try to get error details from Formspree response
-        const errorData: FormspreeErrorResponse = await response.json().catch(() => ({}));
+        const errorData: FormspreeErrorResponse = await response.json().catch(() => ({ errors: [] }));
         
         // Map Formspree field errors if available
         if (errorData.errors && Array.isArray(errorData.errors)) {
