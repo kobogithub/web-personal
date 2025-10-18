@@ -14,6 +14,15 @@ interface FormErrors {
   message?: string;
 }
 
+interface FormspreeError {
+  field: string;
+  message: string;
+}
+
+interface FormspreeErrorResponse {
+  errors?: FormspreeError[];
+}
+
 export default function ContactForm() {
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -104,12 +113,12 @@ export default function ContactForm() {
         });
       } else {
         // Try to get error details from Formspree response
-        const errorData = await response.json().catch(() => ({}));
+        const errorData: FormspreeErrorResponse = await response.json().catch(() => ({}));
         
         // Map Formspree field errors if available
         if (errorData.errors && Array.isArray(errorData.errors)) {
           const newErrors: FormErrors = {};
-          errorData.errors.forEach((error: any) => {
+          errorData.errors.forEach((error: FormspreeError) => {
             if (error.field && error.message) {
               newErrors[error.field as keyof FormErrors] = error.message;
             }
