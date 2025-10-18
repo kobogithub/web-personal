@@ -1,0 +1,41 @@
+---
+import BaseLayout from '@src/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { slugify } from '@src/utils';
+
+const lang = 'en';
+const posts = await getCollection('blog');
+const tags = [...new Set(posts.map((post) => post.data.tags).flat())].filter((tag): tag is string => tag !== undefined);
+const tagCounts = tags.reduce((acc: Record<string, number>, tag) => {
+	acc[tag] = posts.filter((post) => post.data.tags?.includes(tag)).length;
+	return acc;
+}, {});
+---
+
+<BaseLayout
+	title='All Tags'
+	description='All tags used in blog posts'
+	lang={lang}
+>
+  <div class='container'>
+    <div class="mb-10">
+      <h1 class="text-3xl font-bold mb-2">All Tags</h1>
+      <p class="text-zinc-700 dark:text-zinc-300 text-lg">Browse posts by tags.</p>
+    </div>
+    <div class='flex flex-wrap gap-3'>
+      {
+        tags.map((tag) => (
+          <a
+            href={`/en/tags/${slugify(tag)}`}
+            class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
+              text-lg text-zinc-700 dark:text-zinc-300 no-underline px-4 py-2
+              transition-all duration-700
+            hover:border-zinc-700 dark:hover:border-zinc-300'
+          >
+            {tag} <span class='text-sm text-zinc-500'>({tagCounts[tag]})</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

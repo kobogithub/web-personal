@@ -1,0 +1,23 @@
+---
+import BaseLayout from '@src/layouts/BaseLayout.astro';
+import ProjectList from '@src/components/ProjectList.astro';
+import { projects } from '@src/pages/projects/projects';
+import { useContentTranslations } from '@src/i18n/translations';
+
+const lang = 'en';
+const tc = useContentTranslations(lang);
+---
+
+<BaseLayout
+	title={tc('projects.title')}
+	description={tc('projects.description')}
+	lang={lang}
+>
+  <div class='container'>
+    <div class="mb-10">
+      <h1 class="text-3xl font-bold mb-2">{tc('projects.title')}</h1>
+      <p class="text-zinc-700 dark:text-zinc-300 text-lg">{tc('projects.subtitle')}</p>
+    </div>
+    <ProjectList projects={projects}/>
+  </div>
+</BaseLayout>

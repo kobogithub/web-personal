@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@src/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import PostsByYear from '@src/components/PostsByYear.astro';
+
+type BlogPost = CollectionEntry<'blog'>;
+
+const lang = 'en';
+const allPosts: BlogPost[] = (await getCollection('blog')).sort(
+	(a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout
+	title='All Posts'
+	description='All blog posts'
+	lang={lang}
+>
+  <div class='container'>
+    <div class="mb-10">
+      <h1 class="text-3xl font-bold mb-2">All Posts</h1>
+      <p class="text-zinc-700 dark:text-zinc-300 text-lg">All my blog posts about technology, development and cloud.</p>
+    </div>
+    <PostsByYear posts={allPosts} lang={lang}/>
+  </div>
+</BaseLayout>
