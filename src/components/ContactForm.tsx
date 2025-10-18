@@ -34,6 +34,42 @@ export default function ContactForm() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
+  const [cooldownSeconds, setCooldownSeconds] = useState(0);
+
+  const COOLDOWN_MS = 60000; // 1 minuto
+  const STORAGE_KEY = 'lastContactSubmit';
+
+  // Check rate limit on mount and set up countdown timer
+  React.useEffect(() => {
+    const checkRateLimit = () => {
+      const lastSubmit = localStorage.getItem(STORAGE_KEY);
+      if (lastSubmit) {
+        const timeSince = Date.now() - parseInt(lastSubmit);
+        if (timeSince < COOLDOWN_MS) {
+          const remainingSeconds = Math.ceil((COOLDOWN_MS - timeSince) / 1000);
+          setCooldownSeconds(remainingSeconds);
+          return;
+        }
+      }
+      setCooldownSeconds(0);
+    };
+
+    checkRateLimit();
+
+    // Update countdown every second
+    const interval = setInterval(() => {
+      if (cooldownSeconds > 0) {
+        setCooldownSeconds(prev => {
+          if (prev <= 1) {
+            return 0;
+          }
+          return prev - 1;
+        });
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [cooldownSeconds]);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -81,6 +117,12 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Check rate limit
+    if (cooldownSeconds > 0) {
+      setSubmitMessage(`Por favor espera ${cooldownSeconds} segundos antes de enviar otro mensaje.`);
+      return;
+    }
+    
     if (!validateForm()) {
       return;
     }
@@ -104,6 +146,10 @@ export default function ContactForm() {
       });
 
       if (response.ok) {
+        // Set rate limit
+        localStorage.setItem(STORAGE_KEY, Date.now().toString());
+        setCooldownSeconds(Math.ceil(COOLDOWN_MS / 1000));
+        
         setSubmitMessage('¡Gracias por tu mensaje! Te responderé pronto.');
         setFormData({
           name: '',
@@ -225,7 +271,7 @@ export default function ContactForm() {
         <div>
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || cooldownSeconds > 0}
             className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
@@ -236,6 +282,8 @@ export default function ContactForm() {
                 </svg>
                 Enviando...
               </span>
+            ) : cooldownSeconds > 0 ? (
+              `Espera ${cooldownSeconds} segundos...`
             ) : (
               'Enviar Mensaje'
             )}
@@ -244,8 +292,10 @@ export default function ContactForm() {
 
         {submitMessage && (
           <div className={`p-4 rounded-lg ${
-            submitMessage.includes('error') || submitMessage.includes('Hubo un error')
+            submitMessage.includes('error') || submitMessage.includes('Hubo un error') || submitMessage.includes('espera')
               ? 'bg-red-50 text-red-800 border border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800'
+              : submitMessage.includes('espera')
+              ? 'bg-yellow-50 text-yellow-800 border border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800'
               : 'bg-green-50 text-green-800 border border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800'
           }`}>
             {submitMessage}
