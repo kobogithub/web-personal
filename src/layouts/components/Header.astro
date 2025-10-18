@@ -58,6 +58,7 @@ const menu = [
 					href={alternateLangLink}
 					class='p-3 font-semibold text-sm uppercase hover:text-blue-600 dark:hover:text-blue-400 transition-colors'
 					aria-label='Switch language'
+					id='langSwitcher'
 				>
 					{lang === 'es' ? 'EN' : 'ES'}
 				</a>
@@ -182,7 +183,7 @@ const menu = [
 		document.getElementById('themeToggle')?.addEventListener('click', handleToggleClick);
 
 		// Save language preference when language link is clicked
-		const langSwitcher = document.querySelector('a[aria-label="Switch language"]');
+		const langSwitcher = document.getElementById('langSwitcher');
 		if (langSwitcher) {
 			langSwitcher.addEventListener('click', () => {
 				// Determine target language from the link's href
