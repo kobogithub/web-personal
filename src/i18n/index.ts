@@ -66,6 +66,12 @@ export function t(
   // Get translation from the specified language, fallback to default language (Spanish)
   let translation: string = dictionaries[lang][key] || dictionaries[DEFAULT_LANG][key];
   
+  // Final fallback if key doesn't exist in any dictionary (shouldn't happen with typed keys)
+  if (!translation) {
+    console.warn(`Missing translation for key: ${key}`);
+    return `[${key}]`;
+  }
+  
   // If params are provided, interpolate them
   if (params) {
     Object.entries(params).forEach(([paramKey, paramValue]) => {
