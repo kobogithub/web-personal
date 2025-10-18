@@ -15,7 +15,7 @@ function getAlternateUrl(path: string, currentLang: string): string {
     return path === '/' ? '/en/' : `/en${path}`;
   } else {
     // Switching to Spanish: remove /en prefix
-    return path.replace(/^\/en/, '') || '/';
+    return path.replace(/^\/en(?=\/|$)/, '') || '/';
   }
 }
 
@@ -67,7 +67,7 @@ const menu = [
 					<!-- {SITE_TITLE} -->
 				</a>
 			</h2>
-			<div class='flex items-center'>
+			<div class='flex items-center gap-1'>
 				<a class='p-3 dark:hidden' href='https://github.com/kobogithub/web-personal' target='_blank'
 					><Image src={GithubBlack} width={24} height={24} alt='Github logo' /></a
 				>
@@ -75,7 +75,8 @@ const menu = [
 					><Image src={GithubWhite} width={24} height={24} alt='Github logo' /></a
 				>
 				<a 
-					href={alternateUrl} 
+					href={alternateUrl}
+					hreflang={targetLang}
 					class='p-3 flex items-center gap-1.5 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors'
 					aria-label={`Switch to ${targetDisplayLang}`}
 				>
