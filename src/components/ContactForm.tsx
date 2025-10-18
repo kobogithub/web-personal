@@ -27,7 +27,7 @@ interface FormspreeErrorResponse {
 // RFC 5322-compliant regex pattern for email validation
 // Validates: local-part@domain structure with allowed special characters
 // Rejects: missing parts, consecutive dots, invalid characters, spaces
-const EMAIL_VALIDATION_REGEX = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+const EMAIL_VALIDATION_REGEX = /^[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 // Maximum email length as per RFC 5322
 const MAX_EMAIL_LENGTH = 254;
 
