@@ -57,7 +57,7 @@ export const ui = {
     'toc.title': 'En esta página',
     // About the Author
     'author.title': 'Sobre el autor',
-    'author.description': 'Kevin es un Arquitecto de Soluciones/SRE con experiencia en diseño, desarrollo e implementaciones en la nube de',
+    'author.description': 'Kevin es un Arquitecto de Soluciones/SRE con experiencia en diseño, desarrollo e implementaciones en la nube de AWS.',
     // Blog post
     'post.publishedOn': 'Publicado el',
     'post.updatedOn': 'Actualizado el',
@@ -86,7 +86,7 @@ export const ui = {
     'toc.title': 'On This Page',
     // About the Author
     'author.title': 'About the Author',
-    'author.description': 'Kevin is a Solutions Architect/SRE with experience in design, development and cloud implementations on',
+    'author.description': 'Kevin is a Solutions Architect/SRE with experience in design, development and cloud implementations on AWS.',
     // Blog post
     'post.publishedOn': 'Published on',
     'post.updatedOn': 'Updated on',
