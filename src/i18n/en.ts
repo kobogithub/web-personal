@@ -1,3 +1,19 @@
+/**
+ * English Translation Dictionary
+ * 
+ * This file contains all English translations for the personal website.
+ * If a key is missing here, the system will automatically fall back to 
+ * the Spanish translation.
+ * 
+ * Keys should match those in es.ts:
+ * - nav.* : Navigation menu items
+ * - site.* : Site metadata (title, description, etc.)
+ * - home.* : Home page content
+ * - about.* : About page content
+ * - contact.* : Contact page content
+ * - projects.* : Projects page content
+ */
+
 export const en = {
   // Navigation
   'nav.home': 'Home',

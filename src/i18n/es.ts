@@ -1,3 +1,18 @@
+/**
+ * Spanish (Español) Translation Dictionary
+ * 
+ * This file contains all Spanish translations for the personal website.
+ * Spanish is the default language of the site.
+ * 
+ * Keys are organized by section:
+ * - nav.* : Navigation menu items
+ * - site.* : Site metadata (title, description, etc.)
+ * - home.* : Home page content
+ * - about.* : About page content
+ * - contact.* : Contact page content
+ * - projects.* : Projects page content
+ */
+
 export const es = {
   // Navigation
   'nav.home': 'Inicio',

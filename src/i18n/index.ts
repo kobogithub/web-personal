@@ -1,3 +1,29 @@
+/**
+ * I18n System for the Personal Website
+ * 
+ * This module provides a typed internationalization system with support for:
+ * - Spanish (es) as the default language
+ * - English (en) as an alternative language
+ * - Type-safe translation keys
+ * - Parameter interpolation in translation strings
+ * - Automatic fallback from English to Spanish for missing keys
+ * 
+ * Usage Examples:
+ * ```typescript
+ * import { t, DEFAULT_LANG, type Lang } from '@src/i18n';
+ * 
+ * // Basic translation
+ * const homeText = t('es', 'nav.home'); // 'Inicio'
+ * const homeTextEn = t('en', 'nav.home'); // 'Home'
+ * 
+ * // With parameter interpolation (when keys have {param} syntax)
+ * const greeting = t('es', 'greeting.name', { name: 'John' }); // 'Hola John'
+ * 
+ * // Use DEFAULT_LANG constant
+ * const text = t(DEFAULT_LANG, 'nav.home'); // 'Inicio'
+ * ```
+ */
+
 import { es, type TranslationKey } from './es';
 import { en } from './en';
 
