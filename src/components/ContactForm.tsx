@@ -14,6 +14,15 @@ interface FormErrors {
   message?: string;
 }
 
+interface FormspreeError {
+  field: string;
+  message: string;
+}
+
+interface FormspreeErrorResponse {
+  errors?: FormspreeError[];
+}
+
 export default function ContactForm() {
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -80,17 +89,47 @@ export default function ContactForm() {
     setSubmitMessage('');
 
     try {
-      // For now, we'll just simulate form submission
-      // In a real app, you would send this to your backend or email service
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      setSubmitMessage('¡Gracias por tu mensaje! Te responderé pronto.');
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
+      const response = await fetch('https://formspree.io/f/mrbyjjoq', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
       });
+
+      if (response.ok) {
+        setSubmitMessage('¡Gracias por tu mensaje! Te responderé pronto.');
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
+      } else {
+        // Try to get error details from Formspree response
+        const errorData: FormspreeErrorResponse = await response.json().catch(() => ({ errors: [] }));
+        
+        // Map Formspree field errors if available
+        if (errorData.errors && Array.isArray(errorData.errors)) {
+          const newErrors: FormErrors = {};
+          errorData.errors.forEach((error: FormspreeError) => {
+            if (error.field && error.message) {
+              newErrors[error.field as keyof FormErrors] = error.message;
+            }
+          });
+          if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+          }
+        }
+        
+        setSubmitMessage('Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.');
+      }
     } catch (error) {
       setSubmitMessage('Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.');
     } finally {
