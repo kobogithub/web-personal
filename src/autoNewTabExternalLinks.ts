@@ -47,5 +47,22 @@ const getUrl = (element: any) => {
 };
 
 const isExternal = (url: string, domain: string) => {
-	return url.startsWith('http') && !url.includes(domain);
+	try {
+		// URLs relativas son internas, pero protocol-relative URLs (//) son externas
+		if (!url.startsWith('http') && !url.startsWith('//')) {
+			return false;
+		}
+
+		const urlObj = new URL(url, 'http://dummy.local');
+		// Extraer solo el hostname del dominio configurado
+		// Manejar casos: "localhost:4321", "https://kobouharriet.site", "kobouharriet.site"
+		const siteDomain = domain.replace(/^https?:\/\//, '').split(':')[0];
+
+		// Comparar hostnames exactos para evitar bypass con dominios maliciosos
+		// Ejemplo: kobouharriet.site.attacker.com NO será detectado como interno
+		return urlObj.hostname !== siteDomain;
+	} catch {
+		// Si el URL es inválido, tratarlo como externo por seguridad
+		return true;
+	}
 };
