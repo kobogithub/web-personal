@@ -87,3 +87,21 @@ export function getAlternateLangLink(currentUrl: URL): string {
   
   return linkFor(alternateLang, path);
 }
+
+// Save language preference to localStorage
+export function saveLanguagePreference(lang: Lang): void {
+  if (typeof localStorage !== 'undefined') {
+    localStorage.setItem('lang', lang);
+  }
+}
+
+// Get language preference from localStorage
+export function getLanguagePreference(): Lang | null {
+  if (typeof localStorage !== 'undefined') {
+    const stored = localStorage.getItem('lang');
+    if (stored && stored in languages) {
+      return stored as Lang;
+    }
+  }
+  return null;
+}

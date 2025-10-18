@@ -180,5 +180,16 @@ const menu = [
 			localStorage.setItem('theme', isDark ? 'dark' : 'light');
 		};
 		document.getElementById('themeToggle')?.addEventListener('click', handleToggleClick);
+
+		// Save language preference when language link is clicked
+		const langSwitcher = document.querySelector('a[aria-label="Switch language"]');
+		if (langSwitcher) {
+			langSwitcher.addEventListener('click', () => {
+				// Determine target language from the link's href
+				const href = langSwitcher.getAttribute('href') || '';
+				const targetLang = href.startsWith('/en') ? 'en' : 'es';
+				localStorage.setItem('lang', targetLang);
+			});
+		}
 	</script>
 </header>
