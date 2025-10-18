@@ -1,13 +1,20 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
+import type { Lang } from '@src/i18n/index';
 
-type Props = HTMLAttributes<'a'>;
+type Props = HTMLAttributes<'a'> & { lang?: Lang };
 
-const { href, class: className, ...props } = Astro.props;
+const { href, class: className, lang = 'es', ...props } = Astro.props;
 
 const { pathname } = Astro.url;
-const subpath = pathname.match(/[^\/]+/g);
-const isActive = href === pathname || href === '/' + subpath?.[0];
+
+// Clean up paths for comparison - remove trailing slashes
+const hrefString = typeof href === 'string' ? href : href?.toString() || '';
+const cleanHref = hrefString.replace(/\/$/, '');
+const cleanPathname = pathname.replace(/\/$/, '');
+
+// Check if the current path matches the link
+const isActive = cleanHref === cleanPathname || (cleanHref !== '' && cleanPathname.startsWith(cleanHref));
 ---
 
 <a

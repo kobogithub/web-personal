@@ -1,0 +1,86 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '@src/layouts/BaseLayout.astro';
+import Ava from '@src/assets/img/ava.jpg';
+import Prose from '@src/components/Prose.astro';
+import { useContentTranslations } from '@src/i18n/translations';
+
+const lang = 'en';
+const tc = useContentTranslations(lang);
+---
+
+<BaseLayout
+	title={tc('about.title')}
+	description={tc('about.description')}
+	lang={lang}
+>
+  <div class='container'>
+		<main class='prose text-lg dark:prose-invert'>
+      <article>
+        <div class='w-full md:flex md:items-center gap-16 mb-10'>
+          <div class="text-pretty leading-9">
+            <h1 class="text-4xl font-bold mb-4">Hello 👋, Kevin Barroso 👷 </h1>
+            <Prose>
+              <div class="text-lg">
+                <p>Senior Solutions Architect/SRE with extensive experience in containers and cloud computing. I lead teams in implementing data architectures, optimizing performance and scalability. Service implementation in ECS architectures. Construction, development and implementation of Kubernetes architectures in EKS.</p>
+                <p>My passion is creating robust and efficient systems that drive innovation, inspiring teams to achieve technical excellence. Senior in AWS, Kubernetes, CI/CD, cloud security and infrastructure automation. I excel at effective communication, solving complex problems and agile project management.</p>  
+              </div>
+            </Prose>
+          </div>
+          <Image src={Ava} alt="Kevin Barroso" width={300}  class="rounded-3xl rotate-3 mx-4 md:mx-0"/>
+        </div>     
+        <div class="mt-12">
+          <h2 class="text-3xl font-bold mb-8">{tc('about.workExperience')}</h2>
+          
+          <div class="space-y-10">
+            <!-- Current job -->
+            <div class="border-l-4 border-blue-500 pl-4">
+              <div class="flex justify-between items-center">
+                <h3 class="text-xl font-semibold">Taligent</h3>
+                <span class="text-sm text-gray-600 dark:text-gray-400">
+                  {tc('about.taligent.period')}
+                </span>
+              </div>
+              <p class="text-lg font-medium text-blue-600 dark:text-blue-400 mb-2">
+                {tc('about.taligent.position')}
+              </p>
+              <ul class="list-disc list-inside space-y-2 text-base">
+                <li>Design and implementation of advanced data architectures, developing robust solutions in AWS and SAP</li>
+                <li>Performance optimization and scalability of critical systems in cloud environments</li>
+                <li>Design, development and implementation of ECS architecture, using Fargate services and EC2 Auto Scaling</li>
+                <li>Construction and successful execution of the service migration plan from ECS to EKS</li>
+                <li>Implementation of CI/CD pipelines through GitHub Actions, AWS CodePipeline and Concourse CI</li>
+                <li>Team leadership in implementing data architectures</li>
+                <li>Cost and infrastructure optimization in cloud environments</li>
+              </ul>
+            </div>
+
+            <!-- Previous job -->
+            <div class="border-l-4 border-blue-500 pl-4">
+              <div class="flex justify-between items-center">
+                <h3 class="text-xl font-semibold">Freelance</h3>
+                <span class="text-sm text-gray-600 dark:text-gray-400">
+                  {tc('about.freelance.period')}
+                </span>
+              </div>
+              <p class="text-lg font-medium text-blue-600 dark:text-blue-400 mb-2">
+                {tc('about.freelance.position')}
+              </p>
+              <ul class="list-disc list-inside space-y-2 text-base">
+                <li>Design and implementation of robust architectures for web hosting and microservices</li>
+                <li>Implementation of security solutions for containers in ECS</li>
+                <li>Development of advanced monitoring systems with Grafana, Prometheus and Fluentd</li>
+                <li>Development and implementation of orchestration architectures with Apache Airflow in AutoScaling and MWAA</li>
+                <li>Development of microservices and APIs with Python frameworks</li>
+                <li>Building dockerized solutions for monolithic applications and microservices</li>
+                <li>Design and implementation of serverless architectures with AWS Lambda and AWS SAM</li>
+                <li>Infrastructure as code development using Terraform</li>
+                <li>Integration of AWS services for scalable and complex cloud solutions</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        </article>
+    </main>
+  </div>
+</BaseLayout>

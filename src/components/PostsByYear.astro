@@ -1,9 +1,16 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import PostItem from './PostItem.astro';
+import type { Lang } from '@src/i18n/index';
 
 type BlogPost = CollectionEntry<'blog'>;
-const { posts } = Astro.props;
+
+interface Props {
+  posts: BlogPost[];
+  lang?: Lang;
+}
+
+const { posts, lang = 'es' } = Astro.props as Props;
 
 function groupPostsByYear(posts: BlogPost[]) {
   const grouped = posts.reduce((acc, post) => {
@@ -33,7 +40,7 @@ const groupedPosts = groupPostsByYear(posts);
     <h2 class="text-2xl font-bold mb-4">{year}</h2>
     <div>
       {posts.map((post: BlogPost, i: number) => (
-        <PostItem post={post} />
+        <PostItem post={post} lang={lang} />
       ))}
     </div>
   </div>

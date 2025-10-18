@@ -1,0 +1,21 @@
+---
+import BaseLayout from '@src/layouts/BaseLayout.astro';
+import SkillsList from '@src/components/SkillsList.astro';
+import { skills } from '../../skills/skills';
+
+const lang = 'en';
+---
+
+<BaseLayout
+	title="My Skills"
+	description="All my technical skills and competencies"
+	lang={lang}
+>
+  <div class='container'>
+    <div class="mb-10">
+      <h1 class="text-3xl font-bold mb-2">My Skills</h1>
+      <p class="text-zinc-700 dark:text-zinc-300 text-lg">Technical skills and competencies I've developed throughout my career.</p>
+    </div>
+    <SkillsList skills={skills}/>
+  </div>
+</BaseLayout>
