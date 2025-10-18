@@ -23,6 +23,14 @@ interface FormspreeErrorResponse {
   errors?: FormspreeError[];
 }
 
+// Email validation constants
+// RFC 5322-compliant regex pattern for email validation
+// Validates: local-part@domain structure with allowed special characters
+// Rejects: missing parts, consecutive dots, invalid characters, spaces
+const EMAIL_VALIDATION_REGEX = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+// Maximum email length as per RFC 5322
+const MAX_EMAIL_LENGTH = 254;
+
 export default function ContactForm() {
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -42,12 +50,9 @@ export default function ContactForm() {
       newErrors.name = 'El nombre es requerido';
     }
     
-    // RFC 5322-based email validation with length check
-    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-    
     if (!formData.email.trim()) {
       newErrors.email = 'El email es requerido';
-    } else if (!emailRegex.test(formData.email) || formData.email.length > 254) {
+    } else if (!EMAIL_VALIDATION_REGEX.test(formData.email) || formData.email.length > MAX_EMAIL_LENGTH) {
       newErrors.email = 'El email no es válido';
     }
     
