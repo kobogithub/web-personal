@@ -54,7 +54,7 @@ export default function ContactForm() {
     if (!formData.email.trim()) {
       newErrors.email = 'El email es requerido';
     } else if (formData.email.length > MAX_LENGTHS.email) {
-      newErrors.email = 'El email es demasiado largo';
+      newErrors.email = `El email no puede exceder ${MAX_LENGTHS.email} caracteres`;
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'El email no es válido';
     }
