@@ -21,7 +21,7 @@ const { title, description, image, lang = 'es' } = Astro.props as { title: strin
 		<div class='py-8 min-h-[calc(100vh-160px)]'>
 			<slot />
 		</div>
-		<Footer />
+		<Footer lang={lang} />
 		<!-- Google tag (gtag.js) -->
     {
       GTAG_MEASUREMENT_ID &&
