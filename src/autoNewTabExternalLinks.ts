@@ -47,5 +47,21 @@ const getUrl = (element: any) => {
 };
 
 const isExternal = (url: string, domain: string) => {
-	return url.startsWith('http') && !url.includes(domain);
+	try {
+		// URLs relativas son internas
+		if (!url.startsWith('http')) {
+			return false;
+		}
+
+		const urlObj = new URL(url);
+		// Limpiar el dominio de protocolo y puerto
+		const siteDomain = domain.replace(/^https?:\/\//, '').replace(/:\d+$/, '');
+
+		// Comparar hostnames exactos para evitar bypass con dominios maliciosos
+		// Ejemplo: kobouharriet.site.attacker.com NO será detectado como interno
+		return urlObj.hostname !== siteDomain;
+	} catch {
+		// Si el URL es inválido, tratarlo como externo por seguridad
+		return true;
+	}
 };
