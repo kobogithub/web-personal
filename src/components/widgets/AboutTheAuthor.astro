@@ -1,15 +1,19 @@
 ---
 import Author from '../Author.astro';
+import { useTranslations, type Lang } from '@src/i18n/index';
+
+const { lang = 'es' } = Astro.props as { lang?: Lang };
+const t = useTranslations(lang);
 ---
 
 <div
 	class='about-the-author py-4 border-b'
 >
-	<h3 class='font-extrabold uppercase mb-4 text-sm'>About the Author</h3>
+	<h3 class='font-extrabold uppercase mb-4 text-sm'>{t('author.title')}</h3>
 	<Author picSize='md' />
 	<div class='author-desc text-[.825rem] my-4'>
 		<p class='mb-3'>
-		Kevin es un Arquitecto de Soluciones/SRE con experiencia en diseño, desarrollo e implementaciones en la nube de
+		{t('author.description')}
 			<a href='https://aws.amazon.com/' target='_blank' class="underline">AWS</a>
 		</p>
 	</div>
