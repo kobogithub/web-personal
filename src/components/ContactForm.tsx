@@ -61,7 +61,7 @@ export default function ContactForm() {
     
     if (!formData.subject.trim()) {
       newErrors.subject = 'El asunto es requerido';
-    } else if (formData.subject.length > MAX_LENGTHS.subject) {
+    } else if (formData.subject.trim().length > MAX_LENGTHS.subject) {
       newErrors.subject = `El asunto no puede exceder ${MAX_LENGTHS.subject} caracteres`;
     }
     
