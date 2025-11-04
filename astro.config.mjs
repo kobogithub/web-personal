@@ -8,7 +8,7 @@ import { autoNewTabExternalLinks } from "./src/autoNewTabExternalLinks";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://kobouharriet.site",
+  site: "https://kobouharriet.me",
   i18n: {
     defaultLocale: "es",
     locales: ["es", "en"],
