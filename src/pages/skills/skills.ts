@@ -222,7 +222,7 @@ export const skills: Skills[] = [
       es: "Exposicion de metricas a nivel nodos o contenedores",
       en: "Metrics exposure at node or container level"
     },
-    tags: ["Containers", "Monitorin"],
+    tags: ["Containers", "Monitoring"],
     icon: "simple-icons:prometheus",
   },
   {
