@@ -8,10 +8,11 @@ import AboutTheAuthor from '@src/components/widgets/AboutTheAuthor.astro';
 import TableOfContent from '@src/components/widgets/TableOfContent.astro';
 import { slugify } from '@src/utils';
 import { loadEnv } from 'vite';
-
-const { GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY, GISCUS_CATEGORY_ID } = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), '');
+import { useTranslations } from '@src/i18n/index';
 
 const lang = 'en';
+const t = useTranslations(lang);
+const { GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY, GISCUS_CATEGORY_ID } = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), '');
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -57,9 +58,9 @@ const { Content, headings } = await post.render();
               <div>
                 {
                   updatedDate ?
-                    <>Updated on <strong><FormattedDate date={updatedDate} /></strong></>
+                    <>{t('post.updatedOn')} <strong><FormattedDate date={updatedDate} /></strong></>
                   :
-                    <>Published on <strong><FormattedDate date={pubDate} /></strong></>
+                    <>{t('post.publishedOn')} <strong><FormattedDate date={pubDate} /></strong></>
                 }
               </div>
             </div>
@@ -94,9 +95,9 @@ const { Content, headings } = await post.render();
 		</main>
     <div class='shrink-0 w-[280px] hidden md:block'>
       <div class='mb-4'>
-				<AboutTheAuthor />
+				<AboutTheAuthor lang={lang} />
 			</div>
-			<TableOfContent headings={headings} />
+			<TableOfContent headings={headings} lang={lang} />
 		</div>
 	</div>
 </BaseLayout>

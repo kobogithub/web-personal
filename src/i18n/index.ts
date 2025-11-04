@@ -44,6 +44,23 @@ export const ui = {
     'site.title': 'Kevin Barroso',
     'site.tagline': 'WebPersonal con experiencias, habilidades y proyectos',
     'site.description': 'Blog Personal de Proyectos, Habilidades y experiencia laboral',
+    // Header
+    'header.switchLanguage': 'Cambiar idioma',
+    'header.home': 'Inicio',
+    'header.themeMode': 'Modo de tema',
+    'header.siteLogo': 'Logo del sitio',
+    'header.githubLogo': 'Logo de Github',
+    // Footer
+    'footer.copyright': 'Copyright © {year} Devolio.',
+    'footer.templateCredit': 'Template creado por',
+    // Table of Contents
+    'toc.title': 'En esta página',
+    // About the Author
+    'author.title': 'Sobre el autor',
+    'author.description': 'Kevin es un Arquitecto de Soluciones/SRE con experiencia en diseño, desarrollo e implementaciones en la nube de',
+    // Blog post
+    'post.publishedOn': 'Publicado el',
+    'post.updatedOn': 'Actualizado el',
   },
   en: {
     'nav.home': 'Home',
@@ -56,6 +73,23 @@ export const ui = {
     'site.title': 'Kevin Barroso',
     'site.tagline': 'Personal website with experiences, skills and projects',
     'site.description': 'Personal Blog of Projects, Skills and work experience',
+    // Header
+    'header.switchLanguage': 'Switch language',
+    'header.home': 'Home',
+    'header.themeMode': 'Theme mode',
+    'header.siteLogo': 'Site logo',
+    'header.githubLogo': 'Github logo',
+    // Footer
+    'footer.copyright': 'Copyright © {year} Devolio.',
+    'footer.templateCredit': 'Template created by',
+    // Table of Contents
+    'toc.title': 'On This Page',
+    // About the Author
+    'author.title': 'About the Author',
+    'author.description': 'Kevin is a Solutions Architect/SRE with experience in design, development and cloud implementations on',
+    // Blog post
+    'post.publishedOn': 'Published on',
+    'post.updatedOn': 'Updated on',
   },
 } as const;
 
