@@ -89,7 +89,7 @@ export default function ContactForm() {
     
     if (!formData.name.trim()) {
       newErrors.name = 'El nombre es requerido';
-    } else if (formData.name.length > MAX_LENGTHS.name) {
+    } else if (formData.name.trim().length > MAX_LENGTHS.name) {
       newErrors.name = `El nombre no puede exceder ${MAX_LENGTHS.name} caracteres`;
     }
     
@@ -111,7 +111,7 @@ export default function ContactForm() {
       newErrors.message = 'El mensaje es requerido';
     } else if (formData.message.trim().length < 10) {
       newErrors.message = 'El mensaje debe tener al menos 10 caracteres';
-    } else if (formData.message.length > MAX_LENGTHS.message) {
+    } else if (formData.message.trim().length > MAX_LENGTHS.message) {
       newErrors.message = `El mensaje no puede exceder ${MAX_LENGTHS.message} caracteres`;
     }
 
