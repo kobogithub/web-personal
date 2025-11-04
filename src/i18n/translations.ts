@@ -1,4 +1,5 @@
 import type { Lang } from './index';
+import { defaultLang } from './index';
 
 export const translations = {
   es: {
@@ -93,7 +94,7 @@ export const translations = {
   },
 } as const;
 
-type TranslationKey = keyof typeof translations[typeof import('./index').defaultLang];
+type TranslationKey = keyof typeof translations[typeof defaultLang];
 
 export function useContentTranslations(lang: Lang) {
   return function t(key: TranslationKey): string {
