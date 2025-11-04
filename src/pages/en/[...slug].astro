@@ -1,16 +1,16 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
-import Prose from '../components/Prose.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import Prose from '@src/components/Prose.astro';
+import BaseLayout from '@src/layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
-import FormattedDate from '../components/FormattedDate.astro';
-import AboutTheAuthor from '../components/widgets/AboutTheAuthor.astro';
-import TableOfContent from '../components/widgets/TableOfContent.astro';
-import { slugify } from '../utils';
+import FormattedDate from '@src/components/FormattedDate.astro';
+import AboutTheAuthor from '@src/components/widgets/AboutTheAuthor.astro';
+import TableOfContent from '@src/components/widgets/TableOfContent.astro';
+import { slugify } from '@src/utils';
 import { loadEnv } from 'vite';
-import { useTranslations } from '../i18n/index';
+import { useTranslations } from '@src/i18n/index';
 
-const lang = 'es';
+const lang = 'en';
 const t = useTranslations(lang);
 const { GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY, GISCUS_CATEGORY_ID } = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), '');
 
@@ -29,7 +29,7 @@ const {
 const { Content, headings } = await post.render();
 ---
 
-<BaseLayout title={seoTitle || title} description={description} image={coverImage?.src || undefined}>
+<BaseLayout title={seoTitle || title} description={description} image={coverImage?.src || undefined} lang={lang}>
 	<div class='container lg:flex gap-10'>
 		<main
 			class='overflow-hidden grow'
@@ -48,7 +48,7 @@ const { Content, headings } = await post.render();
                           text-sm text-zinc-700 dark:text-zinc-300 no-underline px-2 py-0.5
                           transition-all duration-700
                         hover:border-zinc-700 dark:hover:border-zinc-300'
-                        href={`/tags/${slugify(tag)}`}>
+                        href={`/en/tags/${slugify(tag)}`}>
                         {tag}
                       </a>
                     ))

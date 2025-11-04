@@ -1,0 +1,53 @@
+---
+import BaseLayout from '@src/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import PostsByYear from '@src/components/PostsByYear.astro';
+import { slugify, unslugify } from '@src/utils';
+
+type BlogPost = CollectionEntry<'blog'>;
+
+const lang = 'en';
+
+export async function getStaticPaths() {
+	const allPosts: BlogPost[] = await getCollection('blog');
+	const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())].filter((tag): tag is string => tag !== undefined);
+
+	return uniqueTags.map((tag) => {
+		const filteredPosts = allPosts.filter((post) => post.data.tags?.includes(tag));
+		return {
+			params: { tag: slugify(tag) },
+			props: { posts: filteredPosts, tag }
+		};
+	});
+}
+
+type Props = {
+	posts: BlogPost[];
+	tag: string;
+};
+
+const { posts, tag } = Astro.props;
+const sortedPosts = posts.sort((a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+	title={`Tag: ${tag}`}
+	description={`All posts tagged with ${tag}`}
+	lang={lang}
+>
+  <div class='container'>
+    <div class="mb-10">
+      <h1 class="text-3xl font-bold mb-2">
+        Tag: <span class="text-blue-600 dark:text-blue-400">{tag}</span>
+      </h1>
+      <p class="text-zinc-700 dark:text-zinc-300 text-lg">
+        {sortedPosts.length} post{sortedPosts.length !== 1 ? 's' : ''} tagged with "{tag}"
+      </p>
+      <a href="/en/tags/" class="text-blue-600 dark:text-blue-400 hover:underline mt-4 inline-block">
+        ← All tags
+      </a>
+    </div>
+    <PostsByYear posts={sortedPosts} lang={lang}/>
+  </div>
+</BaseLayout>
