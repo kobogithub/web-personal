@@ -4,9 +4,14 @@ import { Image } from 'astro:assets';
 import AvaLogo from '@src/assets/img/small-ava.jpg';
 import GithubWhite from '@src/assets/img/github-mark-white.svg';
 import GithubBlack from '@src/assets/img/github-mark.svg';
-import { linkFor, useTranslations, getAlternateLangLink, type Lang } from '@src/i18n/index';
+import { linkFor, useTranslations, type Lang } from '@src/i18n/index';
 
-const currentLocale = Astro.currentLocale || 'es';
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 const pathname = Astro.url.pathname;
 
 // Compute alternate URL for the language switcher
@@ -20,9 +25,9 @@ function getAlternateUrl(path: string, currentLang: string): string {
   }
 }
 
-const alternateUrl = getAlternateUrl(pathname, currentLocale);
-const targetLang = currentLocale === 'es' ? 'en' : 'es';
-const displayLang = currentLocale === 'es' ? 'ES' : 'EN';
+const alternateUrl = getAlternateUrl(pathname, lang);
+const targetLang = lang === 'es' ? 'en' : 'es';
+const targetDisplayLang = lang === 'es' ? 'English' : 'Español';
 
 const menu = [
   {
@@ -68,15 +73,6 @@ const menu = [
 				</a>
 			</h2>
 			<div class='flex'>
-				<a 
-					href={alternateLangLink}
-					class='p-3 font-semibold text-sm uppercase hover:text-blue-600 dark:hover:text-blue-400 transition-colors'
-					aria-label='Switch language'
-					id='langSwitcher'
-					data-target-lang={targetLang}
-				>
-					{lang === 'es' ? 'EN' : 'ES'}
-				</a>
 				<a class='p-3 dark:hidden' href='https://github.com/kobogithub/web-personal' target='_blank'
 					><Image src={GithubBlack} width={24} height={24} alt={t('header.githubLogo')} /></a
 				>
@@ -104,7 +100,7 @@ const menu = [
 						<path d='M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20'></path>
 						<path d='M2 12h20'></path>
 					</svg>
-					<span class='text-sm font-medium'>{displayLang}</span>
+					<span class='text-sm font-medium'>{lang === 'es' ? 'EN' : 'ES'}</span>
 				</a>
 				<button class='p-3' id='themeToggle' aria-label='Theme mode'>
 					<svg

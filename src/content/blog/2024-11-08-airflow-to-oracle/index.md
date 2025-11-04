@@ -5,6 +5,8 @@ description: 'Modelo de conexion de Airflow a Oracle 11'
 tags: ["Airflow","Docker","Oracle"]
 pubDate: 'Nov 08 2024'
 coverImage: './airflow-to-oracle.png'
+lang: 'es'
+alternate: 'airflow-to-oracle-en'
 ---
 
 # Airflow To Oracle (AWS)

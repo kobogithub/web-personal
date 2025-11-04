@@ -15,7 +15,9 @@ const t = useTranslations(lang);
 const { GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY, GISCUS_CATEGORY_ID } = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), '');
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
+	const posts = await getCollection('blog', ({ data }: any) => {
+		return data.lang === 'es' || !data.lang;
+	});
 	return posts.map((post: any) => ({
 		params: { slug: post.slug },
 		props: post
@@ -24,12 +26,27 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'blog'>;
 const post = Astro.props;
 const {
-	data: { title, seoTitle, description, coverImage, pubDate, updatedDate, tags }
+	data: { title, seoTitle, description, coverImage, pubDate, updatedDate, tags, alternate }
 } = post;
 const { Content, headings } = await post.render();
+
+// Get alternate language post if available
+let alternatePost;
+if (alternate) {
+	const allPosts = await getCollection('blog');
+	alternatePost = allPosts.find((p: any) => p.slug === alternate && p.data.lang === 'en');
+}
+---
 ---
 
-<BaseLayout title={seoTitle || title} description={description} image={coverImage?.src || undefined}>
+<BaseLayout 
+	title={seoTitle || title} 
+	description={description} 
+	image={coverImage?.src || undefined}
+	lang={lang}
+	alternateUrl={alternatePost ? `/en/${alternatePost.slug}` : undefined}
+	alternateLang={alternatePost ? 'en' : undefined}
+>
 	<div class='container lg:flex gap-10'>
 		<main
 			class='overflow-hidden grow'
@@ -64,6 +81,21 @@ const { Content, headings } = await post.render();
                 }
               </div>
             </div>
+            {alternatePost && (
+              <div class='mt-3 text-sm'>
+                <a 
+                  href={`/en/${alternatePost.slug}`}
+                  class='inline-flex items-center gap-2 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors'
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                  Read this post in English
+                </a>
+              </div>
+            )}
 					</div>
           <div class='py-3 overflow-hidden'>
             {coverImage && <Image class='rounded-3xl w-full m-0 lg:mb-2' src={coverImage} alt={title} loading='eager' />}
