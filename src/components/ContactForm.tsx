@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
 
+const MAX_LENGTHS = {
+  name: 100,
+  email: 254, // RFC 5322
+  subject: 200,
+  message: 5000
+};
+
 interface FormData {
   name: string;
   email: string;
@@ -82,22 +89,30 @@ export default function ContactForm() {
     
     if (!formData.name.trim()) {
       newErrors.name = 'El nombre es requerido';
+    } else if (formData.name.trim().length > MAX_LENGTHS.name) {
+      newErrors.name = `El nombre no puede exceder ${MAX_LENGTHS.name} caracteres`;
     }
     
     if (!formData.email.trim()) {
       newErrors.email = 'El email es requerido';
-    } else if (!EMAIL_VALIDATION_REGEX.test(formData.email) || formData.email.length > MAX_EMAIL_LENGTH) {
+    } else if (formData.email.trim().length > MAX_LENGTHS.email) {
+      newErrors.email = `El email no puede exceder ${MAX_LENGTHS.email} caracteres`;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'El email no es válido';
     }
     
     if (!formData.subject.trim()) {
       newErrors.subject = 'El asunto es requerido';
+    } else if (formData.subject.trim().length > MAX_LENGTHS.subject) {
+      newErrors.subject = `El asunto no puede exceder ${MAX_LENGTHS.subject} caracteres`;
     }
     
     if (!formData.message.trim()) {
       newErrors.message = 'El mensaje es requerido';
     } else if (formData.message.trim().length < 10) {
       newErrors.message = 'El mensaje debe tener al menos 10 caracteres';
+    } else if (formData.message.trim().length > MAX_LENGTHS.message) {
+      newErrors.message = `El mensaje no puede exceder ${MAX_LENGTHS.message} caracteres`;
     }
 
     setErrors(newErrors);
@@ -203,6 +218,7 @@ export default function ContactForm() {
               name="name"
               value={formData.name}
               onChange={handleChange}
+              maxLength={MAX_LENGTHS.name}
               className={`w-full px-4 py-3 rounded-lg border transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white ${
                 errors.name 
                   ? 'border-red-500 focus:ring-red-500' 
@@ -223,6 +239,7 @@ export default function ContactForm() {
               name="email"
               value={formData.email}
               onChange={handleChange}
+              maxLength={MAX_LENGTHS.email}
               className={`w-full px-4 py-3 rounded-lg border transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white ${
                 errors.email 
                   ? 'border-red-500 focus:ring-red-500' 
@@ -244,6 +261,7 @@ export default function ContactForm() {
             name="subject"
             value={formData.subject}
             onChange={handleChange}
+            maxLength={MAX_LENGTHS.subject}
             className={`w-full px-4 py-3 rounded-lg border transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white ${
               errors.subject 
                 ? 'border-red-500 focus:ring-red-500' 
@@ -255,15 +273,21 @@ export default function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Mensaje *
-          </label>
+          <div className="flex justify-between items-center mb-2">
+            <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Mensaje *
+            </label>
+            <span className="text-xs text-gray-500 dark:text-gray-400">
+              {formData.message.length}/{MAX_LENGTHS.message}
+            </span>
+          </div>
           <textarea
             id="message"
             name="message"
             rows={6}
             value={formData.message}
             onChange={handleChange}
+            maxLength={MAX_LENGTHS.message}
             className={`w-full px-4 py-3 rounded-lg border transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-vertical dark:bg-zinc-800 dark:border-zinc-600 dark:text-white ${
               errors.message 
                 ? 'border-red-500 focus:ring-red-500' 
