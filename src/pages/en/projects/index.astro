@@ -18,6 +18,6 @@ const tc = useContentTranslations(lang);
       <h1 class="text-3xl font-bold mb-2">{tc('projects.title')}</h1>
       <p class="text-zinc-700 dark:text-zinc-300 text-lg">{tc('projects.subtitle')}</p>
     </div>
-    <ProjectList projects={projects}/>
+    <ProjectList projects={projects} lang={lang}/>
   </div>
 </BaseLayout>
