@@ -25,7 +25,7 @@ export const projects: Project[] = [
     },
     description: {
       es: "Un blog que comparte recursos y tutoriales de desarrollo web",
-      en: "A blog that sharing web development resources and tutorials"
+      en: "A blog that shares web development resources and tutorials"
     },
     demoLink: "https://kobouharriet.site",
     tags: ["Site"],
