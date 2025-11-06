@@ -32,9 +32,9 @@ const { title, description, image, lang = 'es', alternateUrl, alternateLang } = 
 		class="bg-white dark:bg-zinc-900 dark:text-zinc-100 pt-16 sm:pt-0"
 	>
 		<Header lang={lang}/>
-		<div class='py-8 min-h-[calc(100vh-160px)]'>
+		<main class='py-8 min-h-[calc(100vh-160px)]'>
 			<slot />
-		</div>
+		</main>
 		<Footer lang={lang} />
 		<!-- Google tag (gtag.js) -->
     {

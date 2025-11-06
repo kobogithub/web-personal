@@ -65,6 +65,11 @@ export const translations = {
     'projects.title': 'All My Projects',
     'projects.description': 'All my project portfolio from real projects to open source projects.',
     'projects.subtitle': 'Mi portafolio de proyectos comerciales y de código abierto.',
+    
+    // Skills page
+    'skills.title': 'All My Skills',
+    'skills.description': 'All my skills',
+    'skills.subtitle': 'Habilidades Blandas y duras a lo largo de mi experiencia.',
   },
   en: {
     // Home page
@@ -129,6 +134,11 @@ export const translations = {
     'projects.title': 'All My Projects',
     'projects.description': 'All my project portfolio from real projects to open source projects.',
     'projects.subtitle': 'My portfolio of commercial and open source projects.',
+    
+    // Skills page
+    'skills.title': 'My Skills',
+    'skills.description': 'All my technical skills and competencies',
+    'skills.subtitle': 'Technical skills and competencies I\'ve developed throughout my career.',
   },
 } as const;
 

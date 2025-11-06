@@ -6,12 +6,11 @@ import GithubWhite from '@src/assets/img/github-mark-white.svg';
 import GithubBlack from '@src/assets/img/github-mark.svg';
 import { linkFor, useTranslations, type Lang } from '@src/i18n/index';
 
-interface Props {
-	lang: Lang;
-}
-
-const { lang } = Astro.props;
+const { lang = 'es' } = Astro.props as { lang?: Lang };
 const t = useTranslations(lang);
+const alternateLangLink = getAlternateLangLink(Astro.url);
+
+const currentLocale = Astro.currentLocale || 'es';
 const pathname = Astro.url.pathname;
 
 // Compute alternate URL for the language switcher
@@ -26,8 +25,6 @@ function getAlternateUrl(path: string, currentLang: string): string {
 }
 
 const alternateUrl = getAlternateUrl(pathname, lang);
-const targetLang = lang === 'es' ? 'en' : 'es';
-const targetDisplayLang = lang === 'es' ? 'English' : 'Español';
 
 const menu = [
   {
@@ -64,9 +61,9 @@ const menu = [
 	]}
 >
 	<div class='container'>
-		<nav class='flex gap-4 items-center justify-between py-3'>
+		<nav class='flex gap-4 items-center justify-between py-3' aria-label={t('header.home')}>
 			<h2 class='m-0'>
-				<a href={linkFor(lang, '')} class='flex gap-4 items-center text-xl font-black uppercase'>
+				<a href={linkFor(lang, '')} class='flex gap-4 items-center text-xl font-black uppercase' aria-label={t('header.home')}>
 					<!-- You can use your site logo, rounded ava or simply your site name here-->
           <Image src={AvaLogo} alt={t('header.siteLogo')} class="rounded-full w-11 border-white border-2 shadow-lg"/> 
 					<!-- {SITE_TITLE} -->
@@ -82,7 +79,7 @@ const menu = [
 				<a 
 					href={alternateUrl}
 					class='p-3 flex items-center gap-1.5 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors'
-					aria-label={`Switch to ${targetDisplayLang}`}
+					aria-label={t('header.switchLanguage')}
 				>
 					<svg 
 						xmlns='http://www.w3.org/2000/svg' 
@@ -102,7 +99,7 @@ const menu = [
 					</svg>
 					<span class='text-sm font-medium'>{lang === 'es' ? 'EN' : 'ES'}</span>
 				</a>
-				<button class='p-3' id='themeToggle' aria-label='Theme mode'>
+				<button class='p-3' id='themeToggle' aria-label={t('header.themeMode')}>
 					<svg
 						class='sun'
 						xmlns='http://www.w3.org/2000/svg'
@@ -138,7 +135,7 @@ const menu = [
 			</div>
 		</nav>
     <div class='fixed top-3 w-auto max-w-full px-3 left-1/2 -translate-x-1/2 z-[999]'>
-      <div class="flex px-2.5 bg-white/90 dark:bg-zinc-900/75 backdrop-blur-md leading-tight rounded-full border dark:border-zinc-700">
+      <nav class="flex px-2.5 bg-white/90 dark:bg-zinc-900/75 backdrop-blur-md leading-tight rounded-full border dark:border-zinc-700" aria-label="Main navigation">
         <div class="px-2.5 text-sm">
           <HeaderLink class="py-3 flex items-center" href={linkFor(lang, '')} aria-label={t('header.home')} lang={lang}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
@@ -153,7 +150,7 @@ const menu = [
             </div>
           ))
         }
-      </div>
+      </nav>
     </div>
 	</div>
 
