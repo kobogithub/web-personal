@@ -82,6 +82,47 @@ const tc = useContentTranslations(lang);
             </div>
           </div>
         </div>
+
+        <!-- Certifications -->
+        <div class="mt-12">
+          <h2 class="text-3xl font-bold mb-8">{tc('about.certifications')}</h2>
+          
+          <div class="space-y-6">
+            <div class="border border-gray-300 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
+              <div class="flex items-start justify-between">
+                <div class="flex-1">
+                  <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                    {tc('about.cert.aws.title')}
+                  </h3>
+                  <p class="text-base text-gray-700 dark:text-gray-300 mb-1">
+                    {tc('about.cert.aws.issuer')}
+                  </p>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                    {tc('about.cert.aws.date')}
+                  </p>
+                  <a 
+                    href="https://www.credly.com/badges/9d6d2abb-b604-44af-b658-cbbe24de0d28"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium"
+                  >
+                    {tc('about.cert.verify')}
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                  </a>
+                </div>
+                <div class="ml-4 flex-shrink-0">
+                  <img 
+                    src="https://images.credly.com/size/340x340/images/0e284c3f-5164-4b21-8660-0d84737941bc/image.png" 
+                    alt="AWS Certified Solutions Architect - Associate badge"
+                    class="w-24 h-24 object-contain"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         </article>
     </main>
   </div>
