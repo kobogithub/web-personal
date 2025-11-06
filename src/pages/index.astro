@@ -1,5 +1,4 @@
 ---
-import { SITE_TITLE, SITE_TAGLINE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
@@ -11,18 +10,23 @@ import ProjectList from '../components/ProjectList.astro'
 import SkillsList from '../components/SkillsList.astro'
 import PostItem from '../components/PostItem.astro';
 import { getLocalizedSkills } from '../pages/skills/skills.ts';
+import { useTranslations } from '@src/i18n/index';
+import { useContentTranslations } from '@src/i18n/translations';
 
 type BlogPost = CollectionEntry<'blog'>;
 
 const lang = 'es';
+const t = useTranslations(lang);
+const tc = useContentTranslations(lang);
+
 const top6Projects = projects.slice(0, 6);
 const top6Skills = getLocalizedSkills('es').slice(0, 6);
 const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 5);
 ---
 
 <BaseLayout 
-	title={SITE_TITLE + ' - ' + SITE_TAGLINE} 
-	description={SITE_DESCRIPTION}
+	title={t('site.title') + ' - ' + t('site.tagline')} 
+	description={t('site.description')}
 	lang={lang}
 	alternateUrl="/en/"
 	alternateLang="en"
@@ -30,11 +34,11 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
 	<div class='container'>
 		<div class='w-full md:flex md:items-center gap-16 mb-10'>
       <div class="text-pretty leading-9">
-        <h1 class="text-4xl font-bold mb-4">Hola 👋, Kevin Barroso 👷</h1>
+        <h1 class="text-4xl font-bold mb-4">{tc('home.greeting')}</h1>
         <Prose>
           <div class="text-lg">
-            <p>Arquitecto de Soluciones/SRE Ssr con amplia experiencia en contenedores y cloud computing. Lidero equipos en la implementación de arquitecturas de datos, optimizando el rendimiento y la escalabilidad. Implementacion de servicios en arquitecturas ECS. Construcción, desarrollo e implementacion de arquitecturas Kubernetes en EKS. </p>
-            <p>Mi pasión es crear sistemas robustos y eficientes que impulsen la innovación, inspirando a los equipos a alcanzar la excelencia técnica. Ssr en AWS, Kubernetes, CI/CD, seguridad en la nube y automatización de infraestructura. Destaco por mi comunicación efectiva, resolución de problemas complejos y gestión de proyectos ágiles.</p>  
+            <p>{tc('home.intro.p1')}</p>
+            <p>{tc('home.intro.p2')}</p>  
           </div>
         </Prose>
       </div>
@@ -43,13 +47,13 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
 		<main>
       <div class='mt-6 mb-12'>
         <div class="flex justify-between gap-2 border-b mb-1 dark:border-b-zinc-700">
-          <h2 class="text-lg font-bold mb-3">Recent Posts</h2>
-          <a href="/posts/" class="inline-block py-2 underline dark:prose-invert">All posts &raquo;</a>
+          <h2 class="text-lg font-bold mb-3">{tc('home.recentPosts')}</h2>
+          <a href="/posts/" class="inline-block py-2 underline dark:prose-invert">{tc('home.allPosts')} &raquo;</a>
         </div>
         <div>
           {
             posts.map((post: BlogPost) => (
-              <PostItem post={post} />
+              <PostItem post={post} lang={lang} />
             ))
           }      
         </div>
@@ -58,15 +62,15 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
       </div>
       <div class='mb-12'>
         <div class="flex justify-between gap-2 mb-1">
-          <h2 class="text-lg font-bold mb-3">My Projects</h2>
-          <a href="/projects/" class="inline-block py-2 underline dark:prose-invert">All projects &raquo;</a>
+          <h2 class="text-lg font-bold mb-3">{tc('home.myProjects')}</h2>
+          <a href="/projects/" class="inline-block py-2 underline dark:prose-invert">{tc('home.allProjects')} &raquo;</a>
         </div>
-        <ProjectList projects={top6Projects} lang='es'/>
+        <ProjectList projects={top6Projects} lang={lang}/>
       </div>
       <div>
         <div class="flex justify-between gap-2 mb-1">
-          <h2 class="text-lg font-bold mb-3">My Skills</h2>
-          <a href="/skills/" class="inline-block py-2 underline dark:prose-invert">All skills &raquo;</a>
+          <h2 class="text-lg font-bold mb-3">{tc('home.mySkills')}</h2>
+          <a href="/skills/" class="inline-block py-2 underline dark:prose-invert">{tc('home.allSkills')} &raquo;</a>
         </div>
         <SkillsList skills={top6Skills}/>
       </div>

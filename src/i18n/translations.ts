@@ -5,20 +5,20 @@ export const translations = {
   es: {
     // Home page
     'home.greeting': 'Hola 👋, Kevin Barroso 👷',
-    'home.intro.p1': 'Arquitecto de Soluciones/SRE Ssr con amplia experiencia en contenedores y cloud computing. Lidero equipos en la implementación de arquitecturas de datos, optimizando el rendimiento y la escalabilidad. Implementacion de servicios en arquitecturas ECS. Construcción, desarrollo e implementacion de arquitecturas Kubernetes en EKS.',
+    'home.intro.p1': 'Arquitecto de Soluciones/SRE Ssr con amplia experiencia en contenedores y cloud computing. Lidero equipos en la implementación de arquitecturas de datos, optimizando el rendimiento y la escalabilidad. Implementación de servicios en arquitecturas ECS. Construcción, desarrollo e implementación de arquitecturas Kubernetes en EKS.',
     'home.intro.p2': 'Mi pasión es crear sistemas robustos y eficientes que impulsen la innovación, inspirando a los equipos a alcanzar la excelencia técnica. Ssr en AWS, Kubernetes, CI/CD, seguridad en la nube y automatización de infraestructura. Destaco por mi comunicación efectiva, resolución de problemas complejos y gestión de proyectos ágiles.',
-    'home.recentPosts': 'Recent Posts',
-    'home.myProjects': 'My Projects',
-    'home.mySkills': 'My Skills',
-    'home.allPosts': 'All posts',
-    'home.allProjects': 'All projects',
-    'home.allSkills': 'All skills',
+    'home.recentPosts': 'Posts Recientes',
+    'home.myProjects': 'Mis Proyectos',
+    'home.mySkills': 'Mis Habilidades',
+    'home.allPosts': 'Todos los posts',
+    'home.allProjects': 'Todos los proyectos',
+    'home.allSkills': 'Todas las habilidades',
     
     // About page
     'about.title': 'Sobre mí',
     'about.description': 'Resumen de experiencias hasta la actualidad',
     'about.greeting': 'Hola 👋, Kevin Barroso 👷',
-    'about.intro.p1': 'Arquitecto de Soluciones/SRE Ssr con amplia experiencia en contenedores y cloud computing. Lidero equipos en la implementación de arquitecturas de datos, optimizando el rendimiento y la escalabilidad. Implementacion de servicios en arquitecturas ECS. Construcción, desarrollo e implementacion de arquitecturas Kubernetes en EKS.',
+    'about.intro.p1': 'Arquitecto de Soluciones/SRE Ssr con amplia experiencia en contenedores y cloud computing. Lidero equipos en la implementación de arquitecturas de datos, optimizando el rendimiento y la escalabilidad. Implementación de servicios en arquitecturas ECS. Construcción, desarrollo e implementación de arquitecturas Kubernetes en EKS.',
     'about.intro.p2': 'Mi pasión es crear sistemas robustos y eficientes que impulsen la innovación, inspirando a los equipos a alcanzar la excelencia técnica. Ssr en AWS, Kubernetes, CI/CD, seguridad en la nube y automatización de infraestructura. Destaco por mi comunicación efectiva, resolución de problemas complejos y gestión de proyectos ágiles.',
     'about.workExperience': 'Experiencia Profesional',
     'about.taligent.position': 'Líder Técnico - Ingeniería de Datos',
