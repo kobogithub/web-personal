@@ -8,7 +8,6 @@ import { linkFor, useTranslations, type Lang } from '@src/i18n/index';
 
 const { lang = 'es' } = Astro.props as { lang?: Lang };
 const t = useTranslations(lang);
-const alternateLangLink = getAlternateLangLink(Astro.url);
 
 const currentLocale = Astro.currentLocale || 'es';
 const pathname = Astro.url.pathname;
