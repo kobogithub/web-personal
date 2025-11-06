@@ -1,10 +1,16 @@
 import { getRepositoryDetails } from "../../utils";
 
+export interface BilingualText {
+  es: string;
+  en: string;
+}
+
 export interface Project {
-  name: string;
+  id: string;
+  name: BilingualText;
+  description: BilingualText;
   demoLink: string;
   tags?: string[];
-  description?: string;
   postLink?: string;
   demoLinkRel?: string;
   [key: string]: any;
@@ -12,14 +18,28 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    name: "Web Personal",
-    description: "A blog that sharing web development resources and tutorials",
+    id: "proj-1",
+    name: {
+      es: "Web Personal",
+      en: "Personal Website"
+    },
+    description: {
+      es: "Un blog que comparte recursos y tutoriales de desarrollo web",
+      en: "A blog that shares web development resources and tutorials"
+    },
     demoLink: "https://kobouharriet.site",
     tags: ["Site"],
   },
   {
-    name: "Home Manager + Nix",
-    description: "Home Manager: gestion de configuraciones de usuario con Nix.",
+    id: "proj-2",
+    name: {
+      es: "Home Manager + Nix",
+      en: "Home Manager + Nix"
+    },
+    description: {
+      es: "Home Manager: gestión de configuraciones de usuario con Nix.",
+      en: "Home Manager: user configuration management with Nix."
+    },
     demoLink: "https://github.com/kobogithub/dotfiles-home-manager",
     tags: ["Nix", "Linux"],
   },

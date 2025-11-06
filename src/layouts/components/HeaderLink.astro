@@ -13,8 +13,8 @@ const hrefString = typeof href === 'string' ? href : href?.toString() || '';
 const cleanHref = hrefString.replace(/\/$/, '');
 const cleanPathname = pathname.replace(/\/$/, '');
 
-// Check if the current path matches the link
-const isActive = cleanHref === cleanPathname || (cleanHref !== '' && cleanPathname.startsWith(cleanHref));
+// Check if the current path matches the link (exact or path segment boundary)
+const isActive = cleanHref === cleanPathname || (cleanHref !== '' && cleanPathname.startsWith(cleanHref + '/'));
 ---
 
 <a

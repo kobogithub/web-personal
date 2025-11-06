@@ -1,13 +1,281 @@
-import type { Lang } from './index';
-import { t, type TranslationKey } from './index';
+import type { Lang } from "./index";
+import { defaultLang } from "./index";
 
-/**
- * @deprecated Use the new `t()` function from './index' instead
- * This function is kept for backward compatibility
- */
+export const translations = {
+  es: {
+    // Home page
+    "home.greeting": "Hola 👋, Kevin Barroso 👷",
+    "home.intro.p1":
+      "Arquitecto de Soluciones/SRE Ssr con amplia experiencia en contenedores y cloud computing. Lidero equipos en la implementación de arquitecturas de datos, optimizando el rendimiento y la escalabilidad. Implementacion de servicios en arquitecturas ECS. Construcción, desarrollo e implementacion de arquitecturas Kubernetes en EKS.",
+    "home.intro.p2":
+      "Mi pasión es crear sistemas robustos y eficientes que impulsen la innovación, inspirando a los equipos a alcanzar la excelencia técnica. Ssr en AWS, Kubernetes, CI/CD, seguridad en la nube y automatización de infraestructura. Destaco por mi comunicación efectiva, resolución de problemas complejos y gestión de proyectos ágiles.",
+    "home.recentPosts": "Recent Posts",
+    "home.myProjects": "My Projects",
+    "home.mySkills": "My Skills",
+    "home.allPosts": "All posts",
+    "home.allProjects": "All projects",
+    "home.allSkills": "All skills",
+
+    // About page
+    "about.title": "Sobre mí",
+    "about.description": "Resumen de experiencias hasta la actualidad",
+    "about.greeting": "Hola 👋, Kevin Barroso 👷",
+    "about.intro.p1":
+      "Arquitecto de Soluciones/SRE Ssr con amplia experiencia en contenedores y cloud computing. Lidero equipos en la implementación de arquitecturas de datos, optimizando el rendimiento y la escalabilidad. Implementacion de servicios en arquitecturas ECS. Construcción, desarrollo e implementacion de arquitecturas Kubernetes en EKS.",
+    "about.intro.p2":
+      "Mi pasión es crear sistemas robustos y eficientes que impulsen la innovación, inspirando a los equipos a alcanzar la excelencia técnica. Ssr en AWS, Kubernetes, CI/CD, seguridad en la nube y automatización de infraestructura. Destaco por mi comunicación efectiva, resolución de problemas complejos y gestión de proyectos ágiles.",
+    "about.workExperience": "Experiencia Profesional",
+    "about.taligent.position": "Líder Técnico - Ingeniería de Datos",
+    "about.taligent.period": "Noviembre 2022 - Presente",
+    "about.taligent.task1":
+      "Diseño e implementación de arquitecturas de datos avanzadas, desarrollando soluciones robustas en AWS y SAP",
+    "about.taligent.task2":
+      "Optimización del rendimiento y escalabilidad de sistemas críticos en entornos cloud",
+    "about.taligent.task3":
+      "Diseño, desarrollo e implementación de arquitectura ECS, utilizando servicios Fargate y Auto Scaling de EC2",
+    "about.taligent.task4":
+      "Construcción y ejecución exitosa del plan de migración de servicios desde ECS hacia EKS",
+    "about.taligent.task5":
+      "Implementación de pipelines de CI/CD mediante GitHub Actions, AWS CodePipeline y Concourse CI",
+    "about.taligent.task6":
+      "Liderazgo de equipos en la implementación de Arquitecturas de datos",
+    "about.taligent.task7":
+      "Optimización de costos e infraestructura en entornos cloud",
+    "about.freelance.position": "Solutions Architect AWS + Developer",
+    "about.freelance.period": "Febrero 2019 - Noviembre 2022",
+    "about.freelance.task1":
+      "Diseño e implementación de arquitecturas robustas para web hosting y microservicios",
+    "about.freelance.task2":
+      "Implementación de soluciones de seguridad para contenedores en ECS",
+    "about.freelance.task3":
+      "Desarrollo de sistemas de monitoreo avanzados con Grafana, Prometheus y Fluentd",
+    "about.freelance.task4":
+      "Desarrollo e implementación de arquitecturas de orquestación con Apache Airflow en AutoScaling y MWAA",
+    "about.freelance.task5":
+      "Desarrollo de microservicios y APIs con frameworks de Python",
+    "about.freelance.task6":
+      "Construcción de soluciones dockerizadas para aplicaciones monolíticas y microservicios",
+    "about.freelance.task7":
+      "Diseño e implementación de arquitecturas serverless con AWS Lambda y AWS SAM",
+    "about.freelance.task8":
+      "Desarrollo de infraestructura como código utilizando Terraform",
+    "about.freelance.task9":
+      "Integración de servicios AWS para soluciones cloud escalables y complejas",
+    "about.certifications": "Certificaciones",
+    "about.cert.aws.title": "AWS Certified Solutions Architect – Associate",
+    "about.cert.aws.issuer": "Amazon Web Services",
+    "about.cert.aws.date": "Octubre 13, 2028",
+    "about.cert.verify": "Verificar certificación",
+
+    // Contact page
+    "contact.title": "Contacto",
+    "contact.description":
+      "Ponte en contacto conmigo para proyectos, colaboraciones o consultas",
+    "contact.intro.p1":
+      "¡Me encantaría saber de ti! Si tienes algún proyecto interesante, una propuesta de colaboración, o simplemente quieres conectar, no dudes en enviarme un mensaje.",
+    "contact.intro.p2":
+      "Ya sea que necesites ayuda con arquitectura cloud, desarrollo de aplicaciones, o consultoria técnica, estoy aquí para ayudarte a hacer realidad tus ideas.",
+    "contact.email.title": "Email Directo",
+    "contact.email.text": "Si prefieres escribirme directamente:",
+    "contact.responseTime.title": "Tiempo de Respuesta",
+    "contact.responseTime.text": "Generalmente respondo en 24-48 horas.",
+    "contact.responseTime.urgent": "Para urgencias, usa el email directo.",
+    "contact.form.title": "Envíame un Mensaje",
+    "contact.help.title": "¿En qué puedo ayudarte?",
+    "contact.help.cloud": "Arquitectura Cloud (AWS)",
+    "contact.help.kubernetes": "Kubernetes & Contenedores",
+    "contact.help.cicd": "CI/CD & DevOps",
+    "contact.help.apis": "Desarrollo de APIs",
+    "contact.help.consulting": "Consultoría Técnica",
+    "contact.help.mentoring": "Mentoring & Coaching",
+
+    // Contact form
+    "contactForm.label.name": "Nombre",
+    "contactForm.label.email": "Email",
+    "contactForm.label.subject": "Asunto",
+    "contactForm.label.message": "Mensaje",
+    "contactForm.placeholder.name": "Tu nombre",
+    "contactForm.placeholder.email": "tu@email.com",
+    "contactForm.placeholder.subject": "¿De qué quieres hablar?",
+    "contactForm.placeholder.message": "Escribe tu mensaje aquí...",
+    "contactForm.button.submit": "Enviar Mensaje",
+    "contactForm.button.submitting": "Enviando...",
+    "contactForm.button.cooldown": "Espera {seconds}s",
+    "contactForm.error.nameRequired": "El nombre es obligatorio",
+    "contactForm.error.nameMaxLength":
+      "El nombre no puede exceder {max} caracteres",
+    "contactForm.error.emailRequired": "El email es obligatorio",
+    "contactForm.error.emailMaxLength":
+      "El email no puede exceder {max} caracteres",
+    "contactForm.error.emailInvalid": "El email no es válido",
+    "contactForm.error.subjectRequired": "El asunto es obligatorio",
+    "contactForm.error.subjectMaxLength":
+      "El asunto no puede exceder {max} caracteres",
+    "contactForm.error.messageRequired": "El mensaje es obligatorio",
+    "contactForm.error.messageMinLength":
+      "El mensaje debe tener al menos {min} caracteres",
+    "contactForm.error.messageMaxLength":
+      "El mensaje no puede exceder {max} caracteres",
+    "contactForm.message.success":
+      "¡Mensaje enviado con éxito! Te responderé pronto.",
+    "contactForm.message.error":
+      "Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.",
+    "contactForm.message.cooldown":
+      "Por favor espera {seconds} segundos antes de enviar otro mensaje.",
+
+    // Projects page
+    "projects.title": "All My Projects",
+    "projects.description":
+      "All my project portfolio from real projects to open source projects.",
+    "projects.subtitle":
+      "Mi portafolio de proyectos comerciales y de código abierto.",
+
+    // Skills page
+    "skills.title": "All My Skills",
+    "skills.description": "All my skills",
+    "skills.subtitle":
+      "Habilidades Blandas y duras a lo largo de mi experiencia.",
+  },
+  en: {
+    // Home page
+    "home.greeting": "Hello 👋, Kevin Barroso 👷",
+    "home.intro.p1":
+      "Senior Solutions Architect/SRE with extensive experience in containers and cloud computing. I lead teams in implementing data architectures, optimizing performance and scalability. Service implementation in ECS architectures. Construction, development and implementation of Kubernetes architectures in EKS.",
+    "home.intro.p2":
+      "My passion is creating robust and efficient systems that drive innovation, inspiring teams to achieve technical excellence. Senior in AWS, Kubernetes, CI/CD, cloud security and infrastructure automation. I excel at effective communication, solving complex problems and agile project management.",
+    "home.recentPosts": "Recent Posts",
+    "home.myProjects": "My Projects",
+    "home.mySkills": "My Skills",
+    "home.allPosts": "All posts",
+    "home.allProjects": "All projects",
+    "home.allSkills": "All skills",
+
+    // About page
+    "about.title": "About me",
+    "about.description": "Summary of experiences to date",
+    "about.greeting": "Hello 👋, Kevin Barroso 👷",
+    "about.intro.p1":
+      "Senior Solutions Architect/SRE with extensive experience in containers and cloud computing. I lead teams in implementing data architectures, optimizing performance and scalability. Service implementation in ECS architectures. Construction, development and implementation of Kubernetes architectures in EKS.",
+    "about.intro.p2":
+      "My passion is creating robust and efficient systems that drive innovation, inspiring teams to achieve technical excellence. Senior in AWS, Kubernetes, CI/CD, cloud security and infrastructure automation. I excel at effective communication, solving complex problems and agile project management.",
+    "about.workExperience": "Professional Experience",
+    "about.taligent.position": "Technical Lead - Data Engineering",
+    "about.taligent.period": "November 2022 - Present",
+    "about.taligent.task1":
+      "Design and implementation of advanced data architectures, developing robust solutions in AWS and SAP",
+    "about.taligent.task2":
+      "Performance optimization and scalability of critical systems in cloud environments",
+    "about.taligent.task3":
+      "Design, development and implementation of ECS architecture, using Fargate services and EC2 Auto Scaling",
+    "about.taligent.task4":
+      "Construction and successful execution of the service migration plan from ECS to EKS",
+    "about.taligent.task5":
+      "Implementation of CI/CD pipelines through GitHub Actions, AWS CodePipeline and Concourse CI",
+    "about.taligent.task6":
+      "Team leadership in implementing data architectures",
+    "about.taligent.task7":
+      "Cost and infrastructure optimization in cloud environments",
+    "about.freelance.position": "Solutions Architect AWS + Developer",
+    "about.freelance.period": "February 2019 - November 2022",
+    "about.freelance.task1":
+      "Design and implementation of robust architectures for web hosting and microservices",
+    "about.freelance.task2":
+      "Implementation of security solutions for containers in ECS",
+    "about.freelance.task3":
+      "Development of advanced monitoring systems with Grafana, Prometheus and Fluentd",
+    "about.freelance.task4":
+      "Development and implementation of orchestration architectures with Apache Airflow in AutoScaling and MWAA",
+    "about.freelance.task5":
+      "Development of microservices and APIs with Python frameworks",
+    "about.freelance.task6":
+      "Building dockerized solutions for monolithic applications and microservices",
+    "about.freelance.task7":
+      "Design and implementation of serverless architectures with AWS Lambda and AWS SAM",
+    "about.freelance.task8":
+      "Infrastructure as code development using Terraform",
+    "about.freelance.task9":
+      "Integration of AWS services for scalable and complex cloud solutions",
+    "about.certifications": "Certifications",
+    "about.cert.aws.title": "AWS Certified Solutions Architect – Associate",
+    "about.cert.aws.issuer": "Amazon Web Services",
+    "about.cert.aws.date": "October 13, 2028",
+    "about.cert.verify": "Verify certification",
+
+    // Contact page
+    "contact.title": "Contact",
+    "contact.description":
+      "Get in touch with me for projects, collaborations or inquiries",
+    "contact.intro.p1":
+      "I'd love to hear from you! If you have an interesting project, a collaboration proposal, or just want to connect, don't hesitate to send me a message.",
+    "contact.intro.p2":
+      "Whether you need help with cloud architecture, application development, or technical consulting, I'm here to help you bring your ideas to life.",
+    "contact.email.title": "Direct Email",
+    "contact.email.text": "If you prefer to write me directly:",
+    "contact.responseTime.title": "Response Time",
+    "contact.responseTime.text": "I generally respond within 24-48 hours.",
+    "contact.responseTime.urgent": "For urgent matters, use direct email.",
+    "contact.form.title": "Send Me a Message",
+    "contact.help.title": "How can I help you?",
+    "contact.help.cloud": "Cloud Architecture (AWS)",
+    "contact.help.kubernetes": "Kubernetes & Containers",
+    "contact.help.cicd": "CI/CD & DevOps",
+    "contact.help.apis": "API Development",
+    "contact.help.consulting": "Technical Consulting",
+    "contact.help.mentoring": "Mentoring & Coaching",
+
+    // Contact form
+    "contactForm.label.name": "Name",
+    "contactForm.label.email": "Email",
+    "contactForm.label.subject": "Subject",
+    "contactForm.label.message": "Message",
+    "contactForm.placeholder.name": "Your name",
+    "contactForm.placeholder.email": "your@email.com",
+    "contactForm.placeholder.subject": "What would you like to talk about?",
+    "contactForm.placeholder.message": "Write your message here...",
+    "contactForm.button.submit": "Send Message",
+    "contactForm.button.submitting": "Sending...",
+    "contactForm.button.cooldown": "Wait {seconds}s",
+    "contactForm.error.nameRequired": "Name is required",
+    "contactForm.error.nameMaxLength": "Name cannot exceed {max} characters",
+    "contactForm.error.emailRequired": "Email is required",
+    "contactForm.error.emailMaxLength": "Email cannot exceed {max} characters",
+    "contactForm.error.emailInvalid": "Email is not valid",
+    "contactForm.error.subjectRequired": "Subject is required",
+    "contactForm.error.subjectMaxLength":
+      "Subject cannot exceed {max} characters",
+    "contactForm.error.messageRequired": "Message is required",
+    "contactForm.error.messageMinLength":
+      "Message must be at least {min} characters",
+    "contactForm.error.messageMaxLength":
+      "Message cannot exceed {max} characters",
+    "contactForm.message.success":
+      "Message sent successfully! I'll respond soon.",
+    "contactForm.message.error":
+      "There was an error sending the message. Please try again.",
+    "contactForm.message.cooldown":
+      "Please wait {seconds} seconds before sending another message.",
+
+    // Projects page
+    "projects.title": "All My Projects",
+    "projects.description":
+      "All my project portfolio from real projects to open source projects.",
+    "projects.subtitle": "My portfolio of commercial and open source projects.",
+
+    // Skills page
+    "skills.title": "My Skills",
+    "skills.description": "All my technical skills and competencies",
+    "skills.subtitle":
+      "Technical skills and competencies I've developed throughout my career.",
+  },
+} as const;
+
+type TranslationKey = keyof (typeof translations)[typeof defaultLang];
+
+export type { TranslationKey };
+
 export function useContentTranslations(lang: Lang) {
-  return function (key: TranslationKey): string {
-    return t(lang, key);
+  return function t(key: TranslationKey): string {
+    return translations[lang][key] || translations["es"][key];
   };
 }
 

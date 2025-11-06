@@ -32,62 +32,17 @@ export type { TranslationKey };
 
 // Supported locales
 export const languages = {
-  es: 'Español',
-  en: 'English',
+  es: "Español",
+  en: "English",
 } as const;
 
 export type Lang = keyof typeof languages;
 
-export const DEFAULT_LANG: Lang = 'es';
-
-// Dictionaries
-const dictionaries = {
-  es,
-  en,
-} as const;
-
-/**
- * Translation function with parameter interpolation support
- * @param lang - Language code ('es' | 'en')
- * @param key - Translation key (e.g., 'nav.home', 'contact.title')
- * @param params - Optional parameters for string interpolation
- * @returns Translated string with interpolated parameters
- * 
- * @example
- * t('es', 'nav.home') // 'Inicio'
- * t('en', 'nav.home') // 'Home'
- * t('en', 'greeting', { name: 'John' }) // if key is 'Hello {name}' -> 'Hello John'
- */
-export function t(
-  lang: Lang,
-  key: TranslationKey,
-  params?: Record<string, string | number>
-): string {
-  // Get translation from the specified language, fallback to default language (Spanish)
-  let translation: string = dictionaries[lang][key] || dictionaries[DEFAULT_LANG][key];
-  
-  // Final fallback if key doesn't exist in any dictionary (shouldn't happen with typed keys)
-  if (!translation) {
-    console.warn(`Missing translation for key: ${key}`);
-    return `[${key}]`;
-  }
-  
-  // If params are provided, interpolate them
-  if (params) {
-    Object.entries(params).forEach(([paramKey, paramValue]) => {
-      translation = translation.replace(
-        new RegExp(`\\{${paramKey}\\}`, 'g'),
-        String(paramValue)
-      );
-    });
-  }
-  
-  return translation;
-}
+export const defaultLang: Lang = "es";
 
 // Extract language from URL
 export function getLangFromUrl(url: URL): Lang {
-  const [, lang] = url.pathname.split('/');
+  const [, lang] = url.pathname.split("/");
   if (lang in languages) {
     return lang as Lang;
   }
@@ -97,45 +52,125 @@ export function getLangFromUrl(url: URL): Lang {
 // Build localized path
 export function linkFor(lang: Lang, path: string): string {
   // Remove leading slash if present
-  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-  
+  const cleanPath = path.startsWith("/") ? path.slice(1) : path;
+
   // For default language (Spanish), no prefix
   if (lang === DEFAULT_LANG) {
     return `/${cleanPath}`;
   }
-  
+
   // For other languages, add language prefix
   return `/${lang}/${cleanPath}`;
+}
+
+// UI translations
+export const ui = {
+  es: {
+    "nav.home": "Inicio",
+    "nav.about": "About",
+    "nav.posts": "Posts",
+    "nav.projects": "Projects",
+    "nav.skills": "Skills",
+    "nav.tags": "Tags",
+    "nav.contact": "Contacto",
+    "site.title": "Kevin Barroso",
+    "site.tagline": "WebPersonal con experiencias, habilidades y proyectos",
+    "site.description":
+      "Blog Personal de Proyectos, Habilidades y experiencia laboral",
+    // Header
+    "header.switchLanguage": "Cambiar idioma",
+    "header.home": "Inicio",
+    "header.themeMode": "Modo de tema",
+    "header.siteLogo": "Logo del sitio",
+    "header.githubLogo": "Logo de Github",
+    // Footer
+    "footer.copyright": "Copyright © {year} Devolio.",
+    "footer.templateCredit": "Template creado por",
+    // Table of Contents
+    "toc.title": "En esta página",
+    // About the Author
+    "author.title": "Sobre el autor",
+    "author.description":
+      "Kevin es un Arquitecto de Soluciones/SRE con experiencia en diseño, desarrollo e implementaciones en la nube de",
+    // Blog post
+    "post.publishedOn": "Publicado el",
+    "post.updatedOn": "Actualizado el",
+  },
+  en: {
+    "nav.home": "Home",
+    "nav.about": "About",
+    "nav.posts": "Posts",
+    "nav.projects": "Projects",
+    "nav.skills": "Skills",
+    "nav.tags": "Tags",
+    "nav.contact": "Contact",
+    "site.title": "Kevin Barroso",
+    "site.tagline": "Personal website with experiences, skills and projects",
+    "site.description": "Personal Blog of Projects, Skills and work experience",
+    // Header
+    "header.switchLanguage": "Switch language",
+    "header.home": "Home",
+    "header.themeMode": "Theme mode",
+    "header.siteLogo": "Site logo",
+    "header.githubLogo": "Github logo",
+    // Footer
+    "footer.copyright": "Copyright © {year} Devolio.",
+    "footer.templateCredit": "Template created by",
+    // Table of Contents
+    "toc.title": "On This Page",
+    // About the Author
+    "author.title": "About the Author",
+    "author.description":
+      "Kevin is a Solutions Architect/SRE with experience in design, development and cloud implementations on",
+    // Blog post
+    "post.publishedOn": "Published on",
+    "post.updatedOn": "Updated on",
+  },
+} as const;
+
+type UiKey = keyof (typeof ui)[typeof defaultLang];
+
+export function useTranslations(lang: Lang) {
+  return function t(key: UiKey): string {
+    return ui[lang][key] || ui[defaultLang][key];
+  };
 }
 
 // Get alternative language link
 export function getAlternateLangLink(currentUrl: URL): string {
   const currentLang = getLangFromUrl(currentUrl);
-  const alternateLang: Lang = currentLang === 'es' ? 'en' : 'es';
-  
+  const alternateLang: Lang = currentLang === "es" ? "en" : "es";
+
   // Get the path without the language prefix
   let path = currentUrl.pathname;
-  
+
   // Remove current language prefix if it exists
-  if (currentLang !== DEFAULT_LANG) {
-    path = path.replace(`/${currentLang}`, '');
+  if (currentLang !== defaultLang) {
+    path = path.replace(`/${currentLang}`, "");
   }
-  
+
   // Ensure path starts with /
-  if (!path.startsWith('/')) {
+  if (!path.startsWith("/")) {
     path = `/${path}`;
   }
-  
+
   return linkFor(alternateLang, path);
 }
 
-// Legacy compatibility: keep old API for gradual migration
-export const defaultLang = DEFAULT_LANG;
+// Save language preference to localStorage
+export function saveLanguagePreference(lang: Lang): void {
+  if (typeof localStorage !== "undefined") {
+    localStorage.setItem("lang", lang);
+  }
+}
 
-export const ui = dictionaries;
-
-export function useTranslations(lang: Lang) {
-  return function (key: TranslationKey): string {
-    return t(lang, key);
-  };
+// Get language preference from localStorage
+export function getLanguagePreference(): Lang | null {
+  if (typeof localStorage !== "undefined") {
+    const stored = localStorage.getItem("lang");
+    if (stored && stored in languages) {
+      return stored as Lang;
+    }
+  }
+  return null;
 }

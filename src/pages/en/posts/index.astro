@@ -7,7 +7,9 @@ import PostsByYear from '@src/components/PostsByYear.astro';
 type BlogPost = CollectionEntry<'blog'>;
 
 const lang = 'en';
-const allPosts: BlogPost[] = (await getCollection('blog')).sort(
+const allPosts: BlogPost[] = (await getCollection('blog', ({ data }: any) => {
+	return data.lang === 'en';
+})).sort(
 	(a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
@@ -16,6 +18,8 @@ const allPosts: BlogPost[] = (await getCollection('blog')).sort(
 	title='All Posts'
 	description='All blog posts'
 	lang={lang}
+	alternateUrl="/posts/"
+	alternateLang="es"
 >
   <div class='container'>
     <div class="mb-10">

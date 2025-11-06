@@ -22,11 +22,11 @@ function groupPostsByYear(posts: BlogPost[]) {
     return acc;
   }, {} as Record<number, BlogPost[]>);
 
-  return Object.entries(grouped)
+  return (Object.entries(grouped) as [string, BlogPost[]][])
     .sort(([a], [b]) => Number(b) - Number(a))
-    .map(([year, posts]) => ({
+    .map(([year, yearPosts]) => ({
       year: Number(year),
-      posts: posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
+      posts: (yearPosts as BlogPost[]).sort((a: BlogPost, b: BlogPost) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
     }));
 }
 
@@ -39,7 +39,7 @@ const groupedPosts = groupPostsByYear(posts);
   <div class="mb-8">
     <h2 class="text-2xl font-bold mb-4">{year}</h2>
     <div>
-      {posts.map((post: BlogPost, i: number) => (
+      {posts.map((post: BlogPost) => (
         <PostItem post={post} lang={lang} />
       ))}
     </div>

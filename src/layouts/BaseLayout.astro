@@ -6,22 +6,36 @@ import { loadEnv } from 'vite';
 import type { Lang } from '@src/i18n/index';
 
 const { GTAG_MEASUREMENT_ID } = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), '');
-const { title, description, image, lang = 'es' } = Astro.props as { title: string; description: string; image?: string; lang?: Lang };
+const { title, description, image, lang = 'es', alternateUrl, alternateLang } = Astro.props as { 
+	title: string; 
+	description: string; 
+	image?: string; 
+	lang?: Lang;
+	alternateUrl?: string;
+	alternateLang?: string;
+};
 ---
 
 <!doctype html>
 <html lang={lang}>
 	<head>
-		<BaseHead title={title} description={description} image={image} />
+		<BaseHead 
+			title={title} 
+			description={description} 
+			image={image} 
+			lang={lang}
+			alternateUrl={alternateUrl}
+			alternateLang={alternateLang}
+		/>
 	</head>
 	<body
 		class="bg-white dark:bg-zinc-900 dark:text-zinc-100 pt-16 sm:pt-0"
 	>
 		<Header lang={lang}/>
-		<div class='py-8 min-h-[calc(100vh-160px)]'>
+		<main class='py-8 min-h-[calc(100vh-160px)]'>
 			<slot />
-		</div>
-		<Footer />
+		</main>
+		<Footer lang={lang} />
 		<!-- Google tag (gtag.js) -->
     {
       GTAG_MEASUREMENT_ID &&
