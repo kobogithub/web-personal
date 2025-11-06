@@ -196,6 +196,8 @@ export const translations = {
 
 type TranslationKey = keyof typeof translations[typeof defaultLang];
 
+export type { TranslationKey };
+
 export function useContentTranslations(lang: Lang) {
   return function t(key: TranslationKey): string {
     return translations[lang][key] || translations['es'][key];

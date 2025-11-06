@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { Lang } from '@src/i18n/index';
-import { useContentTranslations, translations } from '@src/i18n/translations';
+import { useContentTranslations } from '@src/i18n/translations';
+import type { TranslationKey } from '@src/i18n/translations';
 
 const MAX_LENGTHS = {
   name: 100,
@@ -32,14 +33,6 @@ interface FormspreeErrorResponse {
   errors?: FormspreeError[];
 }
 
-// Email validation constants
-// RFC 5322-compliant regex pattern for email validation
-// Validates: local-part@domain structure with allowed special characters
-// Rejects: missing parts, consecutive dots, invalid characters, spaces
-const EMAIL_VALIDATION_REGEX = /^[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-// Maximum email length as per RFC 5322
-const MAX_EMAIL_LENGTH = 254;
-
 interface ContactFormProps {
   lang?: Lang;
 }
@@ -62,7 +55,7 @@ export default function ContactForm({ lang = 'es' }: ContactFormProps) {
   const STORAGE_KEY = 'lastContactSubmit';
 
   // Helper to replace placeholders in translation strings
-  const tr = (key: keyof typeof translations['es'], params?: Record<string, string | number>): string => {
+  const tr = (key: TranslationKey, params?: Record<string, string | number>): string => {
     let text = t(key);
     if (params) {
       Object.entries(params).forEach(([k, v]) => {
