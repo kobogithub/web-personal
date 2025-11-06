@@ -29,12 +29,15 @@ type Props = {
 
 const { posts, tag } = Astro.props;
 const sortedPosts = posts.sort((a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const tagSlug = Astro.params.tag;
 ---
 
 <BaseLayout
 	title={`Tag: ${tag}`}
 	description={`All posts tagged with ${tag}`}
 	lang={lang}
+	alternateUrl={`/tags/${tagSlug}/`}
+	alternateLang="es"
 >
   <div class='container'>
     <div class="mb-10">
