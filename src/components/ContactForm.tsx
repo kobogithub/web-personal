@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Lang } from '@src/i18n/index';
-import { useContentTranslations } from '@src/i18n/translations';
+import { useContentTranslations, translations } from '@src/i18n/translations';
 
 const MAX_LENGTHS = {
   name: 100,
@@ -62,8 +62,8 @@ export default function ContactForm({ lang = 'es' }: ContactFormProps) {
   const STORAGE_KEY = 'lastContactSubmit';
 
   // Helper to replace placeholders in translation strings
-  const tr = (key: string, params?: Record<string, string | number>): string => {
-    let text = t(key as any);
+  const tr = (key: keyof typeof translations['es'], params?: Record<string, string | number>): string => {
+    let text = t(key);
     if (params) {
       Object.entries(params).forEach(([k, v]) => {
         text = text.replace(`{${k}}`, String(v));
