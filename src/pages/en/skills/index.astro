@@ -1,23 +1,26 @@
 ---
 import BaseLayout from '@src/layouts/BaseLayout.astro';
 import SkillsList from '@src/components/SkillsList.astro';
-import { skills } from '@src/pages/skills/skills';
+import { getLocalizedSkills } from '@src/pages/skills/skills';
+import { useContentTranslations } from '@src/i18n/translations';
 
 const lang = 'en';
+const tc = useContentTranslations(lang);
+const localizedSkills = getLocalizedSkills(lang);
 ---
 
 <BaseLayout
-	title="My Skills"
-	description="All my technical skills and competencies"
+	title={tc('skills.title')}
+	description={tc('skills.description')}
 	lang={lang}
 	alternateUrl="/skills/"
 	alternateLang="es"
 >
   <div class='container'>
     <div class="mb-10">
-      <h1 class="text-3xl font-bold mb-2">My Skills</h1>
-      <p class="text-zinc-700 dark:text-zinc-300 text-lg">Technical skills and competencies I've developed throughout my career.</p>
+      <h1 class="text-3xl font-bold mb-2">{tc('skills.title')}</h1>
+      <p class="text-zinc-700 dark:text-zinc-300 text-lg">{tc('skills.subtitle')}</p>
     </div>
-    <SkillsList skills={skills}/>
+    <SkillsList skills={localizedSkills}/>
   </div>
 </BaseLayout>

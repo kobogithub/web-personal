@@ -10,13 +10,13 @@ import { projects } from './projects/projects';
 import ProjectList from '../components/ProjectList.astro'
 import SkillsList from '../components/SkillsList.astro'
 import PostItem from '../components/PostItem.astro';
-import { skills } from '../pages/skills/skills.ts';
+import { getLocalizedSkills } from '../pages/skills/skills.ts';
 
 type BlogPost = CollectionEntry<'blog'>;
 
 const lang = 'es';
 const top6Projects = projects.slice(0, 6);
-const top6Skills = skills.slice(0, 6);
+const top6Skills = getLocalizedSkills('es').slice(0, 6);
 const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 5);
 ---
 
