@@ -22,7 +22,7 @@ function groupPostsByYear(posts: BlogPost[]) {
     return acc;
   }, {} as Record<number, BlogPost[]>);
 
-  return Object.entries(grouped)
+  return (Object.entries(grouped) as [string, BlogPost[]][])
     .sort(([a], [b]) => Number(b) - Number(a))
     .map(([year, yearPosts]) => ({
       year: Number(year),
