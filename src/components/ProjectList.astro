@@ -1,12 +1,17 @@
 ---
 import { Image } from 'astro:assets';
 import type { Project } from '../pages/projects/projects'
+import type { Lang } from '../i18n/index'
 import { kFormatter } from '../utils'
 import GithubWhite from '@src/assets/img/github-mark-white.svg';
 import GithubBlack from '@src/assets/img/github-mark.svg';
 
-const { projects } = Astro.props
+interface Props {
+  projects: Project[];
+  lang: Lang;
+}
 
+const { projects, lang } = Astro.props
 ---
 <div class="grid grid-cols-12 gap-5">
   {
@@ -47,10 +52,10 @@ const { projects } = Astro.props
           )}
         </div>
         <h3 class="font-semibold my-2">
-          <a class="underline" href={project.demoLink} target="_blank" rel={project.demoLinkRel}>{project.name}</a>
+          <a class="underline" href={project.demoLink} target="_blank" rel={project.demoLinkRel}>{project.name[lang]}</a>
         </h3>
         <div class="line-clamp-2 text-zinc-600 dark:text-zinc-300 mb-4 min-h-[50px]">
-          <p>{project.description}</p>
+          <p>{project.description[lang]}</p>
         </div>
         <div class="flex justify-end gap-3">
           {

@@ -2,21 +2,22 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectList from '../../components/ProjectList.astro';
 import { projects } from './projects';
+import { useContentTranslations } from '@src/i18n/translations';
 
+const lang = 'es';
+const tc = useContentTranslations(lang);
 ---
 
 <BaseLayout
-	title="All My Projects"
-	description="All my project portfolio from real projects to open source projects."
-	lang="es"
-	alternateUrl="/en/projects/"
-	alternateLang="en"
+	title={tc('projects.title')}
+	description={tc('projects.description')}
+	lang={lang}
 >
   <div class='container'>
     <div class="mb-10">
-      <h1 class="text-3xl font-bold mb-2">All My Projects</h1>
-      <p class="text-zinc-700 dark:text-zinc-300 text-lg">Mi portafolio de proyectos comerciales y de código abierto.</p>
+      <h1 class="text-3xl font-bold mb-2">{tc('projects.title')}</h1>
+      <p class="text-zinc-700 dark:text-zinc-300 text-lg">{tc('projects.subtitle')}</p>
     </div>
-    <ProjectList projects={projects}/>
+    <ProjectList projects={projects} lang={lang}/>
   </div>
 </BaseLayout>
