@@ -24,9 +24,9 @@ function groupPostsByYear(posts: BlogPost[]) {
 
   return Object.entries(grouped)
     .sort(([a], [b]) => Number(b) - Number(a))
-    .map(([year, yearPosts]: [string, BlogPost[]]) => ({
+    .map(([year, yearPosts]) => ({
       year: Number(year),
-      posts: yearPosts.sort((a: BlogPost, b: BlogPost) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
+      posts: (yearPosts as BlogPost[]).sort((a: BlogPost, b: BlogPost) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
     }));
 }
 
