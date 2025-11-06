@@ -4,6 +4,7 @@ declare module 'astro:content' {
 			Content: import('astro').MarkdownInstance<{}>['Content'];
 			headings: import('astro').MarkdownHeading[];
 			remarkPluginFrontmatter: Record<string, any>;
+			components: import('astro').MDXInstance<{}>['components'];
 		}>;
 	}
 }
@@ -175,6 +176,20 @@ declare module 'astro:content' {
 "2025-01-05-home-manager/index.md": {
 	id: "2025-01-05-home-manager/index.md";
   slug: "home-manager";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-11-06-data-platform/index.en.md": {
+	id: "2025-11-06-data-platform/index.en.md";
+  slug: "data-platform-en";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"2025-11-06-data-platform/index.md": {
+	id: "2025-11-06-data-platform/index.md";
+  slug: "data-platform";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
