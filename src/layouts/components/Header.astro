@@ -6,12 +6,11 @@ import GithubWhite from '@src/assets/img/github-mark-white.svg';
 import GithubBlack from '@src/assets/img/github-mark.svg';
 import { linkFor, useTranslations, type Lang } from '@src/i18n/index';
 
-interface Props {
-	lang: Lang;
-}
-
-const { lang } = Astro.props;
+const { lang = 'es' } = Astro.props as { lang?: Lang };
 const t = useTranslations(lang);
+const alternateLangLink = getAlternateLangLink(Astro.url);
+
+const currentLocale = Astro.currentLocale || 'es';
 const pathname = Astro.url.pathname;
 
 // Compute alternate URL for the language switcher
