@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import type { Lang } from '@src/i18n/index';
+import { useContentTranslations } from '@src/i18n/translations';
 
 const MAX_LENGTHS = {
   name: 100,
@@ -38,7 +40,12 @@ const EMAIL_VALIDATION_REGEX = /^[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9
 // Maximum email length as per RFC 5322
 const MAX_EMAIL_LENGTH = 254;
 
-export default function ContactForm() {
+interface ContactFormProps {
+  lang?: Lang;
+}
+
+export default function ContactForm({ lang = 'es' }: ContactFormProps) {
+  const t = useContentTranslations(lang);
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -53,6 +60,17 @@ export default function ContactForm() {
 
   const COOLDOWN_MS = 60000; // 1 minute
   const STORAGE_KEY = 'lastContactSubmit';
+
+  // Helper to replace placeholders in translation strings
+  const tr = (key: string, params?: Record<string, string | number>): string => {
+    let text = t(key as any);
+    if (params) {
+      Object.entries(params).forEach(([k, v]) => {
+        text = text.replace(`{${k}}`, String(v));
+      });
+    }
+    return text;
+  };
 
   // Check rate limit on mount and set up countdown timer
   React.useEffect(() => {
@@ -88,31 +106,31 @@ export default function ContactForm() {
     const newErrors: FormErrors = {};
     
     if (!formData.name.trim()) {
-      newErrors.name = 'El nombre es requerido';
+      newErrors.name = tr('contactForm.error.nameRequired');
     } else if (formData.name.trim().length > MAX_LENGTHS.name) {
-      newErrors.name = `El nombre no puede exceder ${MAX_LENGTHS.name} caracteres`;
+      newErrors.name = tr('contactForm.error.nameMaxLength', { max: MAX_LENGTHS.name });
     }
     
     if (!formData.email.trim()) {
-      newErrors.email = 'El email es requerido';
+      newErrors.email = tr('contactForm.error.emailRequired');
     } else if (formData.email.trim().length > MAX_LENGTHS.email) {
-      newErrors.email = `El email no puede exceder ${MAX_LENGTHS.email} caracteres`;
+      newErrors.email = tr('contactForm.error.emailMaxLength', { max: MAX_LENGTHS.email });
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'El email no es válido';
+      newErrors.email = tr('contactForm.error.emailInvalid');
     }
     
     if (!formData.subject.trim()) {
-      newErrors.subject = 'El asunto es requerido';
+      newErrors.subject = tr('contactForm.error.subjectRequired');
     } else if (formData.subject.trim().length > MAX_LENGTHS.subject) {
-      newErrors.subject = `El asunto no puede exceder ${MAX_LENGTHS.subject} caracteres`;
+      newErrors.subject = tr('contactForm.error.subjectMaxLength', { max: MAX_LENGTHS.subject });
     }
     
     if (!formData.message.trim()) {
-      newErrors.message = 'El mensaje es requerido';
+      newErrors.message = tr('contactForm.error.messageRequired');
     } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'El mensaje debe tener al menos 10 caracteres';
+      newErrors.message = tr('contactForm.error.messageMinLength', { min: 10 });
     } else if (formData.message.trim().length > MAX_LENGTHS.message) {
-      newErrors.message = `El mensaje no puede exceder ${MAX_LENGTHS.message} caracteres`;
+      newErrors.message = tr('contactForm.error.messageMaxLength', { max: MAX_LENGTHS.message });
     }
 
     setErrors(newErrors);
@@ -140,7 +158,7 @@ export default function ContactForm() {
     
     // Check rate limit
     if (cooldownSeconds > 0) {
-      setSubmitMessage(`Por favor espera ${cooldownSeconds} segundos antes de enviar otro mensaje.`);
+      setSubmitMessage(tr('contactForm.message.cooldown', { seconds: cooldownSeconds }));
       return;
     }
     
@@ -171,7 +189,7 @@ export default function ContactForm() {
         localStorage.setItem(STORAGE_KEY, Date.now().toString());
         setCooldownSeconds(Math.ceil(COOLDOWN_MS / 1000));
         
-        setSubmitMessage('¡Gracias por tu mensaje! Te responderé pronto.');
+        setSubmitMessage(tr('contactForm.message.success'));
         setFormData({
           name: '',
           email: '',
@@ -195,10 +213,10 @@ export default function ContactForm() {
           }
         }
         
-        setSubmitMessage('Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.');
+        setSubmitMessage(tr('contactForm.message.error'));
       }
     } catch (error) {
-      setSubmitMessage('Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.');
+      setSubmitMessage(tr('contactForm.message.error'));
     } finally {
       setIsSubmitting(false);
     }
@@ -210,7 +228,7 @@ export default function ContactForm() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Nombre *
+              {tr('contactForm.label.name')} *
             </label>
             <input
               type="text"
@@ -224,14 +242,14 @@ export default function ContactForm() {
                   ? 'border-red-500 focus:ring-red-500' 
                   : 'border-gray-300 dark:border-zinc-600 focus:border-blue-500'
               }`}
-              placeholder="Tu nombre"
+              placeholder={tr('contactForm.placeholder.name')}
             />
             {errors.name && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>}
           </div>
 
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Email *
+              {tr('contactForm.label.email')} *
             </label>
             <input
               type="email"
@@ -245,7 +263,7 @@ export default function ContactForm() {
                   ? 'border-red-500 focus:ring-red-500' 
                   : 'border-gray-300 dark:border-zinc-600 focus:border-blue-500'
               }`}
-              placeholder="tu@email.com"
+              placeholder={tr('contactForm.placeholder.email')}
             />
             {errors.email && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>}
           </div>
@@ -253,7 +271,7 @@ export default function ContactForm() {
 
         <div>
           <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Asunto *
+            {tr('contactForm.label.subject')} *
           </label>
           <input
             type="text"
@@ -267,7 +285,7 @@ export default function ContactForm() {
                 ? 'border-red-500 focus:ring-red-500' 
                 : 'border-gray-300 dark:border-zinc-600 focus:border-blue-500'
             }`}
-            placeholder="¿De qué quieres hablar?"
+            placeholder={tr('contactForm.placeholder.subject')}
           />
           {errors.subject && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.subject}</p>}
         </div>
@@ -275,7 +293,7 @@ export default function ContactForm() {
         <div>
           <div className="flex justify-between items-center mb-2">
             <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Mensaje *
+              {tr('contactForm.label.message')} *
             </label>
             <span className="text-xs text-gray-500 dark:text-gray-400">
               {formData.message.length}/{MAX_LENGTHS.message}
@@ -293,7 +311,7 @@ export default function ContactForm() {
                 ? 'border-red-500 focus:ring-red-500' 
                 : 'border-gray-300 dark:border-zinc-600 focus:border-blue-500'
             }`}
-            placeholder="Escribe tu mensaje aquí..."
+            placeholder={tr('contactForm.placeholder.message')}
           />
           {errors.message && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.message}</p>}
         </div>
@@ -310,12 +328,12 @@ export default function ContactForm() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Enviando...
+                {tr('contactForm.button.submitting')}
               </span>
             ) : cooldownSeconds > 0 ? (
-              `Espera ${cooldownSeconds} segundos...`
+              tr('contactForm.button.cooldown', { seconds: cooldownSeconds })
             ) : (
-              'Enviar Mensaje'
+              tr('contactForm.button.submit')
             )}
           </button>
         </div>
