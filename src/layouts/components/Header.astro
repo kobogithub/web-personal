@@ -9,7 +9,6 @@ import { linkFor, useTranslations, getAlternateLangLink, type Lang } from '@src/
 const { lang = 'es' } = Astro.props as { lang?: Lang };
 const t = useTranslations(lang);
 const alternateLangLink = getAlternateLangLink(Astro.url);
-const targetDisplayLang = lang === 'es' ? 'English' : 'Español';
 
 const currentLocale = Astro.currentLocale || 'es';
 const pathname = Astro.url.pathname;
