@@ -89,6 +89,40 @@ export const translations = {
     "contact.help.consulting": "Consultoría Técnica",
     "contact.help.mentoring": "Mentoring & Coaching",
 
+    // Contact form
+    "contactForm.label.name": "Nombre",
+    "contactForm.label.email": "Email",
+    "contactForm.label.subject": "Asunto",
+    "contactForm.label.message": "Mensaje",
+    "contactForm.placeholder.name": "Tu nombre",
+    "contactForm.placeholder.email": "tu@email.com",
+    "contactForm.placeholder.subject": "¿De qué quieres hablar?",
+    "contactForm.placeholder.message": "Escribe tu mensaje aquí...",
+    "contactForm.button.submit": "Enviar Mensaje",
+    "contactForm.button.submitting": "Enviando...",
+    "contactForm.button.cooldown": "Espera {seconds}s",
+    "contactForm.error.nameRequired": "El nombre es obligatorio",
+    "contactForm.error.nameMaxLength":
+      "El nombre no puede exceder {max} caracteres",
+    "contactForm.error.emailRequired": "El email es obligatorio",
+    "contactForm.error.emailMaxLength":
+      "El email no puede exceder {max} caracteres",
+    "contactForm.error.emailInvalid": "El email no es válido",
+    "contactForm.error.subjectRequired": "El asunto es obligatorio",
+    "contactForm.error.subjectMaxLength":
+      "El asunto no puede exceder {max} caracteres",
+    "contactForm.error.messageRequired": "El mensaje es obligatorio",
+    "contactForm.error.messageMinLength":
+      "El mensaje debe tener al menos {min} caracteres",
+    "contactForm.error.messageMaxLength":
+      "El mensaje no puede exceder {max} caracteres",
+    "contactForm.message.success":
+      "¡Mensaje enviado con éxito! Te responderé pronto.",
+    "contactForm.message.error":
+      "Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.",
+    "contactForm.message.cooldown":
+      "Por favor espera {seconds} segundos antes de enviar otro mensaje.",
+
     // Projects page
     "projects.title": "All My Projects",
     "projects.description":
@@ -188,6 +222,38 @@ export const translations = {
     "contact.help.apis": "API Development",
     "contact.help.consulting": "Technical Consulting",
     "contact.help.mentoring": "Mentoring & Coaching",
+
+    // Contact form
+    "contactForm.label.name": "Name",
+    "contactForm.label.email": "Email",
+    "contactForm.label.subject": "Subject",
+    "contactForm.label.message": "Message",
+    "contactForm.placeholder.name": "Your name",
+    "contactForm.placeholder.email": "your@email.com",
+    "contactForm.placeholder.subject": "What would you like to talk about?",
+    "contactForm.placeholder.message": "Write your message here...",
+    "contactForm.button.submit": "Send Message",
+    "contactForm.button.submitting": "Sending...",
+    "contactForm.button.cooldown": "Wait {seconds}s",
+    "contactForm.error.nameRequired": "Name is required",
+    "contactForm.error.nameMaxLength": "Name cannot exceed {max} characters",
+    "contactForm.error.emailRequired": "Email is required",
+    "contactForm.error.emailMaxLength": "Email cannot exceed {max} characters",
+    "contactForm.error.emailInvalid": "Email is not valid",
+    "contactForm.error.subjectRequired": "Subject is required",
+    "contactForm.error.subjectMaxLength":
+      "Subject cannot exceed {max} characters",
+    "contactForm.error.messageRequired": "Message is required",
+    "contactForm.error.messageMinLength":
+      "Message must be at least {min} characters",
+    "contactForm.error.messageMaxLength":
+      "Message cannot exceed {max} characters",
+    "contactForm.message.success":
+      "Message sent successfully! I'll respond soon.",
+    "contactForm.message.error":
+      "There was an error sending the message. Please try again.",
+    "contactForm.message.cooldown":
+      "Please wait {seconds} seconds before sending another message.",
 
     // Projects page
     "projects.title": "All My Projects",
