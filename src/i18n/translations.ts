@@ -278,6 +278,3 @@ export function useContentTranslations(lang: Lang) {
     return translations[lang][key] || translations["es"][key];
   };
 }
-
-// Re-export for convenience
-export { t };

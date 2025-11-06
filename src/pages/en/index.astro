@@ -21,7 +21,7 @@ const tc = useContentTranslations(lang);
 
 const top6Projects = projects.slice(0, 6);
 const top6Skills = getLocalizedSkills('en').slice(0, 6);
-const posts = (await getCollection('blog', ({ data }) => data.lang === 'en')).sort((a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 5);
+const posts = (await getCollection('blog', ({ data }: BlogPost) => data.lang === 'en')).sort((a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 5);
 ---
 
 <BaseLayout 
