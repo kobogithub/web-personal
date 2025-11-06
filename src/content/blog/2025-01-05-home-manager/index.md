@@ -5,6 +5,8 @@ description: "Gestor de entorno para shell"
 tags: ["ZSH"]
 pubDate: "Jan 05 2025"
 coverImage: "./home-manager.jpg"
+lang: 'es'
+alternate: 'home-manager-en'
 ---
 
 # Gestión de Dotfiles con Nix y Home Manager: Una Guía Completa

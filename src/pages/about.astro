@@ -3,30 +3,34 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Ava from '@src/assets/img/ava.jpg';
 import Prose from '../components/Prose.astro';
+import { useContentTranslations } from '@src/i18n/translations';
 
+const lang = 'es';
+const tc = useContentTranslations(lang);
 ---
 
 <BaseLayout
-	title="Sobre mí"
-	description="Resumen de experiencias hasta la actualidad"
+	title={tc('about.title')}
+	description={tc('about.description')}
+	lang={lang}
 >
   <div class='container'>
 		<main class='prose text-lg dark:prose-invert'>
       <article>
         <div class='w-full md:flex md:items-center gap-16 mb-10'>
           <div class="text-pretty leading-9">
-            <h1 class="text-4xl font-bold mb-4">Hola 👋, Kevin Barroso 👷 </h1>
+            <h1 class="text-4xl font-bold mb-4">{tc('about.greeting')}</h1>
             <Prose>
               <div class="text-lg">
-                <p>Arquitecto de Soluciones/SRE Ssr con amplia experiencia en contenedores y cloud computing. Lidero equipos en la implementación de arquitecturas de datos, optimizando el rendimiento y la escalabilidad. Implementacion de servicios en arquitecturas ECS. Construcción, desarrollo e implementacion de arquitecturas Kubernetes en EKS. </p>
-                <p>Mi pasión es crear sistemas robustos y eficientes que impulsen la innovación, inspirando a los equipos a alcanzar la excelencia técnica. Ssr en AWS, Kubernetes, CI/CD, seguridad en la nube y automatización de infraestructura. Destaco por mi comunicación efectiva, resolución de problemas complejos y gestión de proyectos ágiles.</p>  
+                <p>{tc('about.intro.p1')}</p>
+                <p>{tc('about.intro.p2')}</p>  
               </div>
             </Prose>
           </div>
           <Image src={Ava} alt="Kevin Barroso" width={300}  class="rounded-3xl rotate-3 mx-4 md:mx-0"/>
         </div>     
         <div class="mt-12">
-          <h2 class="text-3xl font-bold mb-8">Experiencia Profesional</h2>
+          <h2 class="text-3xl font-bold mb-8">{tc('about.workExperience')}</h2>
           
           <div class="space-y-10">
             <!-- Trabajo actual -->
@@ -34,20 +38,20 @@ import Prose from '../components/Prose.astro';
               <div class="flex justify-between items-center">
                 <h3 class="text-xl font-semibold">Taligent</h3>
                 <span class="text-sm text-gray-600 dark:text-gray-400">
-                  Noviembre 2022 - Presente
+                  {tc('about.taligent.period')}
                 </span>
               </div>
               <p class="text-lg font-medium text-blue-600 dark:text-blue-400 mb-2">
-                Líder Técnico - Ingeniería de Datos
+                {tc('about.taligent.position')}
               </p>
               <ul class="list-disc list-inside space-y-2 text-base">
-                <li>Diseño e implementación de arquitecturas de datos avanzadas, desarrollando soluciones robustas en AWS y SAP</li>
-                <li>Optimización del rendimiento y escalabilidad de sistemas críticos en entornos cloud</li>
-                <li>Diseño, desarrollo e implementación de arquitectura ECS, utilizando servicios Fargate y Auto Scaling de EC2</li>
-                <li>Construcción y ejecución exitosa del plan de migración de servicios desde ECS hacia EKS</li>
-                <li>Implementación de pipelines de CI/CD mediante GitHub Actions, AWS CodePipeline y Concourse CI</li>
-                <li>Liderazgo de equipos en la implementación de Arquitecturas de datos</li>
-                <li>Optimización de costos e infraestructura en entornos cloud</li>
+                <li>{tc('about.taligent.task1')}</li>
+                <li>{tc('about.taligent.task2')}</li>
+                <li>{tc('about.taligent.task3')}</li>
+                <li>{tc('about.taligent.task4')}</li>
+                <li>{tc('about.taligent.task5')}</li>
+                <li>{tc('about.taligent.task6')}</li>
+                <li>{tc('about.taligent.task7')}</li>
               </ul>
             </div>
 
@@ -56,22 +60,22 @@ import Prose from '../components/Prose.astro';
               <div class="flex justify-between items-center">
                 <h3 class="text-xl font-semibold">Freelance</h3>
                 <span class="text-sm text-gray-600 dark:text-gray-400">
-                  Febrero 2019 - Noviembre 2022
+                  {tc('about.freelance.period')}
                 </span>
               </div>
               <p class="text-lg font-medium text-blue-600 dark:text-blue-400 mb-2">
-                Solutions Architect AWS + Developer
+                {tc('about.freelance.position')}
               </p>
               <ul class="list-disc list-inside space-y-2 text-base">
-                <li>Diseño e implementación de arquitecturas robustas para web hosting y microservicios</li>
-                <li>Implementación de soluciones de seguridad para contenedores en ECS</li>
-                <li>Desarrollo de sistemas de monitoreo avanzados con Grafana, Prometheus y Fluentd</li>
-                <li>Desarrollo e implementación de arquitecturas de orquestación con Apache Airflow en AutoScaling y MWAA</li>
-                <li>Desarrollo de microservicios y APIs con frameworks de Python</li>
-                <li>Construcción de soluciones dockerizadas para aplicaciones monolíticas y microservicios</li>
-                <li>Diseño e implementación de arquitecturas serverless con AWS Lambda y AWS SAM</li>
-                <li>Desarrollo de infraestructura como código utilizando Terraform</li>
-                <li>Integración de servicios AWS para soluciones cloud escalables y complejas</li>
+                <li>{tc('about.freelance.task1')}</li>
+                <li>{tc('about.freelance.task2')}</li>
+                <li>{tc('about.freelance.task3')}</li>
+                <li>{tc('about.freelance.task4')}</li>
+                <li>{tc('about.freelance.task5')}</li>
+                <li>{tc('about.freelance.task6')}</li>
+                <li>{tc('about.freelance.task7')}</li>
+                <li>{tc('about.freelance.task8')}</li>
+                <li>{tc('about.freelance.task9')}</li>
               </ul>
             </div>
           </div>
