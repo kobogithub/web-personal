@@ -128,3 +128,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Local Claude Code tooling (agent/skill symlinks are machine-specific)
+.claude/

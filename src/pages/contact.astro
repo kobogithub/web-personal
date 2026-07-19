@@ -1,13 +1,17 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import ContactForm from '../components/ContactForm';
-import Prose from '../components/Prose.astro';
+import BaseLayout from '@src/layouts/BaseLayout.astro';
+import ContactForm from '@src/components/ContactForm';
+import Prose from '@src/components/Prose.astro';
+import { useContentTranslations } from '@src/i18n/translations';
+
+const lang = 'es';
+const tc = useContentTranslations(lang);
 ---
 
 <BaseLayout
-	title="Contacto"
-	description="Ponte en contacto conmigo para proyectos, colaboraciones o consultas"
-	lang="es"
+	title={tc('contact.title')}
+	description={tc('contact.description')}
+	lang={lang}
 	alternateUrl="/en/contact/"
 	alternateLang="en"
 >
@@ -15,17 +19,14 @@ import Prose from '../components/Prose.astro';
     <main class='prose text-lg dark:prose-invert'>
       <article>
         <div class='mb-10'>
-          <h1 class="text-4xl font-bold mb-6">Contacto</h1>
+          <h1 class="text-4xl font-display font-bold uppercase tracking-tight mb-6">{tc('contact.title')}</h1>
           <Prose>
             <div class="text-lg">
               <p class="mb-6">
-                ¡Me encantaría saber de ti! Si tienes algún proyecto interesante, 
-                una propuesta de colaboración, o simplemente quieres conectar, 
-                no dudes en enviarme un mensaje.
+                {tc('contact.intro.p1')}
               </p>
               <p class="mb-8">
-                Ya sea que necesites ayuda con arquitectura cloud, desarrollo de aplicaciones, 
-                o consultoria técnica, estoy aquí para ayudarte a hacer realidad tus ideas.
+                {tc('contact.intro.p2')}
               </p>
             </div>
           </Prose>
@@ -33,52 +34,52 @@ import Prose from '../components/Prose.astro';
 
         <!-- Formulario de contacto -->
         <div class="mb-12">
-          <h2 class="text-3xl font-bold mb-8">Envíame un Mensaje</h2>
+          <h2 class="section-title mb-4">{tc('contact.form.title')}</h2>
           <ContactForm client:load lang="es" />
         </div>
 
         <!-- Información adicional -->
-        <div class="border-t border-gray-200 dark:border-zinc-700 pt-8">
-          <h3 class="text-2xl font-bold mb-4">¿En qué puedo ayudarte?</h3>
+        <div class="border-t border-magi-line pt-8">
+          <h3 class="section-title mb-4">{tc('contact.help.title')}</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <ul class="space-y-2">
               <li class="flex items-center">
-                <svg class="w-5 h-5 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 mr-3 text-magi-support" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                Arquitectura Cloud (AWS)
+                {tc('contact.help.cloud')}
               </li>
               <li class="flex items-center">
-                <svg class="w-5 h-5 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 mr-3 text-magi-support" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                Kubernetes & Contenedores
+                {tc('contact.help.kubernetes')}
               </li>
               <li class="flex items-center">
-                <svg class="w-5 h-5 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 mr-3 text-magi-support" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                CI/CD & DevOps
+                {tc('contact.help.cicd')}
               </li>
             </ul>
             <ul class="space-y-2">
               <li class="flex items-center">
-                <svg class="w-5 h-5 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 mr-3 text-magi-support" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                Desarrollo de APIs
+                {tc('contact.help.apis')}
               </li>
               <li class="flex items-center">
-                <svg class="w-5 h-5 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 mr-3 text-magi-support" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                Consultoría Técnica
+                {tc('contact.help.consulting')}
               </li>
               <li class="flex items-center">
-                <svg class="w-5 h-5 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 mr-3 text-magi-support" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                Mentoring & Coaching
+                {tc('contact.help.mentoring')}
               </li>
             </ul>
           </div>

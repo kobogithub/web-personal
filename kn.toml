@@ -1,0 +1,56 @@
+[project]
+name = "web-personal"
+description = ""
+workspace_standard = "claude"
+
+[skills]
+enabled = [
+    "uiux-viewport-testing",
+    "docker-best-practices",
+    "bash-best-practices",
+    "uiux-pixelmatch",
+    "terraform-best-practices",
+    "github-actions-best-practices",
+    "documentation-guide",
+    "astro-best-practices",
+    "uiux-axe-core",
+    "uiux-playwright",
+]
+
+[agents.planner]
+id = "web-personal-x6e"
+role = "planner"
+required_skills = []
+
+[agents.devops]
+id = "web-personal-w5p"
+role = "devops"
+required_skills = [
+    "docker-best-practices",
+    "bash-best-practices",
+    "terraform-best-practices",
+    "github-actions-best-practices",
+]
+
+[agents.uiux-tester]
+id = "web-personal-u7x"
+role = "uiux-tester"
+required_skills = [
+    "uiux-pixelmatch",
+    "uiux-playwright",
+    "uiux-axe-core",
+    "uiux-viewport-testing",
+]
+
+[agents.docs-writer]
+id = "web-personal-doc"
+role = "docs-writer"
+required_skills = ["documentation-guide"]
+
+[agents.frontend]
+id = "web-personal-4yh"
+role = "frontend"
+required_skills = [
+    "astro-best-practices",
+    "docker-best-practices",
+]

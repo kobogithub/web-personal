@@ -21,7 +21,8 @@ const tc = useContentTranslations(lang);
       <article>
         <div class='w-full md:flex md:items-center gap-16 mb-10'>
           <div class="text-pretty leading-9">
-            <h1 class="text-4xl font-bold mb-4">{tc('about.greeting')}</h1>
+            <p class="eyebrow mb-2">{tc('about.workExperience')}</p>
+            <h1 class="text-4xl font-display font-bold uppercase tracking-tight mb-4">{tc('about.greeting')}</h1>
             <Prose>
               <div class="text-lg">
                 <p>{tc('about.intro.p1')}</p>
@@ -29,21 +30,23 @@ const tc = useContentTranslations(lang);
               </div>
             </Prose>
           </div>
-          <Image src={Ava} alt="Kevin Barroso" width={300}  class="rounded-3xl rotate-3 mx-4 md:mx-0"/>
-        </div>     
+          <div class="corner-mark border border-magi-line p-1.5 mx-4 md:mx-0 shrink-0">
+            <Image src={Ava} alt="Kevin Barroso" width={300} class="grayscale-[15%]"/>
+          </div>
+        </div>
         <div class="mt-12">
-          <h2 class="text-3xl font-bold mb-8">{tc('about.workExperience')}</h2>
+          <h2 class="section-title mb-8">{tc('about.workExperience')}</h2>
           
           <div class="space-y-10">
             <!-- Current job -->
-            <div class="border-l-4 border-blue-500 pl-4">
+            <div class="border-l-4 border-magi-accent pl-4">
               <div class="flex justify-between items-center">
                 <h3 class="text-xl font-semibold">Taligent</h3>
-                <span class="text-sm text-gray-600 dark:text-gray-400">
+                <span class="text-sm text-magi-muted font-mono">
                   {tc('about.taligent.period')}
                 </span>
               </div>
-              <p class="text-lg font-medium text-blue-600 dark:text-blue-400 mb-2">
+              <p class="text-lg font-medium text-magi-accent mb-2">
                 {tc('about.taligent.position')}
               </p>
               <ul class="list-disc list-inside space-y-2 text-base">
@@ -54,18 +57,26 @@ const tc = useContentTranslations(lang);
                 <li>{tc('about.taligent.task5')}</li>
                 <li>{tc('about.taligent.task6')}</li>
                 <li>{tc('about.taligent.task7')}</li>
+                <li>{tc('about.taligent.task8')}</li>
+                <li>{tc('about.taligent.task9')}</li>
+                <li>{tc('about.taligent.task10')}</li>
+                <li>{tc('about.taligent.task11')}</li>
+                <li>{tc('about.taligent.task12')}</li>
+                <li>{tc('about.taligent.task13')}</li>
+                <li>{tc('about.taligent.task14')}</li>
+                <li>{tc('about.taligent.task15')}</li>
               </ul>
             </div>
 
             <!-- Previous job -->
-            <div class="border-l-4 border-blue-500 pl-4">
+            <div class="border-l-4 border-magi-accent pl-4">
               <div class="flex justify-between items-center">
                 <h3 class="text-xl font-semibold">Freelance</h3>
-                <span class="text-sm text-gray-600 dark:text-gray-400">
+                <span class="text-sm text-magi-muted font-mono">
                   {tc('about.freelance.period')}
                 </span>
               </div>
-              <p class="text-lg font-medium text-blue-600 dark:text-blue-400 mb-2">
+              <p class="text-lg font-medium text-magi-accent mb-2">
                 {tc('about.freelance.position')}
               </p>
               <ul class="list-disc list-inside space-y-2 text-base">
@@ -78,6 +89,35 @@ const tc = useContentTranslations(lang);
                 <li>{tc('about.freelance.task7')}</li>
                 <li>{tc('about.freelance.task8')}</li>
                 <li>{tc('about.freelance.task9')}</li>
+                <li>{tc('about.freelance.task10')}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teaching -->
+        <div class="mt-12">
+          <h2 class="section-title mb-8">{tc('about.teaching')}</h2>
+          
+          <div class="space-y-10">
+            <div class="border-l-4 border-magi-accent pl-4">
+              <div class="flex justify-between items-center">
+                <h3 class="text-xl font-semibold">{tc('about.utn.company')}</h3>
+                <span class="text-sm text-magi-muted font-mono">
+                  {tc('about.utn.period')}
+                </span>
+              </div>
+              <p class="text-lg font-medium text-magi-accent mb-2">
+                {tc('about.utn.position')}
+              </p>
+              <p class="text-base mb-2">
+                {tc('about.utn.summary')}
+              </p>
+              <ul class="list-disc list-inside space-y-2 text-base">
+                <li>{tc('about.utn.task1')}</li>
+                <li>{tc('about.utn.task2')}</li>
+                <li>{tc('about.utn.task3')}</li>
+                <li>{tc('about.utn.task4')}</li>
               </ul>
             </div>
           </div>
@@ -85,26 +125,26 @@ const tc = useContentTranslations(lang);
 
         <!-- Certifications -->
         <div class="mt-12">
-          <h2 class="text-3xl font-bold mb-8">{tc('about.certifications')}</h2>
+          <h2 class="section-title mb-8">{tc('about.certifications')}</h2>
           
           <div class="space-y-6">
-            <div class="border border-gray-300 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
+            <div class="corner-mark border border-magi-line p-6 hover:border-magi-accent transition-colors">
               <div class="flex items-start justify-between">
                 <div class="flex-1">
-                  <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 class="text-xl font-semibold text-magi-ink mb-2">
                     {tc('about.cert.aws.title')}
                   </h3>
-                  <p class="text-base text-gray-700 dark:text-gray-300 mb-1">
+                  <p class="text-base text-magi-muted mb-1">
                     {tc('about.cert.aws.issuer')}
                   </p>
-                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                  <p class="text-sm text-magi-muted font-mono mb-4">
                     {tc('about.cert.aws.date')}
                   </p>
                   <a 
                     href="https://www.credly.com/badges/9d6d2abb-b604-44af-b658-cbbe24de0d28"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium"
+                    class="inline-flex items-center text-magi-violet hover:text-magi-accent font-medium"
                   >
                     {tc('about.cert.verify')}
                     <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

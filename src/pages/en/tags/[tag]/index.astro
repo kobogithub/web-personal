@@ -41,13 +41,13 @@ const tagSlug = Astro.params.tag;
 >
   <div class='container'>
     <div class="mb-10">
-      <h1 class="text-3xl font-bold mb-2">
-        Tag: <span class="text-blue-600 dark:text-blue-400">{tag}</span>
+      <h1 class="text-3xl font-display font-bold uppercase tracking-tight mb-2">
+        Tag: <span class="text-magi-accent">{tag}</span>
       </h1>
-      <p class="text-zinc-700 dark:text-zinc-300 text-lg">
+      <p class="text-magi-muted text-lg">
         {sortedPosts.length} post{sortedPosts.length !== 1 ? 's' : ''} tagged with "{tag}"
       </p>
-      <a href="/en/tags/" class="text-blue-600 dark:text-blue-400 hover:underline mt-4 inline-block">
+      <a href="/en/tags/" class="text-magi-violet hover:text-magi-accent hover:underline mt-4 inline-block">
         ← All tags
       </a>
     </div>

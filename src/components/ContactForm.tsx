@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import type { Lang } from '@src/i18n/index';
 import { useContentTranslations } from '@src/i18n/translations';
 import type { TranslationKey } from '@src/i18n/translations';
+import Input from './atoms/Input';
 
 const MAX_LENGTHS = {
   name: 100,
@@ -37,6 +38,19 @@ interface ContactFormProps {
   lang?: Lang;
 }
 
+type SubmitStatus = 'success' | 'error' | 'cooldown';
+
+const STATUS_STYLES: Record<SubmitStatus, { rail: string; text: string; bg: string; dot: string }> = {
+  success: { rail: 'border-t-magi-support', text: 'text-magi-support', bg: 'bg-magi-support/10', dot: 'bg-magi-support' },
+  error: { rail: 'border-t-magi-danger', text: 'text-magi-danger', bg: 'bg-magi-danger/10', dot: 'bg-magi-danger' },
+  cooldown: { rail: 'border-t-magi-violet', text: 'text-magi-violet', bg: 'bg-magi-violet/10', dot: 'bg-magi-violet' },
+};
+
+const STATUS_LABEL: Record<Lang, Record<SubmitStatus, string>> = {
+  es: { success: 'TRANSMISIÓN RECIBIDA', error: 'FALLO DE TRANSMISIÓN', cooldown: 'EN ESPERA' },
+  en: { success: 'TRANSMISSION RECEIVED', error: 'TRANSMISSION FAILED', cooldown: 'STANDING BY' },
+};
+
 export default function ContactForm({ lang = 'es' }: ContactFormProps) {
   const t = useContentTranslations(lang);
   const [formData, setFormData] = useState<FormData>({
@@ -49,7 +63,31 @@ export default function ContactForm({ lang = 'es' }: ContactFormProps) {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus | null>(null);
+  const [displayedMessage, setDisplayedMessage] = useState('');
   const [cooldownSeconds, setCooldownSeconds] = useState(0);
+
+  // Type out the status message like a terminal readout
+  React.useEffect(() => {
+    if (!submitMessage) {
+      setDisplayedMessage('');
+      return;
+    }
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      setDisplayedMessage(submitMessage);
+      return;
+    }
+    const chars = Array.from(submitMessage);
+    setDisplayedMessage('');
+    let i = 0;
+    const interval = setInterval(() => {
+      i++;
+      setDisplayedMessage(chars.slice(0, i).join(''));
+      if (i >= chars.length) clearInterval(interval);
+    }, 18);
+    return () => clearInterval(interval);
+  }, [submitMessage]);
 
   const COOLDOWN_MS = 60000; // 1 minute
   const STORAGE_KEY = 'lastContactSubmit';
@@ -151,6 +189,7 @@ export default function ContactForm({ lang = 'es' }: ContactFormProps) {
     
     // Check rate limit
     if (cooldownSeconds > 0) {
+      setSubmitStatus('cooldown');
       setSubmitMessage(tr('contactForm.message.cooldown', { seconds: cooldownSeconds }));
       return;
     }
@@ -181,7 +220,8 @@ export default function ContactForm({ lang = 'es' }: ContactFormProps) {
         // Set rate limit
         localStorage.setItem(STORAGE_KEY, Date.now().toString());
         setCooldownSeconds(Math.ceil(COOLDOWN_MS / 1000));
-        
+
+        setSubmitStatus('success');
         setSubmitMessage(tr('contactForm.message.success'));
         setFormData({
           name: '',
@@ -206,9 +246,11 @@ export default function ContactForm({ lang = 'es' }: ContactFormProps) {
           }
         }
         
+        setSubmitStatus('error');
         setSubmitMessage(tr('contactForm.message.error'));
       }
     } catch (error) {
+      setSubmitStatus('error');
       setSubmitMessage(tr('contactForm.message.error'));
     } finally {
       setIsSubmitting(false);
@@ -218,106 +260,65 @@ export default function ContactForm({ lang = 'es' }: ContactFormProps) {
   return (
     <div className="max-w-2xl mx-auto">
       <form onSubmit={handleSubmit} className="space-y-6">
+        {submitStatus !== 'success' && (
+        <>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              {tr('contactForm.label.name')} *
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              maxLength={MAX_LENGTHS.name}
-              className={`w-full px-4 py-3 rounded-lg border transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white ${
-                errors.name 
-                  ? 'border-red-500 focus:ring-red-500' 
-                  : 'border-gray-300 dark:border-zinc-600 focus:border-blue-500'
-              }`}
-              placeholder={tr('contactForm.placeholder.name')}
-            />
-            {errors.name && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>}
-          </div>
-
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              {tr('contactForm.label.email')} *
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              maxLength={MAX_LENGTHS.email}
-              className={`w-full px-4 py-3 rounded-lg border transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white ${
-                errors.email 
-                  ? 'border-red-500 focus:ring-red-500' 
-                  : 'border-gray-300 dark:border-zinc-600 focus:border-blue-500'
-              }`}
-              placeholder={tr('contactForm.placeholder.email')}
-            />
-            {errors.email && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>}
-          </div>
-        </div>
-
-        <div>
-          <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            {tr('contactForm.label.subject')} *
-          </label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            value={formData.subject}
+          <Input
+            id="name"
+            name="name"
+            label={tr('contactForm.label.name')}
+            value={formData.name}
             onChange={handleChange}
-            maxLength={MAX_LENGTHS.subject}
-            className={`w-full px-4 py-3 rounded-lg border transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:border-zinc-600 dark:text-white ${
-              errors.subject 
-                ? 'border-red-500 focus:ring-red-500' 
-                : 'border-gray-300 dark:border-zinc-600 focus:border-blue-500'
-            }`}
-            placeholder={tr('contactForm.placeholder.subject')}
+            error={errors.name}
+            maxLength={MAX_LENGTHS.name}
+            placeholder={tr('contactForm.placeholder.name')}
           />
-          {errors.subject && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.subject}</p>}
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            label={tr('contactForm.label.email')}
+            value={formData.email}
+            onChange={handleChange}
+            error={errors.email}
+            maxLength={MAX_LENGTHS.email}
+            placeholder={tr('contactForm.placeholder.email')}
+          />
         </div>
 
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              {tr('contactForm.label.message')} *
-            </label>
-            <span className="text-xs text-gray-500 dark:text-gray-400">
-              {formData.message.length}/{MAX_LENGTHS.message}
-            </span>
-          </div>
-          <textarea
-            id="message"
-            name="message"
-            rows={6}
-            value={formData.message}
-            onChange={handleChange}
-            maxLength={MAX_LENGTHS.message}
-            className={`w-full px-4 py-3 rounded-lg border transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-vertical dark:bg-zinc-800 dark:border-zinc-600 dark:text-white ${
-              errors.message 
-                ? 'border-red-500 focus:ring-red-500' 
-                : 'border-gray-300 dark:border-zinc-600 focus:border-blue-500'
-            }`}
-            placeholder={tr('contactForm.placeholder.message')}
-          />
-          {errors.message && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.message}</p>}
-        </div>
+        <Input
+          id="subject"
+          name="subject"
+          label={tr('contactForm.label.subject')}
+          value={formData.subject}
+          onChange={handleChange}
+          error={errors.subject}
+          maxLength={MAX_LENGTHS.subject}
+          placeholder={tr('contactForm.placeholder.subject')}
+        />
+
+        <Input
+          as="textarea"
+          id="message"
+          name="message"
+          label={tr('contactForm.label.message')}
+          value={formData.message}
+          onChange={handleChange}
+          error={errors.message}
+          maxLength={MAX_LENGTHS.message}
+          placeholder={tr('contactForm.placeholder.message')}
+          showCounter
+        />
 
         <div>
           <button
             type="submit"
             disabled={isSubmitting || cooldownSeconds > 0}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed"
+            className="corner-cut w-full bg-magi-accent hover:brightness-110 hover:shadow-[0_0_20px_-4px_var(--magi-accent)] disabled:opacity-50 disabled:hover:shadow-none text-magi-accent-ink font-mono font-semibold uppercase tracking-wider py-3 px-6 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-magi-accent focus:ring-offset-2 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
               <span className="flex items-center justify-center">
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
@@ -330,16 +331,23 @@ export default function ContactForm({ lang = 'es' }: ContactFormProps) {
             )}
           </button>
         </div>
+        </>
+        )}
 
-        {submitMessage && (
-          <div className={`p-4 rounded-lg ${
-            submitMessage.includes('espera')
-              ? 'bg-yellow-50 text-yellow-800 border border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800'
-              : submitMessage.includes('error') || submitMessage.includes('Hubo un error')
-              ? 'bg-red-50 text-red-800 border border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800'
-              : 'bg-green-50 text-green-800 border border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800'
-          }`}>
-            {submitMessage}
+        {submitMessage && submitStatus && (
+          <div
+            key={submitMessage}
+            className={`transmit-in corner-mark border border-magi-line border-t-2 ${STATUS_STYLES[submitStatus].rail} ${STATUS_STYLES[submitStatus].bg} p-4`}
+          >
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className={`inline-block w-2 h-2 shrink-0 animate-pulse ${STATUS_STYLES[submitStatus].dot}`} />
+              <span className={`font-mono text-xs uppercase tracking-wider ${STATUS_STYLES[submitStatus].text}`}>
+                {STATUS_LABEL[lang][submitStatus]}
+              </span>
+            </div>
+            <p className={`typewriter-cursor font-mono text-sm ${STATUS_STYLES[submitStatus].text}`}>
+              {displayedMessage}
+            </p>
           </div>
         )}
       </form>

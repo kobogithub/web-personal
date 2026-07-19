@@ -13,12 +13,12 @@ interface Props {
 
 const { post, lang = 'es' } = Astro.props as Props;
 ---
-<div class='flex flex-col sm:flex-row gap-2 sm:items-center  border-b py-2 mb-1 capitalize dark:border-b-zinc-700'>        
-  <div class='text-zinc-700 text-sm w-24 dark:text-zinc-300 shrink-0'>
+<div class='assemble flex flex-col sm:flex-row gap-2 sm:items-center border-b border-magi-line py-2 mb-1 capitalize' data-dir='up'>
+  <div class='text-magi-muted text-sm w-24 shrink-0 font-mono'>
     <FormattedDate date={post.data.pubDate} />
   </div>
   <h3 class='font-medium grow'>
-    <a href={linkFor(lang, `${post.slug}/`)}>
+    <a href={linkFor(lang, `${post.slug}/`)} class='hover:text-magi-accent transition-colors'>
       {post.data.title}
     </a>
   </h3>
@@ -26,10 +26,10 @@ const { post, lang = 'es' } = Astro.props as Props;
     {
       (post.data.tags || [] )?.map((tag: string) => (
         <a
-          class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
-          text-sm text-zinc-700 dark:text-zinc-300 no-underline px-2 py-0.5
-          transition-all duration-700
-          hover:border-zinc-700 dark:hover:border-zinc-300'
+          class='border border-magi-line
+          text-xs font-mono text-magi-support no-underline px-2 py-0.5
+          transition-all duration-300
+          hover:border-magi-support'
           href={linkFor(lang, `tags/${slugify(tag)}`)}>
           {tag}
         </a>

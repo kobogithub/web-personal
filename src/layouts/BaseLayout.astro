@@ -29,13 +29,62 @@ const { title, description, image, lang = 'es', alternateUrl, alternateLang } = 
 		/>
 	</head>
 	<body
-		class="bg-white dark:bg-zinc-900 dark:text-zinc-100 pt-16 sm:pt-0"
+		class="bg-magi-bg text-magi-ink pt-16 sm:pt-0"
 	>
+		<div class="magi-bg-fx" aria-hidden="true"></div>
 		<Header lang={lang}/>
 		<main class='py-8 min-h-[calc(100vh-160px)]'>
 			<slot />
 		</main>
 		<Footer lang={lang} />
+		<script is:inline>
+			(function () {
+				var els = Array.prototype.slice.call(document.querySelectorAll('.assemble'));
+				if (!els.length) return;
+				var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+				if (reduced) {
+					els.forEach(function (el) {
+						el.classList.add('is-assembled');
+					});
+					return;
+				}
+				var groups = new Map();
+				els.forEach(function (el) {
+					var parent = el.parentElement;
+					var list = groups.get(parent);
+					if (!list) {
+						list = [];
+						groups.set(parent, list);
+					}
+					list.push(el);
+				});
+				groups.forEach(function (list) {
+					list.forEach(function (el, i) {
+						el.style.setProperty('--assemble-delay', Math.min(i * 70, 420) + 'ms');
+					});
+				});
+				if (!('IntersectionObserver' in window)) {
+					els.forEach(function (el) {
+						el.classList.add('is-assembled');
+					});
+					return;
+				}
+				var io = new IntersectionObserver(
+					function (entries) {
+						entries.forEach(function (entry) {
+							if (entry.isIntersecting) {
+								entry.target.classList.add('is-assembled');
+								io.unobserve(entry.target);
+							}
+						});
+					},
+					{ threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+				);
+				els.forEach(function (el) {
+					io.observe(el);
+				});
+			})();
+		</script>
 		<!-- Google tag (gtag.js) -->
     {
       GTAG_MEASUREMENT_ID &&
