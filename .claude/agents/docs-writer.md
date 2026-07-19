@@ -1,1 +1,0 @@
-/Users/kobo/.kn/agents/docs-writer/AGENTS.md
