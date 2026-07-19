@@ -47,6 +47,15 @@
 }
 
 @layer components {
+	/* hides the scrollbar on horizontally-scrollable strips (e.g. the mobile nav pill)
+	   while keeping touch/wheel scroll functional */
+	.no-scrollbar {
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
 	/* clipped corner used on buttons/panels instead of border-radius */
 	.corner-cut {
 		clip-path: polygon(0 0, 100% 0, 100% 100%, 10px 100%, 0 calc(100% - 10px));
