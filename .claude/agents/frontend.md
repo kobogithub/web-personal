@@ -1,0 +1,1 @@
+/Users/kobo/.kn/agents/frontend/AGENTS.md

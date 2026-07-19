@@ -15,8 +15,14 @@ interface Props {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = '/syakir.webp', lang = 'es', alternateUrl, alternateLang } = Astro.props;
+const { title, description, image = '/og-image.jpg', lang = 'es', alternateUrl, alternateLang } = Astro.props;
 ---
+
+<!-- Confirms JS actually runs before paint; .assemble entrance animations only hide
+     content when this class is present, so a blocked/failed script leaves everything visible. -->
+<script is:inline>
+	document.documentElement.classList.add('js-assemble');
+</script>
 
 <!-- Global Metadata -->
 <meta charset='utf-8' />

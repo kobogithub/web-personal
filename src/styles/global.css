@@ -1,9 +1,274 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Panel MAGI type: Rajdhani (display) + IBM Plex Mono (technical readouts) */
+@import '@fontsource/rajdhani/500.css';
+@import '@fontsource/rajdhani/600.css';
+@import '@fontsource/rajdhani/700.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-mono/600.css';
+
+/* Panel MAGI design tokens (see design pitch) */
+:root {
+	--magi-bg: #ebe7e1;
+	--magi-surface: #f7f5f1;
+	--magi-surface-2: #ffffff;
+	--magi-ink: #1b1520;
+	--magi-muted: #665d6e;
+	--magi-line: rgba(27, 21, 32, 0.14);
+	--magi-accent: #d8490f;
+	--magi-accent-ink: #fbede4;
+	--magi-violet: #5b3383;
+	--magi-support: #5f7a2e;
+	--magi-danger: #c21f2a;
+}
+
+.dark {
+	--magi-bg: #14101a;
+	--magi-surface: #1e1826;
+	--magi-surface-2: #241c30;
+	--magi-ink: #efe8de;
+	--magi-muted: #a79bb0;
+	--magi-line: rgba(239, 232, 222, 0.12);
+	--magi-accent: #ff5b21;
+	--magi-accent-ink: #1b0d06;
+	--magi-violet: #9a6fd1;
+	--magi-support: #9cb35f;
+	--magi-danger: #ff5a63;
+}
+
 @layer base {
 	pre,
 	code {
 		font-size: 0.875rem;
+	}
+}
+
+@layer components {
+	/* clipped corner used on buttons/panels instead of border-radius */
+	.corner-cut {
+		clip-path: polygon(0 0, 100% 0, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+	}
+	/* targeting-reticle lock-on corners, used on cards and framed boxes; brackets grow on hover */
+	.corner-mark {
+		position: relative;
+	}
+	.corner-mark::before,
+	.corner-mark::after {
+		content: '';
+		position: absolute;
+		width: 12px;
+		height: 12px;
+		border-color: var(--magi-accent);
+		pointer-events: none;
+		transition: width 0.2s ease, height 0.2s ease;
+	}
+	.corner-mark::before {
+		top: -1px;
+		left: -1px;
+		border-top: 2px solid;
+		border-left: 2px solid;
+	}
+	.corner-mark::after {
+		bottom: -1px;
+		right: -1px;
+		border-bottom: 2px solid;
+		border-right: 2px solid;
+	}
+	.corner-mark:hover::before,
+	.corner-mark:hover::after {
+		width: 18px;
+		height: 18px;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.corner-mark::before,
+		.corner-mark::after {
+			transition: none;
+		}
+	}
+	/* accent glow used on hover for cards and primary buttons */
+	.glow-accent {
+		transition: box-shadow 0.2s ease, transform 0.15s ease;
+	}
+	.glow-accent:hover {
+		box-shadow: 0 0 0 1px var(--magi-accent), 0 0 20px -6px var(--magi-accent);
+	}
+	/* live-status pulse on section-title bullets */
+	.section-title::before {
+		animation: magi-pulse 2.4s ease-in-out infinite;
+	}
+	@keyframes magi-pulse {
+		0%,
+		100% {
+			opacity: 1;
+			transform: scale(1);
+			filter: drop-shadow(0 0 0 transparent);
+		}
+		50% {
+			opacity: 0.6;
+			transform: scale(1.15);
+			filter: drop-shadow(0 0 4px var(--magi-accent));
+		}
+	}
+	/* blinking terminal cursor appended after typewriter-animated text */
+	.typewriter-cursor::after {
+		content: '_';
+		display: inline-block;
+		margin-left: 2px;
+		color: var(--magi-accent);
+		animation: magi-blink 1s step-end infinite;
+	}
+	@keyframes magi-blink {
+		0%,
+		49% {
+			opacity: 1;
+		}
+		50%,
+		100% {
+			opacity: 0;
+		}
+	}
+	/* "EVA assembly" entrance: panels snap into place, staggered via --assemble-delay (set by JS).
+	   Hidden state only applies once .js-assemble (set by a blocking script in <head>) confirms JS
+	   actually ran, so a blocked/broken script leaves everything visible instead of stuck at opacity:0. */
+	.js-assemble .assemble {
+		opacity: 0;
+		transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+		transition-delay: var(--assemble-delay, 0ms);
+	}
+	.js-assemble .assemble[data-dir='up'] {
+		transform: translateY(28px);
+	}
+	.js-assemble .assemble[data-dir='left'] {
+		transform: translateX(-36px);
+	}
+	.js-assemble .assemble[data-dir='right'] {
+		transform: translateX(36px);
+	}
+	.js-assemble .assemble.is-assembled {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+	/* signal-lock flicker used when a status readout (e.g. contact form result) mounts */
+	.transmit-in {
+		animation: magi-transmit-in 0.6s ease-out both;
+	}
+	@keyframes magi-transmit-in {
+		0% {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		35% {
+			opacity: 0.5;
+			transform: translateY(4px);
+		}
+		55% {
+			opacity: 0.15;
+		}
+		70% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+		100% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	/* ambient background: blueprint grid drift + slow radar-style scan sweep */
+	.magi-bg-fx {
+		position: fixed;
+		inset: 0;
+		pointer-events: none;
+		overflow: hidden;
+	}
+	.magi-bg-fx::before {
+		content: '';
+		position: absolute;
+		inset: -48px;
+		background-image: linear-gradient(var(--magi-line) 1px, transparent 1px),
+			linear-gradient(90deg, var(--magi-line) 1px, transparent 1px);
+		background-size: 48px 48px;
+		opacity: 0.6;
+		animation: magi-grid-drift 50s linear infinite;
+	}
+	.magi-bg-fx::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: -160px;
+		height: 160px;
+		background: linear-gradient(to bottom, transparent, var(--magi-accent) 45%, transparent);
+		opacity: 0.08;
+		animation: magi-scan-sweep 9s ease-in-out infinite;
+	}
+	@keyframes magi-grid-drift {
+		from {
+			transform: translate(0, 0);
+		}
+		to {
+			transform: translate(48px, 48px);
+		}
+	}
+	@keyframes magi-scan-sweep {
+		0% {
+			top: -160px;
+		}
+		100% {
+			top: 100%;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.section-title::before,
+		.typewriter-cursor::after {
+			animation: none;
+		}
+		.assemble {
+			opacity: 1 !important;
+			transform: none !important;
+			transition: none !important;
+		}
+		.magi-bg-fx::before,
+		.magi-bg-fx::after {
+			animation: none;
+		}
+		.transmit-in {
+			animation: none;
+		}
+	}
+	/* small mono uppercase label, e.g. "STATUS: PUBLISHED" */
+	.eyebrow {
+		font-family: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+		text-transform: uppercase;
+		letter-spacing: 0.14em;
+		font-size: 0.72rem;
+		color: var(--magi-accent);
+	}
+	/* section heading in the HUD readout style: mono, uppercase, square bullet */
+	.section-title {
+		font-family: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+		font-size: 0.85rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--magi-muted);
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+	.section-title::before {
+		content: '';
+		width: 8px;
+		height: 8px;
+		background: var(--magi-accent);
+		display: inline-block;
+		flex-shrink: 0;
+	}
+	/* angled hazard-stripe divider, used sparingly between major sections */
+	.hazard-stripe {
+		height: 3px;
+		background: repeating-linear-gradient(120deg, var(--magi-accent) 0 18px, transparent 18px 30px);
+		opacity: 0.55;
 	}
 }

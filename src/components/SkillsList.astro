@@ -6,25 +6,28 @@ const { skills } = Astro.props;
 
 <div class="grid grid-cols-12 gap-5">
   {
-    skills.map((skill: Skills) => (
-      <div class="col-span-12 sm:col-span-6 lg:col-span-4 border dark:border-zinc-700 rounded-xl shadow-sm p-5">
+    skills.map((skill: Skills, index: number) => (
+      <div
+        class="corner-mark glow-accent assemble col-span-12 sm:col-span-6 lg:col-span-4 border border-magi-line border-t-2 border-t-magi-accent bg-magi-surface p-5 hover:-translate-y-1"
+        data-dir={index % 2 === 0 ? 'left' : 'right'}
+      >
         <div class="flex items-center gap-2 mb-2">
           <IconifyIcon icon={skill.icon} client:load />
           <h3 class="font-semibold">
             {skill.name}
           </h3>
         </div>
-        <div class="text-zinc-600 dark:text-zinc-300 mb-4 min-h-[50px]">
+        <div class="text-magi-muted mb-4 min-h-[50px]">
           <p>{skill.description}</p>
         </div>
         <div class="flex flex-wrap gap-2 mb-4">
           {
             (skill.tags || [])?.map((tag: string) => (
               <span
-                class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
-                  text-sm text-zinc-700 dark:text-zinc-300 no-underline px-2 py-0.5
-                  transition-all duration-700
-                hover:border-zinc-700 dark:hover:border-zinc-300'
+                class='border border-magi-line
+                  text-xs font-mono text-magi-support no-underline px-2 py-0.5
+                  transition-all duration-300
+                hover:border-magi-support'
               >
                 {tag}
               </span>
@@ -33,7 +36,7 @@ const { skills } = Astro.props;
         </div>
         {skill.postLink && (
           <div class="flex justify-end">
-            <a class="underline flex items-center gap-2" href={skill.postLink}>
+            <a class="underline text-magi-violet hover:text-magi-accent flex items-center gap-2" href={skill.postLink}>
               Article
             </a>
           </div>

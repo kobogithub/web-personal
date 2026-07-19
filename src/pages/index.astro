@@ -32,23 +32,53 @@ const posts = (await getCollection('blog', ({ data }: BlogPost) => data.lang ===
 	alternateLang="en"
 >
 	<div class='container'>
-		<div class='w-full md:flex md:items-center gap-16 mb-10'>
+		<div class='assemble w-full md:flex md:items-center gap-16 mb-10' data-dir='up'>
       <div class="text-pretty leading-9">
-        <h1 class="text-4xl font-bold mb-4">{tc('home.greeting')}</h1>
+        <p class="eyebrow mb-2">{t('site.tagline')}</p>
+        <h1 id="home-greeting" class="typewriter-cursor text-4xl font-display font-bold uppercase tracking-tight mb-4">{tc('home.greeting')}</h1>
         <Prose>
           <div class="text-lg">
             <p>{tc('home.intro.p1')}</p>
-            <p>{tc('home.intro.p2')}</p>  
+            <p>{tc('home.intro.p2')}</p>
           </div>
         </Prose>
       </div>
-      <Image src={Ava} alt="Kevin Barroso" width={300} loading="eager" class="rounded-3xl rotate-3 mx-4 md:mx-0"/>
+      <div class="corner-mark border border-magi-line p-1.5 mx-4 md:mx-0 shrink-0">
+        <Image src={Ava} alt="Kevin Barroso" width={300} loading="eager" class="grayscale-[15%]"/>
+      </div>
 		</div>
+		<script is:inline>
+			(function () {
+				var el = document.getElementById('home-greeting');
+				if (!el) return;
+				var original = el.textContent || '';
+				var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+				if (reduced) return;
+				try {
+					var chars = Array.from(original);
+					el.textContent = '';
+					var i = 0;
+					(function type() {
+						try {
+							if (i <= chars.length) {
+								el.textContent = chars.slice(0, i).join('');
+								i++;
+								setTimeout(type, 45);
+							}
+						} catch (e) {
+							el.textContent = original;
+						}
+					})();
+				} catch (e) {
+					el.textContent = original;
+				}
+			})();
+		</script>
 		<main>
       <div class='mt-6 mb-12'>
-        <div class="flex justify-between gap-2 border-b mb-1 dark:border-b-zinc-700">
-          <h2 class="text-lg font-bold mb-3">{tc('home.recentPosts')}</h2>
-          <a href="/posts/" class="inline-block py-2 underline dark:prose-invert">{tc('home.allPosts')} &raquo;</a>
+        <div class="flex justify-between gap-2 border-b border-magi-line mb-1 pb-2">
+          <h2 class="section-title">{tc('home.recentPosts')}</h2>
+          <a href="/posts/" class="inline-block py-2 underline text-magi-violet hover:text-magi-accent">{tc('home.allPosts')} &raquo;</a>
         </div>
         <div>
           {
@@ -61,16 +91,16 @@ const posts = (await getCollection('blog', ({ data }: BlogPost) => data.lang ===
         </div>
       </div>
       <div class='mb-12'>
-        <div class="flex justify-between gap-2 mb-1">
-          <h2 class="text-lg font-bold mb-3">{tc('home.myProjects')}</h2>
-          <a href="/projects/" class="inline-block py-2 underline dark:prose-invert">{tc('home.allProjects')} &raquo;</a>
+        <div class="flex justify-between gap-2 mb-4 border-b border-magi-line pb-2">
+          <h2 class="section-title">{tc('home.myProjects')}</h2>
+          <a href="/projects/" class="inline-block py-2 underline text-magi-violet hover:text-magi-accent">{tc('home.allProjects')} &raquo;</a>
         </div>
         <ProjectList projects={top6Projects} lang={lang}/>
       </div>
       <div>
-        <div class="flex justify-between gap-2 mb-1">
-          <h2 class="text-lg font-bold mb-3">{tc('home.mySkills')}</h2>
-          <a href="/skills/" class="inline-block py-2 underline dark:prose-invert">{tc('home.allSkills')} &raquo;</a>
+        <div class="flex justify-between gap-2 mb-4 border-b border-magi-line pb-2">
+          <h2 class="section-title">{tc('home.mySkills')}</h2>
+          <a href="/skills/" class="inline-block py-2 underline text-magi-violet hover:text-magi-accent">{tc('home.allSkills')} &raquo;</a>
         </div>
         <SkillsList skills={top6Skills}/>
       </div>

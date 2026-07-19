@@ -1,0 +1,36 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Variant = 'primary' | 'secondary' | 'ghost';
+
+type Props = HTMLAttributes<'a'> & {
+	variant?: Variant;
+	as?: 'a' | 'button';
+};
+
+const { variant = 'primary', as = 'a', class: className, ...props } = Astro.props as Props;
+
+const variantClass: Record<Variant, string> = {
+	primary: 'bg-magi-accent text-magi-accent-ink border-transparent hover:brightness-110 hover:shadow-[0_0_20px_-4px_var(--magi-accent)]',
+	secondary: 'bg-transparent text-magi-ink border-magi-ink hover:bg-magi-ink/5 hover:shadow-[0_0_16px_-6px_var(--magi-ink)]',
+	ghost: 'bg-transparent text-magi-violet border-transparent px-1 hover:brightness-110',
+};
+
+const classes = [
+	'corner-cut inline-flex items-center justify-center gap-1.5 border font-mono font-semibold text-xs uppercase tracking-wider px-5 py-2.5 transition-all duration-150 hover:-translate-y-0.5 active:translate-y-0',
+	variantClass[variant],
+	className,
+];
+---
+
+{
+	as === 'button' ? (
+		<button class:list={classes} {...(props as HTMLAttributes<'button'>)}>
+			<slot />
+		</button>
+	) : (
+		<a class:list={classes} {...props}>
+			<slot />
+		</a>
+	)
+}
