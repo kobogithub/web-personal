@@ -56,6 +56,12 @@
 	.no-scrollbar::-webkit-scrollbar {
 		display: none;
 	}
+	/* fades the left/right edges of a horizontally-scrollable strip so overflowing
+	   content (e.g. the mobile nav pill) reads as "scroll for more" instead of "cut off" */
+	.nav-scroll-fade {
+		-webkit-mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent);
+		mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent);
+	}
 	/* clipped corner used on buttons/panels instead of border-radius */
 	.corner-cut {
 		clip-path: polygon(0 0, 100% 0, 100% 100%, 10px 100%, 0 calc(100% - 10px));
