@@ -1,0 +1,118 @@
+---
+import { useTranslations, type Lang } from '@src/i18n/index';
+import Button from './atoms/Button.astro';
+
+const { lang = 'es' } = Astro.props as { lang?: Lang };
+const t = useTranslations(lang);
+const bootLines = [t('gate.boot1'), t('gate.boot2'), t('gate.boot3')];
+---
+
+<div
+	id='magi-gate'
+	class='fixed inset-0 z-[9999] flex items-center justify-center bg-magi-bg px-4'
+	role='dialog'
+	aria-modal='true'
+	aria-label={t('gate.title')}
+>
+	<div id='magi-gate-door-left' class='absolute inset-y-0 left-0 w-1/2 bg-magi-bg border-r border-magi-line shadow-[inset_-8px_0_16px_-8px_var(--magi-accent)] overflow-hidden'>
+		<div class='magi-bg-fx' aria-hidden='true'></div>
+	</div>
+	<div id='magi-gate-door-right' class='absolute inset-y-0 right-0 w-1/2 bg-magi-bg border-l border-magi-line shadow-[inset_8px_0_16px_-8px_var(--magi-accent)] overflow-hidden'>
+		<div class='magi-bg-fx' aria-hidden='true'></div>
+	</div>
+	<div id='magi-gate-panel' class='corner-mark relative border border-magi-line border-t-2 border-t-magi-accent bg-magi-surface w-[min(92vw,32rem)] p-8 text-center'>
+		<p class='eyebrow mb-4'>{t('gate.eyebrow')}</p>
+		<div id='magi-gate-log' class='font-mono text-xs text-magi-muted text-left mb-6 min-h-[4.5em] space-y-1'></div>
+		<h1 class='font-display font-bold uppercase tracking-tight text-4xl sm:text-5xl text-magi-ink mb-2'>{t('gate.title')}</h1>
+		<p class='font-mono text-xs text-magi-muted mb-8'>{t('gate.subtitle')}</p>
+		<Button as='button' id='magi-gate-enter' class='mx-auto'>{t('gate.enter')}</Button>
+		<p class='font-mono text-[0.65rem] text-magi-muted mt-4 opacity-70'>{t('gate.hint')}</p>
+	</div>
+</div>
+
+<noscript>
+	<style>
+		#magi-gate {
+			display: none;
+		}
+	</style>
+</noscript>
+
+<script is:inline define:vars={{ bootLines }}>
+	(function () {
+		var STORAGE_KEY = 'magi-gate-passed';
+		var gate = document.getElementById('magi-gate');
+		var siteContent = document.getElementById('site-content');
+		if (!gate) return;
+
+		if (sessionStorage.getItem(STORAGE_KEY)) {
+			gate.remove();
+			return;
+		}
+
+		document.body.style.overflow = 'hidden';
+		if (siteContent) siteContent.setAttribute('inert', '');
+		window.__magiGatePending = true;
+
+		var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		var log = document.getElementById('magi-gate-log');
+		var enterBtn = document.getElementById('magi-gate-enter');
+
+		function typeLines(lines) {
+			if (reduced) {
+				lines.forEach(function (line) {
+					var p = document.createElement('p');
+					p.textContent = '> ' + line;
+					log.appendChild(p);
+				});
+				return;
+			}
+			var i = 0;
+			function nextLine() {
+				if (i >= lines.length) return;
+				var p = document.createElement('p');
+				p.className = 'typewriter-cursor';
+				log.appendChild(p);
+				var text = '> ' + lines[i];
+				var c = 0;
+				var iv = setInterval(function () {
+					c++;
+					p.textContent = text.slice(0, c);
+					if (c >= text.length) {
+						clearInterval(iv);
+						p.classList.remove('typewriter-cursor');
+						i++;
+						setTimeout(nextLine, 150);
+					}
+				}, 18);
+			}
+			nextLine();
+		}
+
+		typeLines(bootLines);
+
+		function enter() {
+			sessionStorage.setItem(STORAGE_KEY, '1');
+			document.removeEventListener('keydown', onKey);
+			document.body.style.overflow = '';
+			if (siteContent) siteContent.removeAttribute('inert');
+			enterBtn.disabled = true;
+			gate.classList.add('is-opening');
+			setTimeout(
+				function () {
+					gate.remove();
+					document.dispatchEvent(new CustomEvent('magi:gate-opened'));
+				},
+				reduced ? 0 : 750
+			);
+		}
+
+		function onKey(e) {
+			if (e.key === 'Enter') enter();
+		}
+
+		enterBtn.addEventListener('click', enter);
+		document.addEventListener('keydown', onKey);
+		enterBtn.focus();
+	})();
+</script>

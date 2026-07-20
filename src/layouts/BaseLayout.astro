@@ -2,6 +2,7 @@
 import BaseHead from './components/BaseHead.astro';
 import Header from './components/Header.astro';
 import Footer from './components/Footer.astro';
+import EntryGate from '../components/EntryGate.astro';
 import { loadEnv } from 'vite';
 import type { Lang } from '@src/i18n/index';
 
@@ -32,57 +33,67 @@ const { title, description, image, lang = 'es', alternateUrl, alternateLang } = 
 		class="bg-magi-bg text-magi-ink pt-16 sm:pt-0"
 	>
 		<div class="magi-bg-fx" aria-hidden="true"></div>
-		<Header lang={lang}/>
-		<main class='py-8 min-h-[calc(100vh-160px)]'>
-			<slot />
-		</main>
-		<Footer lang={lang} />
+		<div id="site-content">
+			<Header lang={lang}/>
+			<main class='py-8 min-h-[calc(100vh-160px)]'>
+				<slot />
+			</main>
+			<Footer lang={lang} />
+		</div>
+		<EntryGate lang={lang} />
 		<script is:inline>
 			(function () {
-				var els = Array.prototype.slice.call(document.querySelectorAll('.assemble'));
-				if (!els.length) return;
-				var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-				if (reduced) {
-					els.forEach(function (el) {
-						el.classList.add('is-assembled');
-					});
-					return;
-				}
-				var groups = new Map();
-				els.forEach(function (el) {
-					var parent = el.parentElement;
-					var list = groups.get(parent);
-					if (!list) {
-						list = [];
-						groups.set(parent, list);
-					}
-					list.push(el);
-				});
-				groups.forEach(function (list) {
-					list.forEach(function (el, i) {
-						el.style.setProperty('--assemble-delay', Math.min(i * 70, 420) + 'ms');
-					});
-				});
-				if (!('IntersectionObserver' in window)) {
-					els.forEach(function (el) {
-						el.classList.add('is-assembled');
-					});
-					return;
-				}
-				var io = new IntersectionObserver(
-					function (entries) {
-						entries.forEach(function (entry) {
-							if (entry.isIntersecting) {
-								entry.target.classList.add('is-assembled');
-								io.unobserve(entry.target);
-							}
+				function runAssemble() {
+					var els = Array.prototype.slice.call(document.querySelectorAll('.assemble'));
+					if (!els.length) return;
+					var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+					if (reduced) {
+						els.forEach(function (el) {
+							el.classList.add('is-assembled');
 						});
-					},
-					{ threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
-				);
-				els.forEach(function (el) {
-					io.observe(el);
-				});
+						return;
+					}
+					if (!('IntersectionObserver' in window)) {
+						els.forEach(function (el) {
+							el.classList.add('is-assembled');
+						});
+						return;
+					}
+					// Delay is assigned per intersection batch (not up front), sorted top-to-bottom,
+					// so elements cascade in reading order instead of just by DOM-parent grouping.
+					var io = new IntersectionObserver(
+						function (entries) {
+							var visible = entries
+								.filter(function (entry) {
+									return entry.isIntersecting;
+								})
+								.map(function (entry) {
+									return entry.target;
+								});
+							if (!visible.length) return;
+							visible.sort(function (a, b) {
+								return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
+							});
+							visible.forEach(function (el, i) {
+								el.style.setProperty('--assemble-delay', Math.min(i * 70, 420) + 'ms');
+								el.classList.add('is-assembled');
+								io.unobserve(el);
+							});
+						},
+						{ threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+					);
+					els.forEach(function (el) {
+						io.observe(el);
+					});
+				}
+
+				// While the MAGI entry gate is about to open, hold off assembling the
+				// page behind it until the doors finish sliding apart (see EntryGate.astro).
+				if (window.__magiGatePending) {
+					document.addEventListener('magi:gate-opened', runAssemble, { once: true });
+				} else {
+					runAssemble();
+				}
 			})();
 		</script>
 		<!-- Google tag (gtag.js) -->
