@@ -74,7 +74,7 @@ export const ui = {
     'nav.tags': 'Tags',
     'nav.contact': 'Contacto',
     'site.title': 'Kevin Barroso',
-    'site.tagline': 'AI Engineer, Arquitecto de Soluciones & SRE Senior',
+    'site.tagline': 'Agentic AI Engineer, Arquitecto de Soluciones & SRE Senior',
     'site.description':
       'Blog personal de IA, Cloud, Kubernetes y experiencia en Arquitectura de Soluciones',
     // Header
@@ -95,6 +95,15 @@ export const ui = {
     // Blog post
     'post.publishedOn': 'Publicado el',
     'post.updatedOn': 'Actualizado el',
+    // Entry gate
+    'gate.eyebrow': 'MAGI SYSTEM // TERMINAL DE ACCESO',
+    'gate.boot1': 'INICIANDO PROTOCOLO DE ACCESO...',
+    'gate.boot2': 'VERIFICANDO CREDENCIALES...',
+    'gate.boot3': 'ACCESO CONCEDIDO',
+    'gate.title': 'ACCESO AL SISTEMA',
+    'gate.subtitle': 'Kevin Barroso — Agentic AI Engineer / SRE',
+    'gate.enter': 'Entrar',
+    'gate.hint': 'o presioná Enter',
   },
   en: {
     'nav.home': 'Home',
@@ -105,7 +114,7 @@ export const ui = {
     'nav.tags': 'Tags',
     'nav.contact': 'Contact',
     'site.title': 'Kevin Barroso',
-    'site.tagline': 'AI Engineer, Solutions Architect & Senior SRE',
+    'site.tagline': 'Agentic AI Engineer, Solutions Architect & Senior SRE',
     'site.description':
       'Personal blog about AI, Cloud, Kubernetes and Solutions Architecture experience',
     // Header
@@ -126,6 +135,15 @@ export const ui = {
     // Blog post
     'post.publishedOn': 'Published on',
     'post.updatedOn': 'Updated on',
+    // Entry gate
+    'gate.eyebrow': 'MAGI SYSTEM // ACCESS TERMINAL',
+    'gate.boot1': 'INITIATING ACCESS PROTOCOL...',
+    'gate.boot2': 'VERIFYING CREDENTIALS...',
+    'gate.boot3': 'ACCESS GRANTED',
+    'gate.title': 'SYSTEM ACCESS',
+    'gate.subtitle': 'Kevin Barroso — Agentic AI Engineer / SRE',
+    'gate.enter': 'Enter',
+    'gate.hint': 'or press Enter',
   },
 } as const;
 

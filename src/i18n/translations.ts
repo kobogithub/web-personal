@@ -84,7 +84,7 @@ export const translations = {
     'about.utn.company': 'Universidad Tecnológica Nacional - Rosario',
     'about.utn.period': 'Enero 2024 - Presente',
     'about.utn.summary':
-      'Programa intensivo de 33 horas enfocado en AI Engineering, Vibe Engineering y desarrollo de sistemas complejos, con aplicaciones en agroindustria, bienestar social y economías dinámicas.',
+      'Programa intensivo de 33 horas enfocado en Agentic AI Engineering, Vibe Engineering y desarrollo de sistemas complejos, con aplicaciones en agroindustria, bienestar social y economías dinámicas.',
     'about.utn.task1':
       "Diseño e impartición del programa 'Análisis de Datos, Ingeniería de IA y Sistemas Inteligentes (Nivel 1)'",
     'about.utn.task2':
@@ -252,7 +252,7 @@ export const translations = {
     'about.utn.company': 'Universidad Tecnológica Nacional - Rosario',
     'about.utn.period': 'January 2024 - Present',
     'about.utn.summary':
-      'Intensive 33-hour program focused on AI Engineering, Vibe Engineering and complex systems development, with applications in agroindustry, social welfare and dynamic economies.',
+      'Intensive 33-hour program focused on Agentic AI Engineering, Vibe Engineering and complex systems development, with applications in agroindustry, social welfare and dynamic economies.',
     'about.utn.task1':
       "Design and delivery of the program 'Data Analysis, AI Engineering and Intelligent Systems (Level 1)'",
     'about.utn.task2':

@@ -280,4 +280,30 @@
 		background: repeating-linear-gradient(120deg, var(--magi-accent) 0 18px, transparent 18px 30px);
 		opacity: 0.55;
 	}
+	/* NERV-style blast doors on the entry gate: two halves slide apart while the
+	   control panel shrinks away, triggered by adding .is-opening to #magi-gate */
+	#magi-gate-door-left,
+	#magi-gate-door-right {
+		transition: transform 0.7s cubic-bezier(0.7, 0, 0.3, 1);
+	}
+	#magi-gate.is-opening #magi-gate-door-left {
+		transform: translateX(-100%);
+	}
+	#magi-gate.is-opening #magi-gate-door-right {
+		transform: translateX(100%);
+	}
+	#magi-gate-panel {
+		transition: opacity 0.3s ease, transform 0.3s ease;
+	}
+	#magi-gate.is-opening #magi-gate-panel {
+		opacity: 0;
+		transform: scale(0.94);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		#magi-gate-door-left,
+		#magi-gate-door-right,
+		#magi-gate-panel {
+			transition: none;
+		}
+	}
 }
