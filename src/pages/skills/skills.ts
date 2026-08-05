@@ -360,4 +360,145 @@ export const skills: Skills[] = [
     tags: ['Backend', 'API'],
     icon: 'simple-icons:nestjs',
   },
+
+  // Stack Azure/Microsoft y data moderno
+  {
+    name: 'Azure Data Factory',
+    description: {
+      es: 'Orquestación de pipelines de datos y migración de workflows legacy desde Informatica PowerCenter',
+      en: 'Data pipeline orchestration and migration of legacy Informatica PowerCenter workflows',
+    },
+    tags: ['Cloud', 'Data', 'Orchestration'],
+    icon: 'simple-icons:microsoftazure',
+  },
+  {
+    name: 'Databricks',
+    description: {
+      es: 'Pipelines Bronze/Silver/Diamond con PySpark y Databricks Asset Bundles',
+      en: 'Bronze/Silver/Diamond pipelines with PySpark and Databricks Asset Bundles',
+    },
+    tags: ['Data', 'Analytics'],
+    icon: 'simple-icons:databricks',
+  },
+  {
+    name: 'Snowflake',
+    description: {
+      es: 'Data warehouse destino de pipelines productivos, tablas transient y vistas de transformación',
+      en: 'Target data warehouse for production pipelines, transient tables and transformation views',
+    },
+    tags: ['Database', 'Data Warehouse'],
+    icon: 'simple-icons:snowflake',
+  },
+  {
+    name: 'Microsoft Fabric',
+    description: {
+      es: 'Módulos Terraform para capacity, workspaces, lakehouses medallón y Spark pools, con GitOps por ramas',
+      en: 'Terraform modules for capacity, workspaces, medallion lakehouses and Spark pools, with branch-based GitOps',
+    },
+    tags: ['Cloud', 'Data'],
+    icon: 'simple-icons:microsoft',
+  },
+  {
+    name: 'dbt',
+    description: {
+      es: 'ELT declarativo con tests y linaje sobre DuckDB',
+      en: 'Declarative ELT with tests and lineage on DuckDB',
+    },
+    tags: ['Data', 'Transformation'],
+    icon: 'simple-icons:dbt',
+  },
+  {
+    name: 'Apache Iceberg',
+    description: {
+      es: 'Formato de tabla abierto para lakehouse medallion',
+      en: 'Open table format for medallion lakehouse',
+    },
+    tags: ['Data', 'Lakehouse'],
+    // simple-icons no tiene logo de Apache Iceberg (verificado contra el set
+    // instalado y la API de Iconify). `tabler:iceberg` es genérico, no de marca.
+    icon: 'tabler:iceberg',
+  },
+  {
+    name: 'MinIO',
+    description: {
+      es: 'Object storage S3-compatible para data lakes on-premise',
+      en: 'S3-compatible object storage for on-premise data lakes',
+    },
+    tags: ['Storage', 'Data'],
+    icon: 'simple-icons:minio',
+  },
+  {
+    name: 'PySpark',
+    description: {
+      es: 'Procesamiento distribuido y parseo de archivos fixed-width en Databricks',
+      en: 'Distributed processing and fixed-width file parsing on Databricks',
+    },
+    tags: ['Data', 'Processing'],
+    icon: 'simple-icons:apachespark',
+  },
+
+  // Stack full-stack y testing
+  {
+    name: 'Next.js',
+    description: {
+      es: 'Aplicaciones App Router con Server Actions, desplegadas en Cloud Run',
+      en: 'App Router applications with Server Actions, deployed on Cloud Run',
+    },
+    tags: ['Frontend', 'Fullstack'],
+    icon: 'simple-icons:nextdotjs',
+  },
+  {
+    name: 'React',
+    description: {
+      es: 'Interfaces con React 19, TanStack Table y React Hook Form',
+      en: 'Interfaces with React 19, TanStack Table and React Hook Form',
+    },
+    tags: ['Frontend'],
+    icon: 'simple-icons:react',
+  },
+  {
+    name: 'TypeScript',
+    description: {
+      es: 'Desarrollo full-stack en modo strict, validación de esquemas con Zod',
+      en: 'Full-stack development in strict mode, schema validation with Zod',
+    },
+    tags: ['Language', 'Frontend'],
+    icon: 'simple-icons:typescript',
+  },
+  {
+    name: 'Prisma',
+    description: {
+      es: 'Modelado de datos y migraciones sobre PostgreSQL',
+      en: 'Data modeling and migrations on PostgreSQL',
+    },
+    tags: ['ORM', 'Backend'],
+    icon: 'simple-icons:prisma',
+  },
+  {
+    name: 'Tailwind CSS',
+    description: {
+      es: 'Sistemas de diseño con tokens y modo claro/oscuro',
+      en: 'Design systems with tokens and light/dark mode',
+    },
+    tags: ['Frontend', 'CSS'],
+    icon: 'simple-icons:tailwindcss',
+  },
+  {
+    name: 'Playwright',
+    description: {
+      es: 'Tests end-to-end en CI con Postgres efímera',
+      en: 'End-to-end tests in CI with ephemeral Postgres',
+    },
+    tags: ['Testing', 'QA'],
+    icon: 'simple-icons:playwright',
+  },
+  {
+    name: 'Vitest',
+    description: {
+      es: 'Tests unitarios y de integración',
+      en: 'Unit and integration tests',
+    },
+    tags: ['Testing', 'QA'],
+    icon: 'simple-icons:vitest',
+  },
 ];
