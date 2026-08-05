@@ -1,34 +1,34 @@
 /**
  * I18n System for the Personal Website
  *
- * This module provides a typed internationalization system with support for:
- * - Spanish (es) as the default language
- * - English (en) as an alternative language
- * - Type-safe translation keys
- * - Parameter interpolation in translation strings
- * - Automatic fallback from English to Spanish for missing keys
+ * Spanish (es) is the default language; English (en) falls back to Spanish for
+ * any missing key. Translation keys are type-safe.
  *
- * Usage Examples:
+ * ─── Where does a string live? ───────────────────────────────────────────────
+ * Copy is split across exactly two modules, with no overlapping keys. Each key
+ * exists in ONE place only — when editing copy, edit it there and nowhere else.
+ *
+ *   this file (`ui` / `useTranslations`)
+ *     Site chrome, present on every page:
+ *     nav.* · site.* · header.* · footer.* · toc.* · author.* · post.* · gate.*
+ *
+ *   ./translations (`translations` / `useContentTranslations`)
+ *     Page body content:
+ *     home.* · about.* · contact.* · contactForm.* · projects.* · skills.*
+ *
+ * Both dictionaries must keep es/en at parity. Do not reintroduce a third
+ * dictionary: `es.ts` and `en.ts` were removed because they had silently
+ * drifted out of sync with these two while being dead code.
+ *
+ * Usage:
  * ```typescript
- * import { t, DEFAULT_LANG, type Lang } from '@src/i18n';
+ * import { useTranslations, getLangFromUrl } from '@src/i18n/index';
  *
- * // Basic translation
- * const homeText = t('es', 'nav.home'); // 'Inicio'
- * const homeTextEn = t('en', 'nav.home'); // 'Home'
- *
- * // With parameter interpolation (when keys have {param} syntax)
- * const greeting = t('es', 'greeting.name', { name: 'John' }); // 'Hola John'
- *
- * // Use DEFAULT_LANG constant
- * const text = t(DEFAULT_LANG, 'nav.home'); // 'Inicio'
+ * const lang = getLangFromUrl(Astro.url);
+ * const t = useTranslations(lang);
+ * t('nav.home'); // 'Inicio' | 'Home'
  * ```
  */
-
-import { es, type TranslationKey } from './es';
-import { en } from './en';
-
-// Re-export TranslationKey for easier imports
-export type { TranslationKey };
 
 // Supported locales
 export const languages = {
