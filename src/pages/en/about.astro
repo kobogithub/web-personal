@@ -49,23 +49,25 @@ const tc = useContentTranslations(lang);
               <p class="text-lg font-medium text-magi-accent mb-2">
                 {tc('about.taligent.position')}
               </p>
-              <ul class="list-disc list-inside space-y-2 text-base">
-                <li>{tc('about.taligent.task1')}</li>
-                <li>{tc('about.taligent.task2')}</li>
-                <li>{tc('about.taligent.task3')}</li>
-                <li>{tc('about.taligent.task4')}</li>
-                <li>{tc('about.taligent.task5')}</li>
-                <li>{tc('about.taligent.task6')}</li>
-                <li>{tc('about.taligent.task7')}</li>
-                <li>{tc('about.taligent.task8')}</li>
-                <li>{tc('about.taligent.task9')}</li>
-                <li>{tc('about.taligent.task10')}</li>
-                <li>{tc('about.taligent.task11')}</li>
-                <li>{tc('about.taligent.task12')}</li>
-                <li>{tc('about.taligent.task13')}</li>
-                <li>{tc('about.taligent.task14')}</li>
-                <li>{tc('about.taligent.task15')}</li>
-              </ul>
+              <div class="space-y-4">
+                {[
+                  { group: 'platform', tasks: 5 },
+                  { group: 'data', tasks: 5 },
+                  { group: 'ai', tasks: 5 },
+                  { group: 'product', tasks: 2 },
+                ].map(({ group, tasks }) => (
+                  <div>
+                    <h4 class="text-sm font-display font-bold uppercase tracking-wide text-magi-muted mb-2">
+                      {tc(`about.taligent.group.${group}` as any)}
+                    </h4>
+                    <ul class="list-disc list-inside space-y-2 text-base">
+                      {Array.from({ length: tasks }, (_, i) => (
+                        <li>{tc(`about.taligent.${group}${i + 1}` as any)}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <!-- Previous job -->

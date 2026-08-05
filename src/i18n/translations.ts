@@ -50,36 +50,47 @@ export const translations = {
     'about.workExperience': 'Experiencia Profesional',
     'about.taligent.position': 'Platform Manager',
     'about.taligent.period': 'Noviembre 2022 - Presente',
-    'about.taligent.task1':
-      'Diseño e implementación de arquitecturas de datos avanzadas, desarrollando soluciones robustas en AWS y SAP',
-    'about.taligent.task2':
-      'Optimización del rendimiento y escalabilidad de sistemas críticos en entornos cloud',
-    'about.taligent.task3':
-      'Diseño, desarrollo e implementación de arquitectura ECS, utilizando servicios Fargate y Auto Scaling de EC2',
-    'about.taligent.task4':
+    'about.taligent.group.platform': 'Plataforma & Cloud',
+    'about.taligent.platform1':
+      'Liderazgo de la plataforma interna: infraestructura, servicios cloud, IAM, observabilidad y control de costos para toda la organización',
+    'about.taligent.platform2':
       'Construcción y ejecución exitosa del plan de migración de servicios desde ECS hacia EKS',
-    'about.taligent.task5':
-      'Implementación de pipelines de CI/CD mediante GitHub Actions, AWS CodePipeline y Concourse CI',
-    'about.taligent.task6':
-      'Liderazgo de equipos en la implementación de Arquitecturas de datos',
-    'about.taligent.task7':
-      'Optimización de costos e infraestructura en entornos cloud',
-    'about.taligent.task8':
-      'Desarrollo de agentes de IA para procesamiento inteligente de documentos con OpenAI GPT-4o, AWS Textract y LangChain/LangGraph',
-    'about.taligent.task9':
-      'Diseño e implementación de sistemas multi-agente con Model Context Protocol (MCP) para automatización de flujos de trabajo',
-    'about.taligent.task10':
-      'Construcción de pipelines de NLP y OCR para extracción inteligente de datos de mensajes de WhatsApp y comprobantes',
-    'about.taligent.task11':
-      'Implementación de prompt engineering con templates versionados y métricas de tokens',
-    'about.taligent.task12':
-      'Liderazgo del programa de adopción de IA en la organización, incluyendo capacitación y evaluación de herramientas',
-    'about.taligent.task13':
-      'Desarrollo de plataforma de datos con DuckDB, Streamlit y workflows asistidos por IA',
-    'about.taligent.task14':
-      'Diseño de infraestructura cloud para servicios de IA en AWS (ECS/Fargate + OpenAI) y GCP (BigQuery, Cloud Functions, Cloud Run)',
-    'about.taligent.task15':
-      'Desarrollo de framework CLI en Rust para desarrollo asistido por IA con gestión de agentes y skills',
+    'about.taligent.platform3':
+      'Diseño de plataforma Kubernetes en GCP con Terraform: clusters GKE privados, node pools, namespaces con RBAC/NetworkPolicy/ResourceQuotas, Artifact Registry con vulnerability scanning y External Secrets Operator',
+    'about.taligent.platform4':
+      'Infraestructura como código modular en AWS (VPC, ECS, RDS, ElastiCache, Lambda, SQS, S3) con autenticación OIDC para GitHub Actions y sistema de auto-deploy sobre Step Functions',
+    'about.taligent.platform5':
+      'Pipelines de CI/CD con GitHub Actions, AWS CodePipeline y Concourse CI',
+
+    'about.taligent.group.data': 'Data & Migraciones',
+    'about.taligent.data1':
+      'Migración a producción de un pipeline de distribución desde Informatica PowerCenter on-premise hacia Azure Data Factory, Databricks y Snowflake — 19 procesos migrados, go-live julio 2026',
+    'about.taligent.data2':
+      'Centro de Excelencia Databricks: pipelines Bronze/Silver/Diamond con Databricks Asset Bundles y templates versionados por data product',
+    'about.taligent.data3':
+      'Lakehouse medallion reproducible con Apache Airflow, MinIO, DuckDB, dbt y Apache Iceberg',
+    'about.taligent.data4':
+      'Módulos Terraform para Microsoft Fabric (capacity, workspaces, lakehouses medallón, Spark pools, shortcuts, RBAC) con GitOps bidireccional en dev y deploy declarativo a prod vía fabric-cicd',
+    'about.taligent.data5':
+      'Data Lakes en AWS con arquitectura medallion usando Glue, S3 y Athena',
+
+    'about.taligent.group.ai': 'IA & Sistemas Agénticos',
+    'about.taligent.ai1':
+      'Diseño y desarrollo de un framework de orquestación de agentes en Rust, vendor-agnostic, con arquitectura de cuatro capas (Core/Blueprint/Stack/Plugin), gobernanza spec-first y distribución white-label por cliente vía Artifact Registry privado',
+    'about.taligent.ai2':
+      'Agentes de IA para procesamiento inteligente de documentos con OpenAI GPT-4o, AWS Textract y LangChain/LangGraph',
+    'about.taligent.ai3':
+      'Sistemas multi-agente con MCP (Model Context Protocol)',
+    'about.taligent.ai4':
+      'Pipelines de NLP y OCR para extracción de datos de mensajes de WhatsApp y comprobantes',
+    'about.taligent.ai5':
+      'Liderazgo del programa de adopción de IA: capacitación, evaluación de herramientas y estándares de trabajo con agentes',
+
+    'about.taligent.group.product': 'Producto & Aplicaciones',
+    'about.taligent.product1':
+      'Plataformas internas full-stack con Next.js, TypeScript, Prisma y PostgreSQL sobre GCP Cloud Run + Cloud SQL: gestión de nómina/skills/certificaciones y ciclo de vida de activos IT, con RBAC multi-rol y Google Workspace SSO',
+    'about.taligent.product2':
+      'Arquitectura como código con modelos C4 versionados (LikeC4) y testing automatizado con Vitest y Playwright',
     'about.freelance.position': 'Solutions Architect AWS + Developer',
     'about.freelance.period': 'Febrero 2019 - Noviembre 2022',
     'about.freelance.task1':
@@ -113,7 +124,7 @@ export const translations = {
     'about.utn.task2':
       'Cobertura de Modern Python Stack, Machine Learning, NLP, Computer Vision y Sistemas Agénticos (MCP)',
     'about.utn.task3':
-      'Enseñanza de MLOps, RAG (Retrieval-Augmented Generation), Vector Databases y Cloud Deploy',
+      'Enseñanza de MLOps/LLMOps, RAG (Retrieval-Augmented Generation), Vector Databases, fine-tuning de modelos y Cloud Deploy',
     'about.utn.task4':
       'Stack tecnológico: Python 3.12+, Docker, AWS/Google Cloud, Transformers, Streamlit, PostgreSQL',
     'about.certifications': 'Certificaciones',
@@ -214,36 +225,47 @@ export const translations = {
     'about.workExperience': 'Professional Experience',
     'about.taligent.position': 'Platform Manager',
     'about.taligent.period': 'November 2022 - Present',
-    'about.taligent.task1':
-      'Design and implementation of advanced data architectures, developing robust solutions in AWS and SAP',
-    'about.taligent.task2':
-      'Performance optimization and scalability of critical systems in cloud environments',
-    'about.taligent.task3':
-      'Design, development and implementation of ECS architecture, using Fargate services and EC2 Auto Scaling',
-    'about.taligent.task4':
+    'about.taligent.group.platform': 'Platform & Cloud',
+    'about.taligent.platform1':
+      'Leadership of the internal platform: infrastructure, cloud services, IAM, observability and cost control across the organization',
+    'about.taligent.platform2':
       'Construction and successful execution of the service migration plan from ECS to EKS',
-    'about.taligent.task5':
-      'Implementation of CI/CD pipelines through GitHub Actions, AWS CodePipeline and Concourse CI',
-    'about.taligent.task6':
-      'Team leadership in implementing data architectures',
-    'about.taligent.task7':
-      'Cost and infrastructure optimization in cloud environments',
-    'about.taligent.task8':
-      'Development of AI agents for intelligent document processing with OpenAI GPT-4o, AWS Textract and LangChain/LangGraph',
-    'about.taligent.task9':
-      'Design and implementation of multi-agent systems with Model Context Protocol (MCP) for workflow automation',
-    'about.taligent.task10':
-      'Building NLP and OCR pipelines for intelligent data extraction from WhatsApp messages and receipts',
-    'about.taligent.task11':
-      'Implementation of prompt engineering with versioned templates and token metrics',
-    'about.taligent.task12':
-      'Leadership of AI adoption program in the organization, including training and tool evaluation',
-    'about.taligent.task13':
-      'Development of data platform with DuckDB, Streamlit and AI-assisted workflows',
-    'about.taligent.task14':
-      'Cloud infrastructure design for AI services on AWS (ECS/Fargate + OpenAI) and GCP (BigQuery, Cloud Functions, Cloud Run)',
-    'about.taligent.task15':
-      'Development of CLI framework in Rust for AI-assisted development with agent and skills management',
+    'about.taligent.platform3':
+      'Kubernetes platform design on GCP with Terraform: private GKE clusters, node pools, namespaces with RBAC/NetworkPolicy/ResourceQuotas, Artifact Registry with vulnerability scanning and External Secrets Operator',
+    'about.taligent.platform4':
+      'Modular infrastructure as code on AWS (VPC, ECS, RDS, ElastiCache, Lambda, SQS, S3) with OIDC authentication for GitHub Actions and an auto-deploy system built on Step Functions',
+    'about.taligent.platform5':
+      'CI/CD pipelines with GitHub Actions, AWS CodePipeline and Concourse CI',
+
+    'about.taligent.group.data': 'Data & Migrations',
+    'about.taligent.data1':
+      'Production migration of a distribution pipeline from on-premise Informatica PowerCenter to Azure Data Factory, Databricks and Snowflake — 19 processes migrated, go-live July 2026',
+    'about.taligent.data2':
+      'Databricks Center of Excellence: Bronze/Silver/Diamond pipelines with Databricks Asset Bundles and versioned templates per data product',
+    'about.taligent.data3':
+      'Reproducible medallion lakehouse with Apache Airflow, MinIO, DuckDB, dbt and Apache Iceberg',
+    'about.taligent.data4':
+      'Terraform modules for Microsoft Fabric (capacity, workspaces, medallion lakehouses, Spark pools, shortcuts, RBAC) with bidirectional GitOps in dev and declarative deploys to prod via fabric-cicd',
+    'about.taligent.data5':
+      'Data Lakes on AWS with medallion architecture using Glue, S3 and Athena',
+
+    'about.taligent.group.ai': 'AI & Agentic Systems',
+    'about.taligent.ai1':
+      'Design and development of a vendor-agnostic AI agent orchestration framework in Rust, with a four-layer architecture (Core/Blueprint/Stack/Plugin), spec-first governance and white-label distribution per client via a private Artifact Registry',
+    'about.taligent.ai2':
+      'AI agents for intelligent document processing with OpenAI GPT-4o, AWS Textract and LangChain/LangGraph',
+    'about.taligent.ai3':
+      'Multi-agent systems with MCP (Model Context Protocol)',
+    'about.taligent.ai4':
+      'NLP and OCR pipelines for data extraction from WhatsApp messages and receipts',
+    'about.taligent.ai5':
+      'Leadership of the AI adoption program: training, tool evaluation and standards for working with agents',
+
+    'about.taligent.group.product': 'Product & Applications',
+    'about.taligent.product1':
+      'Full-stack internal platforms with Next.js, TypeScript, Prisma and PostgreSQL on GCP Cloud Run + Cloud SQL: headcount/skills/certification management and IT asset lifecycle, with multi-role RBAC and Google Workspace SSO',
+    'about.taligent.product2':
+      'Architecture as code with versioned C4 models (LikeC4) and automated testing with Vitest and Playwright',
     'about.freelance.position': 'Solutions Architect AWS + Developer',
     'about.freelance.period': 'February 2019 - November 2022',
     'about.freelance.task1':
@@ -277,7 +299,7 @@ export const translations = {
     'about.utn.task2':
       'Coverage of Modern Python Stack, Machine Learning, NLP, Computer Vision and Agentic Systems (MCP)',
     'about.utn.task3':
-      'Teaching MLOps, RAG (Retrieval-Augmented Generation), Vector Databases and Cloud Deploy',
+      'Teaching MLOps/LLMOps, RAG (Retrieval-Augmented Generation), Vector Databases, model fine-tuning and Cloud Deploy',
     'about.utn.task4':
       'Tech stack: Python 3.12+, Docker, AWS/Google Cloud, Transformers, Streamlit, PostgreSQL',
     'about.certifications': 'Certifications',
