@@ -7,7 +7,12 @@ export interface Project {
   id: string;
   name: BilingualText;
   description: BilingualText;
-  demoLink: string;
+  /**
+   * Omitir cuando el proyecto no tiene una URL pública. La card renderiza
+   * entonces un badge "Proyecto interno" en lugar del botón Demo, en vez de
+   * un link genérico al perfil que promete algo que no existe.
+   */
+  demoLink?: string;
   tags?: string[];
   postLink?: string;
   demoLinkRel?: string;
@@ -38,7 +43,6 @@ export const projects: Project[] = [
       es: 'Sistema de agentes de IA que procesa comprobantes y mensajes usando OCR, NLP y LangChain/LangGraph',
       en: 'AI agent system that processes receipts and messages using OCR, NLP and LangChain/LangGraph',
     },
-    demoLink: 'https://github.com/kobogithub',
     tags: ['AI', 'LangChain', 'OpenAI'],
   },
   {
@@ -51,34 +55,22 @@ export const projects: Project[] = [
       es: 'Procesador inteligente de mensajes de WhatsApp para mesas de granos con NLP y visión por computadora',
       en: 'Intelligent WhatsApp message processor for grain trading desks with NLP and computer vision',
     },
-    demoLink: 'https://github.com/kobogithub',
     tags: ['AI', 'NLP', 'FastAPI'],
   },
   {
+    // Fusión de las antiguas proj-4 "Knowledge Framework" y proj-5
+    // "Knowledge CLI": eran el mismo producto listado dos veces.
     id: 'proj-4',
     name: {
-      es: 'Knowledge Framework',
-      en: 'Knowledge Framework',
+      es: 'Knowledge Framework (kn)',
+      en: 'Knowledge Framework (kn)',
     },
     description: {
-      es: 'Framework multi-agente para desarrollo asistido por IA con MCP y 8+ agentes especializados',
-      en: 'Multi-agent framework for AI-assisted development with MCP and 8+ specialized agents',
+      es: 'CLI en Rust que resuelve el "cold start problem" del desarrollo asistido por IA: instala agentes, skills, memoria y workflows en cualquier proyecto. Distribuido por Homebrew, .deb y .rpm.',
+      en: 'Rust CLI that solves the cold start problem in AI-assisted development: installs agents, skills, memory and workflows in any project. Distributed via Homebrew, .deb and .rpm.',
     },
-    demoLink: 'https://github.com/kobogithub',
-    tags: ['AI', 'Multi-Agent', 'MCP'],
-  },
-  {
-    id: 'proj-5',
-    name: {
-      es: 'Knowledge CLI',
-      en: 'Knowledge CLI',
-    },
-    description: {
-      es: 'CLI en Rust para desarrollo asistido por IA con gestión de agentes y skills',
-      en: 'Rust CLI for AI-assisted development with agent and skills management',
-    },
-    demoLink: 'https://github.com/kobogithub',
-    tags: ['Rust', 'AI', 'CLI'],
+    demoLink: 'https://github.com/kobogithub/knowledge',
+    tags: ['Rust', 'AI', 'CLI', 'MCP'],
   },
   {
     id: 'proj-6',
@@ -90,7 +82,6 @@ export const projects: Project[] = [
       es: 'Arquitectura data lake híbrida con ingesta automatizada y arquitectura medallion',
       en: 'Hybrid data lake architecture with automated ingestion and medallion architecture',
     },
-    demoLink: 'https://github.com/kobogithub',
     tags: ['AWS', 'Data', 'Glue'],
   },
   {
@@ -105,5 +96,82 @@ export const projects: Project[] = [
     },
     demoLink: 'https://github.com/kobogithub/dotfiles-home-manager',
     tags: ['Nix', 'Linux'],
+  },
+
+  // Proyectos 2026
+  {
+    id: 'proj-8',
+    name: {
+      es: 'Framework de Orquestación de Agentes',
+      en: 'Agent Orchestration Framework',
+    },
+    description: {
+      es: 'CLI vendor-agnostic para orquestar equipos de agentes de IA, con arquitectura de cuatro capas (Core/Blueprint/Stack/Plugin), gobernanza spec-first y distribución white-label por cliente.',
+      en: 'Vendor-agnostic CLI to orchestrate AI agent teams, with a four-layer architecture (Core/Blueprint/Stack/Plugin), spec-first governance and white-label distribution per client.',
+    },
+    tags: ['Rust', 'AI', 'Multi-Agent', 'CLI'],
+  },
+  {
+    id: 'proj-9',
+    name: {
+      es: 'Migración Informatica → ADF + Databricks + Snowflake',
+      en: 'Informatica → ADF + Databricks + Snowflake Migration',
+    },
+    description: {
+      es: 'Migración a producción de un pipeline de distribución desde Informatica PowerCenter on-premise hacia Azure Data Factory, Databricks y Snowflake. 19 procesos, go-live julio 2026.',
+      en: 'Production migration of a distribution pipeline from on-premise Informatica PowerCenter to Azure Data Factory, Databricks and Snowflake. 19 processes, go-live July 2026.',
+    },
+    tags: ['Azure', 'Databricks', 'Snowflake', 'Data'],
+  },
+  {
+    id: 'proj-10',
+    name: {
+      es: 'Lakehouse Medallion on-premise',
+      en: 'On-premise Medallion Lakehouse',
+    },
+    description: {
+      es: 'Lakehouse reproducible 100% local con Apache Airflow, MinIO, DuckDB, dbt e Iceberg. Bronze → Silver → Gold con tests y linaje.',
+      en: 'Fully local reproducible lakehouse with Apache Airflow, MinIO, DuckDB, dbt and Iceberg. Bronze → Silver → Gold with tests and lineage.',
+    },
+    tags: ['Data', 'dbt', 'DuckDB', 'Airflow'],
+  },
+  {
+    // Repo privado (verificado con la API de GitHub), sin demo pública.
+    id: 'proj-11',
+    name: {
+      es: 'Japan 2027 — Planificador de Viaje',
+      en: 'Japan 2027 — Trip Planner',
+    },
+    description: {
+      es: 'App de planificación de viaje con Astro SSR, Drizzle ORM y PostgreSQL. Itinerario con detección de solapamientos, división de gastos, modo offline (PWA) y sincronización en tiempo real vía WebSocket sobre LISTEN/NOTIFY.',
+      en: 'Trip planning app with Astro SSR, Drizzle ORM and PostgreSQL. Itinerary with overlap detection, expense splitting, offline mode (PWA) and real-time sync via WebSocket over LISTEN/NOTIFY.',
+    },
+    tags: ['Astro', 'PostgreSQL', 'TypeScript', 'PWA'],
+  },
+  {
+    // Repo privado (verificado con la API de GitHub), sin demo pública.
+    id: 'proj-12',
+    name: {
+      es: 'Autogasto — Bot de Gastos con Visión',
+      en: 'Autogasto — Vision-based Expense Bot',
+    },
+    description: {
+      es: 'Bot de Telegram que registra gastos a partir de fotos de tickets. GPT-4o Vision extrae los datos, FastAPI los valida y Supabase los persiste. Desplegado en Railway sobre Docker.',
+      en: 'Telegram bot that logs expenses from receipt photos. GPT-4o Vision extracts the data, FastAPI validates it and Supabase persists it. Deployed on Railway over Docker.',
+    },
+    tags: ['AI', 'FastAPI', 'Supabase', 'GPT-4o'],
+  },
+  {
+    id: 'proj-13',
+    name: {
+      es: 'Media Stack Auto-hospedado',
+      en: 'Self-hosted Media Stack',
+    },
+    description: {
+      es: 'Stack completo en Docker para servidor de medios casero: Jellyfin, *arr suite, Caddy como reverse proxy con routing por path y hardlinks según TRaSH Guides.',
+      en: 'Full Docker stack for a home media server: Jellyfin, *arr suite, Caddy as reverse proxy with path-based routing and hardlinks following TRaSH Guides.',
+    },
+    demoLink: 'https://github.com/Pelado-Nerdworks/media-stack',
+    tags: ['Docker', 'Self-hosted', 'Homelab'],
   },
 ];

@@ -55,22 +55,31 @@ const { projects, lang } = Astro.props
           )}
         </div>
         <h3 class="font-semibold my-2">
-          <a class="underline hover:text-magi-accent" href={project.demoLink} target="_blank" rel={project.demoLinkRel}>{project.name[lang]}</a>
+          {project.demoLink
+            ? <a class="underline hover:text-magi-accent" href={project.demoLink} target="_blank" rel={project.demoLinkRel}>{project.name[lang]}</a>
+            : project.name[lang]}
         </h3>
         <div class="line-clamp-2 text-magi-muted mb-4 min-h-[50px]">
           <p>{project.description[lang]}</p>
         </div>
-        <div class="flex justify-end gap-3">
+        <div class="flex justify-end items-center gap-3">
           {
             project.postLink &&
             <a class="underline text-magi-violet hover:text-magi-accent flex items-center gap-2" href={project.postLink}>
               Article
             </a>
           }
-          <a class="underline text-magi-violet hover:text-magi-accent flex items-center gap-2" href={project.demoLink} target="_blank" rel={project.demoLinkRel}>
-            Demo
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-          </a>
+          {
+            project.demoLink
+              ? <a class="underline text-magi-violet hover:text-magi-accent flex items-center gap-2" href={project.demoLink} target="_blank" rel={project.demoLinkRel}>
+                  Demo
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+                </a>
+              : <span class="border border-magi-line text-xs font-mono text-magi-muted px-2 py-1 flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  {lang === 'es' ? 'Proyecto interno' : 'Internal project'}
+                </span>
+          }
         </div>
       </div>
     )
