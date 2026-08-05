@@ -1,0 +1,39 @@
+version: 2
+
+updates:
+  # Dependencias del sitio. El proyecto usa pnpm; el ecosistema `npm` de
+  # Dependabot cubre pnpm-lock.yaml.
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    open-pull-requests-limit: 5
+    labels:
+      - 'dependencies'
+    # El grueso del árbol cuelga de Astro y sus integraciones: agrupar evita
+    # una avalancha de PRs que hay que mergear en conjunto igual.
+    groups:
+      astro:
+        patterns:
+          - 'astro'
+          - '@astrojs/*'
+      unocss:
+        patterns:
+          - 'unocss'
+          - '@unocss/*'
+      dev-tooling:
+        dependency-type: 'development'
+      minor-and-patch:
+        update-types:
+          - 'minor'
+          - 'patch'
+
+  # El workflow de deploy usa actions de terceros; conviene mantenerlas al día.
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    labels:
+      - 'dependencies'
