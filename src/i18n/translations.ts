@@ -1,14 +1,39 @@
+/**
+ * Page body content translations.
+ *
+ * Scope: home.* · about.* · contact.* · contactForm.* · projects.* · skills.*
+ * Site chrome (nav, site metadata, header, footer, author, gate) lives in
+ * `./index` instead. See the header of that file for the full split.
+ *
+ * `es` is the source of truth for the key set — `en` must define the same keys.
+ */
+
 import type { Lang } from './index';
 import { defaultLang } from './index';
+
+/**
+ * Bio paragraphs shared verbatim by the home and about pages.
+ *
+ * `home.intro.*` and `about.intro.*` are kept as separate keys so either page
+ * can diverge later, but while the text is identical it is defined once here.
+ * Edit the bio in these constants — not at the four key sites below.
+ */
+const BIO_P1 = {
+  es: 'Arquitecto de Soluciones/AI Engineer/SRE Ssr con amplia experiencia en contenedores, cloud computing e inteligencia artificial. Lidero equipos en la implementación de arquitecturas de datos y sistemas de IA, optimizando el rendimiento y la escalabilidad. Especialista en implementación de servicios en arquitecturas ECS/EKS y diseño de soluciones basadas en LLMs, sistemas multi-agente y RAG.',
+  en: 'Solutions Architect/AI Engineer/Senior SRE with extensive experience in containers, cloud computing and artificial intelligence. I lead teams in implementing data architectures and AI systems, optimizing performance and scalability. Specialist in ECS/EKS service implementation and designing solutions based on LLMs, multi-agent systems and RAG.',
+};
+
+const BIO_P2 = {
+  es: 'Mi pasión es crear sistemas robustos y eficientes que impulsen la innovación, inspirando a los equipos a alcanzar la excelencia técnica. Experto en AWS, GCP, Azure ML, Kubernetes, CI/CD, LangChain/LangGraph, OpenAI, MCP y automatización de infraestructura. Destaco por mi comunicación efectiva, resolución de problemas complejos y gestión de proyectos ágiles. Docente universitario en Ingeniería de IA y Sistemas Inteligentes.',
+  en: 'My passion is creating robust and efficient systems that drive innovation, inspiring teams to achieve technical excellence. Expert in AWS, GCP, Azure ML, Kubernetes, CI/CD, LangChain/LangGraph, OpenAI, MCP and infrastructure automation. I excel at effective communication, solving complex problems and agile project management. University lecturer in AI Engineering and Intelligent Systems.',
+};
 
 export const translations = {
   es: {
     // Home page
     'home.greeting': 'Hola 👋, Kevin Barroso 👷',
-    'home.intro.p1':
-      'Arquitecto de Soluciones/AI Engineer/SRE Ssr con amplia experiencia en contenedores, cloud computing e inteligencia artificial. Lidero equipos en la implementación de arquitecturas de datos y sistemas de IA, optimizando el rendimiento y la escalabilidad. Especialista en implementación de servicios en arquitecturas ECS/EKS y diseño de soluciones basadas en LLMs, sistemas multi-agente y RAG.',
-    'home.intro.p2':
-      'Mi pasión es crear sistemas robustos y eficientes que impulsen la innovación, inspirando a los equipos a alcanzar la excelencia técnica. Experto en AWS, GCP, Azure ML, Kubernetes, CI/CD, LangChain/LangGraph, OpenAI, MCP y automatización de infraestructura. Destaco por mi comunicación efectiva, resolución de problemas complejos y gestión de proyectos ágiles. Docente universitario en Ingeniería de IA y Sistemas Inteligentes.',
+    'home.intro.p1': BIO_P1.es,
+    'home.intro.p2': BIO_P2.es,
     'home.recentPosts': 'Recent Posts',
     'home.myProjects': 'My Projects',
     'home.mySkills': 'My Skills',
@@ -20,10 +45,8 @@ export const translations = {
     'about.title': 'Sobre mí',
     'about.description': 'Resumen de experiencias hasta la actualidad',
     'about.greeting': 'Hola 👋, Kevin Barroso 👷',
-    'about.intro.p1':
-      'Arquitecto de Soluciones/AI Engineer/SRE Ssr con amplia experiencia en contenedores, cloud computing e inteligencia artificial. Lidero equipos en la implementación de arquitecturas de datos y sistemas de IA, optimizando el rendimiento y la escalabilidad. Especialista en implementación de servicios en arquitecturas ECS/EKS y diseño de soluciones basadas en LLMs, sistemas multi-agente y RAG.',
-    'about.intro.p2':
-      'Mi pasión es crear sistemas robustos y eficientes que impulsen la innovación, inspirando a los equipos a alcanzar la excelencia técnica. Experto en AWS, GCP, Azure ML, Kubernetes, CI/CD, LangChain/LangGraph, OpenAI, MCP y automatización de infraestructura. Destaco por mi comunicación efectiva, resolución de problemas complejos y gestión de proyectos ágiles. Docente universitario en Ingeniería de IA y Sistemas Inteligentes.',
+    'about.intro.p1': BIO_P1.es,
+    'about.intro.p2': BIO_P2.es,
     'about.workExperience': 'Experiencia Profesional',
     'about.taligent.position': 'Platform Manager',
     'about.taligent.period': 'Noviembre 2022 - Presente',
@@ -173,10 +196,8 @@ export const translations = {
   en: {
     // Home page
     'home.greeting': 'Hello 👋, Kevin Barroso 👷',
-    'home.intro.p1':
-      'Solutions Architect/AI Engineer/Senior SRE with extensive experience in containers, cloud computing and artificial intelligence. I lead teams in implementing data architectures and AI systems, optimizing performance and scalability. Specialist in ECS/EKS service implementation and designing solutions based on LLMs, multi-agent systems and RAG.',
-    'home.intro.p2':
-      'My passion is creating robust and efficient systems that drive innovation, inspiring teams to achieve technical excellence. Expert in AWS, GCP, Azure ML, Kubernetes, CI/CD, LangChain/LangGraph, OpenAI, MCP and infrastructure automation. I excel at effective communication, solving complex problems and agile project management. University lecturer in AI Engineering and Intelligent Systems.',
+    'home.intro.p1': BIO_P1.en,
+    'home.intro.p2': BIO_P2.en,
     'home.recentPosts': 'Recent Posts',
     'home.myProjects': 'My Projects',
     'home.mySkills': 'My Skills',
@@ -188,10 +209,8 @@ export const translations = {
     'about.title': 'About me',
     'about.description': 'Summary of experiences to date',
     'about.greeting': 'Hello 👋, Kevin Barroso 👷',
-    'about.intro.p1':
-      'Solutions Architect/AI Engineer/Senior SRE with extensive experience in containers, cloud computing and artificial intelligence. I lead teams in implementing data architectures and AI systems, optimizing performance and scalability. Specialist in ECS/EKS service implementation and designing solutions based on LLMs, multi-agent systems and RAG.',
-    'about.intro.p2':
-      'My passion is creating robust and efficient systems that drive innovation, inspiring teams to achieve technical excellence. Expert in AWS, GCP, Azure ML, Kubernetes, CI/CD, LangChain/LangGraph, OpenAI, MCP and infrastructure automation. I excel at effective communication, solving complex problems and agile project management. University lecturer in AI Engineering and Intelligent Systems.',
+    'about.intro.p1': BIO_P1.en,
+    'about.intro.p2': BIO_P2.en,
     'about.workExperience': 'Professional Experience',
     'about.taligent.position': 'Platform Manager',
     'about.taligent.period': 'November 2022 - Present',
