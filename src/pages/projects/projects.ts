@@ -1,5 +1,3 @@
-import { getRepositoryDetails } from '../../utils';
-
 export interface BilingualText {
   es: string;
   en: string;
@@ -108,10 +106,4 @@ export const projects: Project[] = [
     demoLink: 'https://github.com/kobogithub/dotfiles-home-manager',
     tags: ['Nix', 'Linux'],
   },
-  // {
-  //   ...(await getRepositoryDetails('syakirurahman/organization-tree')),
-  //   name: 'Organization tree',
-  //   demoLink: 'https://organization-tree-2a446.web.app/',
-  //   tags: ['Hobby']
-  // }
 ];

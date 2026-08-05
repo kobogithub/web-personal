@@ -6,7 +6,10 @@ import EntryGate from '../components/EntryGate.astro';
 import { loadEnv } from 'vite';
 import type { Lang } from '@src/i18n/index';
 
-const { GTAG_MEASUREMENT_ID } = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), '');
+// Prefijo `PUBLIC_` a propósito: acota loadEnv a las variables que son públicas
+// por diseño. Un prefijo vacío cargaría todo el entorno, y cualquier secreto
+// quedaría a un import de distancia de terminar en un bundle de cliente.
+const { PUBLIC_GTAG_MEASUREMENT_ID: GTAG_MEASUREMENT_ID } = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), 'PUBLIC_');
 const { title, description, image, lang = 'es', alternateUrl, alternateLang } = Astro.props as { 
 	title: string; 
 	description: string; 
