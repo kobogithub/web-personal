@@ -19,13 +19,13 @@ import { defaultLang } from './index';
  * Edit the bio in these constants — not at the four key sites below.
  */
 const BIO_P1 = {
-  es: 'Arquitecto de Soluciones/AI Engineer/SRE Ssr con amplia experiencia en contenedores, cloud computing e inteligencia artificial. Lidero equipos en la implementación de arquitecturas de datos y sistemas de IA, optimizando el rendimiento y la escalabilidad. Especialista en implementación de servicios en arquitecturas ECS/EKS y diseño de soluciones basadas en LLMs, sistemas multi-agente y RAG.',
-  en: 'Solutions Architect/AI Engineer/Senior SRE with extensive experience in containers, cloud computing and artificial intelligence. I lead teams in implementing data architectures and AI systems, optimizing performance and scalability. Specialist in ECS/EKS service implementation and designing solutions based on LLMs, multi-agent systems and RAG.',
+  es: 'Platform Manager y Arquitecto de Soluciones con más de 6 años de experiencia en cloud computing, plataformas de datos e ingeniería de IA. Lidero la plataforma interna de Taligent — infraestructura, CI/CD y herramientas de autoservicio — y diseño arquitecturas de datos multi-cloud en AWS, GCP y Azure, incluyendo migraciones de sistemas legacy a producción.',
+  en: "Platform Manager and Solutions Architect with 6+ years of experience in cloud computing, data platforms and AI engineering. I lead Taligent's internal platform — infrastructure, CI/CD and self-service tooling — and design multi-cloud data architectures across AWS, GCP and Azure, including legacy system migrations to production.",
 };
 
 const BIO_P2 = {
-  es: 'Mi pasión es crear sistemas robustos y eficientes que impulsen la innovación, inspirando a los equipos a alcanzar la excelencia técnica. Experto en AWS, GCP, Azure ML, Kubernetes, CI/CD, LangChain/LangGraph, OpenAI, MCP y automatización de infraestructura. Destaco por mi comunicación efectiva, resolución de problemas complejos y gestión de proyectos ágiles. Docente universitario en Ingeniería de IA y Sistemas Inteligentes.',
-  en: 'My passion is creating robust and efficient systems that drive innovation, inspiring teams to achieve technical excellence. Expert in AWS, GCP, Azure ML, Kubernetes, CI/CD, LangChain/LangGraph, OpenAI, MCP and infrastructure automation. I excel at effective communication, solving complex problems and agile project management. University lecturer in AI Engineering and Intelligent Systems.',
+  es: 'Especialista en sistemas agénticos: diseño y construyo frameworks de orquestación de agentes de IA, sistemas multi-agente con MCP y pipelines de NLP/OCR sobre LLMs. Trabajo end-to-end, desde módulos Terraform y clusters EKS/GKE hasta aplicaciones full-stack en Next.js desplegadas en Cloud Run. Docente universitario en Ingeniería de IA y Sistemas Inteligentes, y autor de herramientas open-source en Rust.',
+  en: 'Specialist in agentic systems: I design and build AI agent orchestration frameworks, multi-agent systems with MCP, and NLP/OCR pipelines on top of LLMs. I work end-to-end, from Terraform modules and EKS/GKE clusters to full-stack Next.js applications deployed on Cloud Run. University lecturer in AI Engineering and Intelligent Systems, and author of open-source Rust tooling.',
 };
 
 export const translations = {
