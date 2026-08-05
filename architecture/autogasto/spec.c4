@@ -1,0 +1,41 @@
+// Especificación — vocabulario del modelo de Autogasto.
+// Spec en archivo dedicado: cambios disparan re-parse completo del proyecto.
+
+specification {
+
+  // ── Element kinds ───────────────────────────────────────────
+  element actor {
+    style {
+      shape person
+      color secondary
+    }
+  }
+  element system
+  element container
+  element component
+  element store {
+    style {
+      shape cylinder
+      color green
+    }
+  }
+
+  // ── Tags ────────────────────────────────────────────────────
+  tag external    // fuera del perímetro que controla el proyecto
+  tag ai          // paso que involucra al modelo
+  tag protected   // requiere API key
+
+  // ── Deployment node kinds ───────────────────────────────────
+  deploymentNode railway {
+    style {
+      shape rectangle
+      color muted
+    }
+  }
+  deploymentNode saas {
+    style {
+      shape rectangle
+      color muted
+    }
+  }
+}

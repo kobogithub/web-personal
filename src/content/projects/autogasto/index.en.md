@@ -33,6 +33,14 @@ The full flow:
 
 ## Architecture
 
+<figure class="my-8">
+<div class="overflow-x-auto border border-magi-line bg-magi-surface p-4">
+<img src="/architecture/autogasto-light.svg" alt="Autogasto architecture diagram: the user sends the receipt photo through Telegram, the webhook delegates to the handlers, which store the original in Supabase Storage and request extraction from the OCR service; that calls GPT-4o Vision with the prompt and schema, the resulting JSON is validated by Pydantic models, and only then does the expenses service persist it to PostgreSQL." class="dark:hidden max-w-none m-0" width="1416" height="345" />
+<img src="/architecture/autogasto-dark.svg" alt="Autogasto architecture diagram: the user sends the receipt photo through Telegram, the webhook delegates to the handlers, which store the original in Supabase Storage and request extraction from the OCR service; that calls GPT-4o Vision with the prompt and schema, the resulting JSON is validated by Pydantic models, and only then does the expenses service persist it to PostgreSQL." class="hidden dark:block max-w-none m-0" width="1416" height="345" />
+</div>
+<figcaption class="text-xs font-mono text-magi-muted mt-2">Modelled with LikeC4 and exported with Graphviz. Source lives in <code>architecture/autogasto/</code>.</figcaption>
+</figure>
+
 FastAPI backend, organized by responsibility:
 
 ```

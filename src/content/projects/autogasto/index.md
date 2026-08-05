@@ -33,6 +33,14 @@ El flujo completo:
 
 ## Arquitectura
 
+<figure class="my-8">
+<div class="overflow-x-auto border border-magi-line bg-magi-surface p-4">
+<img src="/architecture/autogasto-light.svg" alt="Diagrama de arquitectura de Autogasto: el usuario manda la foto del ticket por Telegram, el webhook la delega a los handlers, que guardan el original en Supabase Storage y piden la extracción al servicio OCR; este llama a GPT-4o Vision con el prompt y el esquema, el JSON resultante lo validan los modelos Pydantic y recién ahí el servicio de gastos lo persiste en PostgreSQL." class="dark:hidden max-w-none m-0" width="1416" height="345" />
+<img src="/architecture/autogasto-dark.svg" alt="Diagrama de arquitectura de Autogasto: el usuario manda la foto del ticket por Telegram, el webhook la delega a los handlers, que guardan el original en Supabase Storage y piden la extracción al servicio OCR; este llama a GPT-4o Vision con el prompt y el esquema, el JSON resultante lo validan los modelos Pydantic y recién ahí el servicio de gastos lo persiste en PostgreSQL." class="hidden dark:block max-w-none m-0" width="1416" height="345" />
+</div>
+<figcaption class="text-xs font-mono text-magi-muted mt-2">Modelado con LikeC4 y exportado con Graphviz. La fuente está en <code>architecture/autogasto/</code>.</figcaption>
+</figure>
+
 Backend en FastAPI, organizado por responsabilidad:
 
 ```
