@@ -85,8 +85,8 @@ export const ui = {
     'header.siteLogo': 'Logo del sitio',
     'header.githubLogo': 'Logo de Github',
     // Footer
-    'footer.copyright': 'Copyright © {year} Devolio.',
-    'footer.templateCredit': 'Template creado por',
+    'footer.copyright': 'Copyright © {year}',
+    'footer.signature': 'Diseñado y construido por',
     // Table of Contents
     'toc.title': 'En esta página',
     // About the Author
@@ -126,8 +126,8 @@ export const ui = {
     'header.siteLogo': 'Site logo',
     'header.githubLogo': 'Github logo',
     // Footer
-    'footer.copyright': 'Copyright © {year} Devolio.',
-    'footer.templateCredit': 'Template created by',
+    'footer.copyright': 'Copyright © {year}',
+    'footer.signature': 'Designed and built by',
     // Table of Contents
     'toc.title': 'On This Page',
     // About the Author
