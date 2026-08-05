@@ -28,18 +28,18 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
-    "@astrojs/react": "^4.0.0",
-    "@iconify-json/simple-icons": "^1.2.15",
-    "@iconify/react": "^5.1.0",
-    "@tailwindcss/typography": "^0.5.14",
+    "@astrojs/react": "^6.0.2",
+    "@iconify-json/simple-icons": "^1.2.92",
+    "@iconify/react": "^6.0.2",
+    "@tailwindcss/typography": "^0.5.20",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
-    "@unocss/astro": "^0.65.1",
-    "@unocss/preset-icons": "^0.65.1",
-    "prettier": "^3.3.3",
+    "@unocss/astro": "^66.7.5",
+    "@unocss/preset-icons": "^66.7.5",
+    "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "unocss": "^0.65.1",
-    "vite": "^5.4.1"
+    "vite": "^8.2.0"
   },
   "packageManager": "pnpm@10.15.1+sha512.34e538c329b5553014ca8e8f4535997f96180a1d0f614339357449935350d924e22f8614682191264ec33d1462ac21561aff97f6bb18065351c162c7e8f6de67"
 }
