@@ -11,6 +11,23 @@ updates:
     open-pull-requests-limit: 5
     labels:
       - 'dependencies'
+    # Astro 6+ no es mergeable hasta resolver #83: `@astrojs/tailwind` declara
+    # `peer astro: ^3 || ^4 || ^5` y no tiene versión compatible, así que subir
+    # de major dejaría el sitio sin integración de Tailwind. Sin esta regla
+    # Dependabot reabre el PR cada vez que se cierra.
+    #
+    # QUITAR estas tres entradas al cerrar #83.
+    #
+    # Solo afecta a las actualizaciones de versión: las alertas de seguridad se
+    # siguen reportando igual.
+    ignore:
+      - dependency-name: 'astro'
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@astrojs/*'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'vite'
+        update-types: ['version-update:semver-major']
+
     # El grueso del árbol cuelga de Astro y sus integraciones: agrupar evita
     # una avalancha de PRs que hay que mergear en conjunto igual.
     groups:
