@@ -25,11 +25,14 @@ jobs:
         uses: withastro/action@v6
         with:
           node-version: 22
-          # Explícito a propósito. Sin este input la action deduce el gestor
-          # mirando qué lockfile encuentra, que es exactamente cómo el build de
-          # CI podía terminar resolviendo con npm mientras el desarrollo usa
-          # pnpm. Declararlo hace que un lockfile espurio no cambie el build.
-          package-manager: pnpm
+          # No se declara `package-manager` acá a propósito. Pasarlo sin versión
+          # hace que la action le mande `version: latest` a `pnpm/action-setup`,
+          # que falla con "Multiple versions of pnpm specified" al chocar con el
+          # campo `packageManager` de package.json.
+          #
+          # Ese campo ya es la declaración explícita, y más fuerte: fija
+          # pnpm@10.15.1 con su hash de integridad. La detección del gestor por
+          # lockfile tampoco es ambigua desde que se eliminó package-lock.json.
 
   deploy:
     needs: build
