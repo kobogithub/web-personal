@@ -161,17 +161,4 @@ export const projects: Project[] = [
     },
     tags: ['AI', 'FastAPI', 'Supabase', 'GPT-4o'],
   },
-  {
-    id: 'proj-13',
-    name: {
-      es: 'Media Stack Auto-hospedado',
-      en: 'Self-hosted Media Stack',
-    },
-    description: {
-      es: 'Stack completo en Docker para servidor de medios casero: Jellyfin, *arr suite, Caddy como reverse proxy con routing por path y hardlinks según TRaSH Guides.',
-      en: 'Full Docker stack for a home media server: Jellyfin, *arr suite, Caddy as reverse proxy with path-based routing and hardlinks following TRaSH Guides.',
-    },
-    demoLink: 'https://github.com/Pelado-Nerdworks/media-stack',
-    tags: ['Docker', 'Self-hosted', 'Homelab'],
-  },
 ];
