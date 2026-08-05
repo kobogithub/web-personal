@@ -66,8 +66,8 @@ export const skills: Skills[] = [
   {
     name: 'Kubernetes',
     description: {
-      es: 'Construcción de cluster EKS, Kops y experiencia en despliegues de Kustomize/Helm',
-      en: 'Building EKS clusters, Kops and experience in Kustomize/Helm deployments',
+      es: 'Construcción de clusters EKS y GKE privados, migración ECS a EKS, despliegues con Kustomize/Helm',
+      en: 'Building private EKS and GKE clusters, ECS to EKS migration, deployments with Kustomize/Helm',
     },
     tags: ['DevOps', 'Orchestration'],
     icon: 'simple-icons:kubernetes',
@@ -84,8 +84,8 @@ export const skills: Skills[] = [
   {
     name: 'Terraform',
     description: {
-      es: 'Repositorio de Infraestructura por Modulos',
-      en: 'Infrastructure Repository by Modules',
+      es: 'Módulos reutilizables multi-cloud (AWS, GCP, Microsoft Fabric) con OIDC, backends remotos y escaneo Checkov/tfsec',
+      en: 'Reusable multi-cloud modules (AWS, GCP, Microsoft Fabric) with OIDC, remote backends and Checkov/tfsec scanning',
     },
     tags: ['IaC', 'DevOps'],
     icon: 'simple-icons:terraform',
@@ -318,8 +318,8 @@ export const skills: Skills[] = [
   {
     name: 'GCP',
     description: {
-      es: 'BigQuery, Cloud Functions y Cloud Run en Google Cloud',
-      en: 'BigQuery, Cloud Functions and Cloud Run on Google Cloud',
+      es: 'Plataforma GKE con Terraform, Cloud Run, Cloud SQL, BigQuery, Artifact Registry y Secret Manager',
+      en: 'GKE platform with Terraform, Cloud Run, Cloud SQL, BigQuery, Artifact Registry and Secret Manager',
     },
     tags: ['Cloud', 'Infrastructure'],
     icon: 'simple-icons:googlecloud',
@@ -327,10 +327,10 @@ export const skills: Skills[] = [
   {
     name: 'Azure',
     description: {
-      es: 'Azure ML SDK para entrenamiento de modelos en la nube',
-      en: 'Azure ML SDK for cloud model training',
+      es: 'Azure Data Factory, Databricks y Microsoft Fabric para pipelines de datos productivos; Azure ML para entrenamiento de modelos',
+      en: 'Azure Data Factory, Databricks and Microsoft Fabric for production data pipelines; Azure ML for model training',
     },
-    tags: ['Cloud', 'ML'],
+    tags: ['Cloud', 'Data', 'ML'],
     icon: 'simple-icons:microsoftazure',
   },
   {
