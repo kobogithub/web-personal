@@ -1,8 +1,9 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Trigger the workflow every time you push to the `main` branch
-  # Using a different branch name? Replace `main` with your branch’s name
+  # El sitio se publica desde `prod`. `dev` es la rama de trabajo y la default
+  # del repositorio, así que mergear a `dev` no despliega nada: hay que
+  # mergear `dev` → `prod` para que esto corra.
   push:
     branches: [prod]
   # Allows you to run this workflow manually from the Actions tab on GitHub.
@@ -19,12 +20,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Install, build, and upload your site
-        uses: withastro/action@v3
+        uses: withastro/action@v6
         with:
-          # path: . # The root location of your Astro project inside the repository. (optional)
-          node-version: 20 # The specific version of Node that should be used to build your site. Defaults to 20. (optional)
+          node-version: 22
+          # Explícito a propósito. Sin este input la action deduce el gestor
+          # mirando qué lockfile encuentra, que es exactamente cómo el build de
+          # CI podía terminar resolviendo con npm mientras el desarrollo usa
+          # pnpm. Declararlo hace que un lockfile espurio no cambie el build.
+          package-manager: pnpm
 
   deploy:
     needs: build
@@ -35,4 +40,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
