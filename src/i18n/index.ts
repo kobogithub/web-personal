@@ -1,34 +1,34 @@
 /**
  * I18n System for the Personal Website
  *
- * This module provides a typed internationalization system with support for:
- * - Spanish (es) as the default language
- * - English (en) as an alternative language
- * - Type-safe translation keys
- * - Parameter interpolation in translation strings
- * - Automatic fallback from English to Spanish for missing keys
+ * Spanish (es) is the default language; English (en) falls back to Spanish for
+ * any missing key. Translation keys are type-safe.
  *
- * Usage Examples:
+ * ─── Where does a string live? ───────────────────────────────────────────────
+ * Copy is split across exactly two modules, with no overlapping keys. Each key
+ * exists in ONE place only — when editing copy, edit it there and nowhere else.
+ *
+ *   this file (`ui` / `useTranslations`)
+ *     Site chrome, present on every page:
+ *     nav.* · site.* · header.* · footer.* · toc.* · author.* · post.* · gate.*
+ *
+ *   ./translations (`translations` / `useContentTranslations`)
+ *     Page body content:
+ *     home.* · about.* · contact.* · contactForm.* · projects.* · skills.*
+ *
+ * Both dictionaries must keep es/en at parity. Do not reintroduce a third
+ * dictionary: `es.ts` and `en.ts` were removed because they had silently
+ * drifted out of sync with these two while being dead code.
+ *
+ * Usage:
  * ```typescript
- * import { t, DEFAULT_LANG, type Lang } from '@src/i18n';
+ * import { useTranslations, getLangFromUrl } from '@src/i18n/index';
  *
- * // Basic translation
- * const homeText = t('es', 'nav.home'); // 'Inicio'
- * const homeTextEn = t('en', 'nav.home'); // 'Home'
- *
- * // With parameter interpolation (when keys have {param} syntax)
- * const greeting = t('es', 'greeting.name', { name: 'John' }); // 'Hola John'
- *
- * // Use DEFAULT_LANG constant
- * const text = t(DEFAULT_LANG, 'nav.home'); // 'Inicio'
+ * const lang = getLangFromUrl(Astro.url);
+ * const t = useTranslations(lang);
+ * t('nav.home'); // 'Inicio' | 'Home'
  * ```
  */
-
-import { es, type TranslationKey } from './es';
-import { en } from './en';
-
-// Re-export TranslationKey for easier imports
-export type { TranslationKey };
 
 // Supported locales
 export const languages = {
@@ -74,11 +74,12 @@ export const ui = {
     'nav.tags': 'Tags',
     'nav.contact': 'Contacto',
     'site.title': 'Kevin Barroso',
-    'site.tagline': 'Agentic AI Engineer, Arquitecto de Soluciones & SRE Senior',
+    'site.tagline': 'Platform Manager, Arquitecto de Soluciones & AI Engineer',
     'site.description':
-      'Blog personal de IA, Cloud, Kubernetes y experiencia en Arquitectura de Soluciones',
+      'Blog personal de IA, Cloud, Kubernetes, plataformas de datos y experiencia en Arquitectura de Soluciones',
     // Header
     'header.switchLanguage': 'Cambiar idioma',
+    'header.eyebrow': 'Platform Manager / AI Engineer',
     'header.home': 'Inicio',
     'header.themeMode': 'Modo de tema',
     'header.siteLogo': 'Logo del sitio',
@@ -91,7 +92,7 @@ export const ui = {
     // About the Author
     'author.title': 'Sobre el autor',
     'author.description':
-      'Kevin es un Arquitecto de Soluciones/AI Engineer/SRE con experiencia en IA, cloud computing y sistemas inteligentes en',
+      'Kevin es Platform Manager y Arquitecto de Soluciones, con experiencia en plataformas de datos, sistemas agénticos y cloud computing en',
     // Blog post
     'post.publishedOn': 'Publicado el',
     'post.updatedOn': 'Actualizado el',
@@ -101,7 +102,7 @@ export const ui = {
     'gate.boot2': 'VERIFICANDO CREDENCIALES...',
     'gate.boot3': 'ACCESO CONCEDIDO',
     'gate.title': 'ACCESO AL SISTEMA',
-    'gate.subtitle': 'Kevin Barroso — Agentic AI Engineer / SRE',
+    'gate.subtitle': 'Kevin Barroso — Platform Manager / AI Engineer',
     'gate.enter': 'Entrar',
     'gate.hint': 'o presioná Enter',
   },
@@ -114,11 +115,12 @@ export const ui = {
     'nav.tags': 'Tags',
     'nav.contact': 'Contact',
     'site.title': 'Kevin Barroso',
-    'site.tagline': 'Agentic AI Engineer, Solutions Architect & Senior SRE',
+    'site.tagline': 'Platform Manager, Solutions Architect & AI Engineer',
     'site.description':
-      'Personal blog about AI, Cloud, Kubernetes and Solutions Architecture experience',
+      'Personal blog about AI, Cloud, Kubernetes, data platforms and Solutions Architecture experience',
     // Header
     'header.switchLanguage': 'Switch language',
+    'header.eyebrow': 'Platform Manager / AI Engineer',
     'header.home': 'Home',
     'header.themeMode': 'Theme mode',
     'header.siteLogo': 'Site logo',
@@ -131,7 +133,7 @@ export const ui = {
     // About the Author
     'author.title': 'About the Author',
     'author.description':
-      'Kevin is a Solutions Architect/AI Engineer/SRE with experience in AI, cloud computing and intelligent systems on',
+      'Kevin is a Platform Manager and Solutions Architect, with experience in data platforms, agentic systems and cloud computing on',
     // Blog post
     'post.publishedOn': 'Published on',
     'post.updatedOn': 'Updated on',
@@ -141,7 +143,7 @@ export const ui = {
     'gate.boot2': 'VERIFYING CREDENTIALS...',
     'gate.boot3': 'ACCESS GRANTED',
     'gate.title': 'SYSTEM ACCESS',
-    'gate.subtitle': 'Kevin Barroso — Agentic AI Engineer / SRE',
+    'gate.subtitle': 'Kevin Barroso — Platform Manager / AI Engineer',
     'gate.enter': 'Enter',
     'gate.hint': 'or press Enter',
   },

@@ -18,7 +18,7 @@ const { post, lang = 'es' } = Astro.props as Props;
     <FormattedDate date={post.data.pubDate} />
   </div>
   <h3 class='font-medium grow'>
-    <a href={linkFor(lang, `${post.slug}/`)} class='hover:text-magi-accent transition-colors'>
+    <a href={linkFor(lang, `${post.id}/`)} class='hover:text-magi-accent transition-colors'>
       {post.data.title}
     </a>
   </h3>

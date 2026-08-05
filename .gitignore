@@ -131,3 +131,6 @@ dist
 
 # Local Claude Code tooling (agent/skill symlinks are machine-specific)
 .claude/
+
+# Astro build cache (settings.json solo guarda un timestamp de chequeo)
+.astro/
