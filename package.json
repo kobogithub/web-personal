@@ -19,7 +19,7 @@
     "@astrojs/tailwind": "^6.0.2",
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@fontsource/rajdhani": "^5.2.7",
-    "astro": "^5.18.2",
+    "astro": "^7.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sharp": "^0.33.5",
