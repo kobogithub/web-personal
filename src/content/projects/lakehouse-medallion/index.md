@@ -34,6 +34,14 @@ Que MinIO hable el protocolo de S3 es lo que hace que el ejercicio valga: el có
 
 ## Arquitectura medallion
 
+<figure class="my-8">
+<div class="overflow-x-auto border border-magi-line bg-magi-surface p-4">
+<img src="/architecture/lakehouse-medallion-light.svg" alt="Diagrama de arquitectura del lakehouse medallion: las fuentes de origen se extraen con Apache Airflow, que escribe el crudo en la capa Bronze; de Bronze a Silver se limpia, tipa y deduplica, y de Silver a Gold se agrega y modela por caso de uso, hasta que el analista consulta Gold. Las tres capas son tablas Apache Iceberg sobre MinIO, un object storage S3-compatible, y dbt junto con DuckDB son el motor que lee y escribe esas tablas. Todo corre en Docker Compose sobre una sola máquina." class="dark:hidden max-w-none m-0" width="1513" height="238" />
+<img src="/architecture/lakehouse-medallion-dark.svg" alt="Diagrama de arquitectura del lakehouse medallion: las fuentes de origen se extraen con Apache Airflow, que escribe el crudo en la capa Bronze; de Bronze a Silver se limpia, tipa y deduplica, y de Silver a Gold se agrega y modela por caso de uso, hasta que el analista consulta Gold. Las tres capas son tablas Apache Iceberg sobre MinIO, un object storage S3-compatible, y dbt junto con DuckDB son el motor que lee y escribe esas tablas. Todo corre en Docker Compose sobre una sola máquina." class="hidden dark:block max-w-none m-0" width="1513" height="238" />
+</div>
+<figcaption class="text-xs font-mono text-magi-muted mt-2">Modelado con LikeC4 y exportado con Graphviz. La fuente está en <code>architecture/lakehouse-medallion/</code>.</figcaption>
+</figure>
+
 El flujo sigue las tres capas clásicas:
 
 **Bronze** — ingesta cruda, tal como llegó. Sin limpiar, sin tipar, sin deduplicar. Es el registro de lo que efectivamente entró, y permite reprocesar todo si más adelante cambia una regla.

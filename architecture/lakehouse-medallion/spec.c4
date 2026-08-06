@@ -1,0 +1,54 @@
+// Especificación — vocabulario del modelo del Lakehouse Medallion.
+// Spec en archivo dedicado: cambios disparan re-parse completo del proyecto.
+
+specification {
+
+  // ── Element kinds ───────────────────────────────────────────
+  element actor {
+    style {
+      shape person
+      color secondary
+    }
+  }
+  element system
+  element container
+  element component
+
+  // Una capa del medallion. Es un almacén, pero se distingue del resto
+  // porque el contrato de cada capa (qué garantiza sobre el dato) es lo
+  // que el diagrama tiene que dejar ver.
+  element layer {
+    style {
+      shape storage
+      color amber
+    }
+  }
+
+  element store {
+    style {
+      shape cylinder
+      color green
+    }
+  }
+
+  // ── Tags ────────────────────────────────────────────────────
+  tag external    // fuera del perímetro que controla el proyecto
+  tag bronze      // crudo, tal como llegó
+  tag silver      // limpio, tipado, conformado
+  tag gold        // modelado para consumo
+  tag local       // corre en la máquina: sin cuenta cloud ni cómputo facturado
+
+  // ── Deployment node kinds ───────────────────────────────────
+  deploymentNode laptop {
+    style {
+      shape rectangle
+      color muted
+    }
+  }
+  deploymentNode compose {
+    style {
+      shape rectangle
+      color muted
+    }
+  }
+}

@@ -34,6 +34,14 @@ MinIO speaking the S3 protocol is what makes the exercise worthwhile: the code t
 
 ## Medallion architecture
 
+<figure class="my-8">
+<div class="overflow-x-auto border border-magi-line bg-magi-surface p-4">
+<img src="/architecture/lakehouse-medallion-light.svg" alt="Medallion lakehouse architecture diagram: source systems are extracted by Apache Airflow, which writes the raw data into the Bronze layer; Bronze to Silver cleans, types and deduplicates, and Silver to Gold aggregates and shapes it per use case, until the analyst queries Gold. The three layers are Apache Iceberg tables on MinIO, an S3-compatible object storage, and dbt together with DuckDB are the engine that reads and writes those tables. Everything runs on Docker Compose on a single machine." class="dark:hidden max-w-none m-0" width="1513" height="238" />
+<img src="/architecture/lakehouse-medallion-dark.svg" alt="Medallion lakehouse architecture diagram: source systems are extracted by Apache Airflow, which writes the raw data into the Bronze layer; Bronze to Silver cleans, types and deduplicates, and Silver to Gold aggregates and shapes it per use case, until the analyst queries Gold. The three layers are Apache Iceberg tables on MinIO, an S3-compatible object storage, and dbt together with DuckDB are the engine that reads and writes those tables. Everything runs on Docker Compose on a single machine." class="hidden dark:block max-w-none m-0" width="1513" height="238" />
+</div>
+<figcaption class="text-xs font-mono text-magi-muted mt-2">Modelled with LikeC4 and exported with Graphviz. Source lives in <code>architecture/lakehouse-medallion/</code>.</figcaption>
+</figure>
+
 The flow follows the three classic layers:
 
 **Bronze** — raw ingestion, exactly as it arrived. Uncleaned, untyped, undeduplicated. It is the record of what actually came in, and it makes it possible to reprocess everything if a rule changes later.

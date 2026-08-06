@@ -78,3 +78,4 @@ diagrama. Es el único contenido que recibe quien no puede verlo.
 | Proyecto | Carpeta | Vistas |
 |---|---|---|
 | Autogasto | `autogasto/` | contexto · interior del backend |
+| Lakehouse Medallion | `lakehouse-medallion/` | contexto · interior del stack local |
