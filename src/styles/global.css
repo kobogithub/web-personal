@@ -1,6 +1,71 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+/* Tailwind 4 configura desde CSS: `tailwind.config.mjs` ya no existe y todo lo
+   que había en `theme.extend` vive acá abajo. */
+
+/* Equivale a `darkMode: 'selector'` de la config anterior: la clase `.dark` la
+   pone el script de tema en BaseHead, y `:where()` mantiene especificidad 0
+   para no ganarle a las utilidades. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@plugin "@tailwindcss/typography";
+
+@theme {
+	/* Los tokens MAGI apuntan a las custom properties definidas más abajo, que
+	   son las que cambian entre tema claro y oscuro. Tailwind genera desde acá
+	   `bg-magi-*`, `text-magi-*`, `border-magi-*`. */
+	--color-magi-bg: var(--magi-bg);
+	--color-magi-surface: var(--magi-surface);
+	--color-magi-surface2: var(--magi-surface-2);
+	--color-magi-ink: var(--magi-ink);
+	--color-magi-muted: var(--magi-muted);
+	--color-magi-line: var(--magi-line);
+	--color-magi-accent: var(--magi-accent);
+	--color-magi-accent-ink: var(--magi-accent-ink);
+	--color-magi-violet: var(--magi-violet);
+	--color-magi-support: var(--magi-support);
+	--color-magi-danger: var(--magi-danger);
+
+	--font-display: 'Rajdhani', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+	--font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* Tailwind 4 eliminó `theme.container`, pero mantiene una utilidad `container`
+   propia que emite un `max-width` distinto por breakpoint (40/48/64/80/96rem).
+   La config anterior fijaba 1024px plano, así que hay que ganarle.
+
+   Va como CSS sin capa a propósito: en la cascada, lo no-capeado le gana a
+   cualquier `@layer`, y Tailwind 4 emite todo dentro de capas. Con `@utility`
+   la regla quedaba en la capa de utilidades compitiendo por orden de aparición
+   con la built-in, que es frágil. Lo usan Header, Footer y la 404. */
+.container {
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: 1rem;
+	padding-left: 1rem;
+	max-width: 1024px;
+}
+
+/* Antes era `theme.extend.typography.DEFAULT.css.maxWidth`. El plugin de
+   typography limita el ancho por defecto y acá no se quiere ese límite.
+   También sin capa, por el mismo motivo. */
+.prose {
+	max-width: 100%;
+}
+
+/* Tailwind 4 cambió el color por defecto de `border-*` de gray-200 a
+   currentColor. El markup usa `border` sin color en varios lugares contando
+   con el default anterior, así que se restituye. */
+@layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentColor);
+	}
+}
 
 /* Panel MAGI type: Rajdhani (display) + IBM Plex Mono (technical readouts) */
 @import '@fontsource/rajdhani/500.css';

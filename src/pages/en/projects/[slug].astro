@@ -1,0 +1,37 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ProjectDetail from '../../../components/ProjectDetail.astro';
+
+const lang = 'en';
+
+export async function getStaticPaths() {
+	const entries = await getCollection('projects', ({ data }: any) => data.lang === 'en');
+	return entries.map((entry: any) => ({
+		// Las fichas en inglés llevan el sufijo `-en` en su id para no colisionar
+		// con las españolas dentro de la colección. Se saca acá para que
+		// `/projects/x` y `/en/projects/x` sean la misma URL en cada idioma.
+		params: { slug: entry.id.replace(/-en$/, '') },
+		props: entry,
+	}));
+}
+
+const entry = Astro.props as CollectionEntry<'projects'>;
+const { Content } = await render(entry);
+
+const alternateEntry = entry.data.alternate
+	? (await getCollection('projects')).find((e: any) => e.id === entry.data.alternate)
+	: undefined;
+---
+
+<BaseLayout
+	title={entry.data.title}
+	description={entry.data.summary}
+	lang={lang}
+	alternateUrl={alternateEntry ? `/projects/${alternateEntry.id}/` : undefined}
+	alternateLang={alternateEntry ? 'es' : undefined}
+>
+	<ProjectDetail entry={entry} lang={lang}>
+		<Content />
+	</ProjectDetail>
+</BaseLayout>

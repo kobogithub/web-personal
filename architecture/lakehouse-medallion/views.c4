@@ -1,0 +1,16 @@
+// Vistas: contexto general + el interior del stack local.
+
+views {
+
+  view index {
+    title 'Lakehouse Medallion — Contexto'
+    include *
+    autoLayout LeftRight
+  }
+
+  view stack of stack {
+    title 'Lakehouse Medallion — Interior del stack local'
+    include *
+    autoLayout LeftRight
+  }
+}

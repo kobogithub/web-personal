@@ -1,0 +1,16 @@
+// Vistas: contexto general + el detalle interno del backend.
+
+views {
+
+  view index {
+    title 'Autogasto — Contexto'
+    include *
+    autoLayout LeftRight
+  }
+
+  view api of api {
+    title 'Autogasto — Interior del backend'
+    include *
+    autoLayout LeftRight
+  }
+}

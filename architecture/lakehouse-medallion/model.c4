@@ -1,0 +1,68 @@
+// Modelo lógico del Lakehouse Medallion on-premise — un lakehouse completo
+// que corre entero en una laptop, con Docker Compose.
+// Spec en spec.c4 · vistas en views.c4
+//
+// La pieza que hace que el ejercicio valga es MinIO: habla el protocolo de S3,
+// así que el código que lee y escribe no sabe que no está en la nube.
+
+model {
+
+  analista = actor 'Analista' {
+    description 'Consulta las tablas Gold. No conoce las capas de abajo, y no debería.'
+  }
+
+  fuentes = system 'Fuentes de origen' {
+    #external
+    description 'Archivos y extractos de sistemas operacionales. Lo que llega, llega como está.'
+  }
+
+  // ── Todo lo de abajo corre en una sola máquina ─────────────
+  stack = system 'Lakehouse local' {
+    #local
+    description 'Docker Compose. El entorno entero está declarado: se levanta igual en cualquier máquina.'
+
+    airflow = container 'Apache Airflow' {
+      description 'Orquesta la ingesta y dispara las corridas de dbt. Los DAGs son el único lugar donde vive el orden de ejecución.'
+    }
+
+    dbt = container 'dbt' {
+      description 'Transformaciones declarativas de Bronze hacia Gold, con tests sobre las suposiciones que importan y linaje derivado de las dependencias entre modelos.'
+    }
+
+    duckdb = container 'DuckDB' {
+      description 'Motor de consulta. Para volúmenes que entran en una máquina hace el trabajo de un motor distribuido sin el costo operativo de serlo: no hay cluster que dimensionar ni tiempo de arranque.'
+    }
+
+    minio = container 'MinIO' {
+      description 'Object storage S3-compatible. Ocupa el lugar de S3 o ADLS manteniendo la misma interfaz, que es lo que hace que lo aprendido se traslade.'
+
+      bronze = layer 'Bronze' {
+        #bronze
+        description 'Ingesta cruda, tal como llegó. Sin limpiar, sin tipar, sin deduplicar. Es el registro de lo que efectivamente entró: permite reprocesar todo si más adelante cambia una regla.'
+      }
+
+      silver = layer 'Silver' {
+        #silver
+        description 'Limpio, tipado y conformado. Acá se resuelven duplicados, se normalizan formatos y se aplican las reglas de calidad.'
+      }
+
+      gold = layer 'Gold' {
+        #gold
+        description 'Modelos listos para consumo, agregados y orientados al caso de uso.'
+      }
+    }
+
+    airflow -> dbt      'Dispara la corrida'
+    dbt     -> duckdb   'Compila a SQL y lo ejecuta'
+  }
+
+  // ── El recorrido del dato ──────────────────────────────────
+  fuentes -> airflow   'Extracción'
+  airflow -> bronze    'Escribe el crudo'
+
+  duckdb  -> bronze    'Lee el crudo'
+  duckdb  -> silver    'Limpia, tipa y deduplica'
+  duckdb  -> gold      'Agrega y modela'
+
+  gold    -> analista  'Consulta'
+}

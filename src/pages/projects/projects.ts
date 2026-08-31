@@ -13,6 +13,12 @@ export interface Project {
    * un link genérico al perfil que promete algo que no existe.
    */
   demoLink?: string;
+  /**
+   * Slug de la ficha en la colección `projects` (sin prefijo de idioma). Cuando
+   * está presente, la card enlaza a `/projects/<slug>`; cuando no, el proyecto
+   * solo existe como card. No todos los proyectos justifican una ficha.
+   */
+  detailSlug?: string;
   tags?: string[];
   postLink?: string;
   demoLinkRel?: string;
@@ -70,6 +76,7 @@ export const projects: Project[] = [
       en: 'Rust CLI that solves the cold start problem in AI-assisted development: installs agents, skills, memory and workflows in any project. Distributed via Homebrew, .deb and .rpm.',
     },
     demoLink: 'https://github.com/kobogithub/knowledge',
+    detailSlug: 'knowledge-framework',
     tags: ['Rust', 'AI', 'CLI', 'MCP'],
   },
   {
@@ -133,6 +140,7 @@ export const projects: Project[] = [
       es: 'Lakehouse reproducible 100% local con Apache Airflow, MinIO, DuckDB, dbt e Iceberg. Bronze → Silver → Gold con tests y linaje.',
       en: 'Fully local reproducible lakehouse with Apache Airflow, MinIO, DuckDB, dbt and Iceberg. Bronze → Silver → Gold with tests and lineage.',
     },
+    detailSlug: 'lakehouse-medallion',
     tags: ['Data', 'dbt', 'DuckDB', 'Airflow'],
   },
   {
@@ -146,6 +154,7 @@ export const projects: Project[] = [
       es: 'App de planificación de viaje con Astro SSR, Drizzle ORM y PostgreSQL. Itinerario con detección de solapamientos, división de gastos, modo offline (PWA) y sincronización en tiempo real vía WebSocket sobre LISTEN/NOTIFY.',
       en: 'Trip planning app with Astro SSR, Drizzle ORM and PostgreSQL. Itinerary with overlap detection, expense splitting, offline mode (PWA) and real-time sync via WebSocket over LISTEN/NOTIFY.',
     },
+    detailSlug: 'japan-2027',
     tags: ['Astro', 'PostgreSQL', 'TypeScript', 'PWA'],
   },
   {
@@ -159,19 +168,7 @@ export const projects: Project[] = [
       es: 'Bot de Telegram que registra gastos a partir de fotos de tickets. GPT-4o Vision extrae los datos, FastAPI los valida y Supabase los persiste. Desplegado en Railway sobre Docker.',
       en: 'Telegram bot that logs expenses from receipt photos. GPT-4o Vision extracts the data, FastAPI validates it and Supabase persists it. Deployed on Railway over Docker.',
     },
+    detailSlug: 'autogasto',
     tags: ['AI', 'FastAPI', 'Supabase', 'GPT-4o'],
-  },
-  {
-    id: 'proj-13',
-    name: {
-      es: 'Media Stack Auto-hospedado',
-      en: 'Self-hosted Media Stack',
-    },
-    description: {
-      es: 'Stack completo en Docker para servidor de medios casero: Jellyfin, *arr suite, Caddy como reverse proxy con routing por path y hardlinks según TRaSH Guides.',
-      en: 'Full Docker stack for a home media server: Jellyfin, *arr suite, Caddy as reverse proxy with path-based routing and hardlinks following TRaSH Guides.',
-    },
-    demoLink: 'https://github.com/Pelado-Nerdworks/media-stack',
-    tags: ['Docker', 'Self-hosted', 'Homelab'],
   },
 ];

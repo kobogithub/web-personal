@@ -134,3 +134,4 @@ dist
 
 # Astro build cache (settings.json solo guarda un timestamp de chequeo)
 .astro/
+__pycache__/
