@@ -1,0 +1,91 @@
+// Modelo lógico de Autogasto — bot de Telegram que registra gastos a partir
+// de fotos de tickets, con extracción por GPT-4o Vision.
+// Spec en spec.c4 · vistas en views.c4
+
+model {
+
+  usuario = actor 'Usuario' {
+    description 'Saca la foto del ticket desde Telegram. Es el único gesto que hace.'
+  }
+
+  telegram = system 'Telegram' {
+    #external
+    description 'Interfaz del bot. Se elige porque ya está instalado y autenticado: no hay app que instalar ni cuenta que crear.'
+  }
+
+  openai = system 'OpenAI — GPT-4o Vision' {
+    #external
+    #ai
+    description 'Extrae los datos del ticket contra un esquema de salida declarado'
+  }
+
+  // ── Backend propio, desplegado en Railway sobre Docker ──────
+  api = system 'Autogasto API' {
+    description 'FastAPI sobre Docker en Railway · dominio y TLS automáticos'
+
+    webhook = container 'Router · webhook' {
+      description 'POST /webhook/telegram — público por necesidad'
+    }
+
+    gastos_api = container 'Router · gastos' {
+      #protected
+      description 'CRUD /gastos — protegido con Bearer token'
+    }
+
+    handlers = container 'Telegram handlers' {
+      description 'Lógica del bot: recibe la foto, orquesta el resto, arma la respuesta'
+    }
+
+    ocr = container 'Servicio OCR' {
+      #ai
+      description 'Llama a GPT-4o con el prompt de extracción. El prompt vive versionado como código, no como configuración.'
+    }
+
+    pdf = container 'Servicio PDF' {
+      description 'Convierte tickets en PDF a imagen, para que haya un solo camino de extracción'
+    }
+
+    storage_svc = container 'Servicio Storage' {
+      description 'Sube la imagen original'
+    }
+
+    modelos = container 'Modelos Pydantic' {
+      description 'Validan el JSON del modelo antes de que toque la base. El modelo puede errar un monto, pero no romper el formato.'
+    }
+
+    gastos_svc = container 'Servicio Gastos' {
+      description 'Queries a la base'
+    }
+
+    handlers -> pdf         'Si es PDF, convierte'
+    handlers -> storage_svc 'Guarda el original'
+    handlers -> ocr         'Pide extracción'
+    ocr      -> modelos     'JSON estructurado'
+    modelos  -> gastos_svc  'Datos validados'
+    webhook  -> handlers    'Delega'
+  }
+
+  // ── Persistencia gestionada ────────────────────────────────
+  supabase = system 'Supabase' {
+    #external
+    description 'PostgreSQL gestionado · migraciones versionadas en SQL'
+
+    db = store 'PostgreSQL' {
+      description 'Tablas gastos y vehiculos'
+    }
+
+    bucket = store 'Storage' {
+      description 'Imágenes originales de los tickets'
+    }
+  }
+
+  // ── Relaciones entre sistemas ──────────────────────────────
+  usuario     -> telegram    'Manda la foto del ticket'
+  telegram    -> webhook     'Webhook con la imagen'
+  ocr         -> openai      'Imagen + prompt + esquema'
+  storage_svc -> bucket      'Sube la imagen'
+  gastos_svc  -> db          'Persiste el gasto'
+  gastos_api  -> gastos_svc  'Consulta y edita'
+  handlers    -> telegram    'Resumen de lo registrado'
+  telegram    -> usuario     'Confirmación'
+}

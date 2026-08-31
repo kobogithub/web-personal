@@ -32,4 +32,34 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+// Fichas de proyecto: la narrativa larga (problema, solución, arquitectura,
+// decisiones) que no entra en la card de `/projects`.
+//
+// Un proyecto de `projects.ts` tiene ficha cuando declara `detailSlug`; no
+// todos la tienen. Los metadatos de acá alimentan solo la ficha — la card
+// sigue leyendo `projects.ts`, que es su fuente.
+//
+// Cada ficha son dos archivos, `index.md` e `index.en.md`, emparejados con
+// `lang` + `alternate` igual que los posts del blog.
+const projects = defineCollection({
+  loader: glob({ base: './src/content/projects', pattern: '**/*.{md,mdx}' }),
+  schema: z.object({
+    title: z.string(),
+    // Frase corta que encabeza la ficha. Distinta de la descripción de la card:
+    // acá hay espacio para decir qué resuelve, no solo qué es.
+    summary: z.string(),
+    role: z.string(),
+    period: z.string(),
+    status: z.enum(['activo', 'en-produccion', 'archivado', 'active', 'in-production', 'archived']),
+    stack: z.array(z.string()),
+    tags: z.array(z.string()).optional(),
+    // Solo para proyectos con repositorio público. Los internos lo omiten.
+    repoUrl: z.string().url().optional(),
+    lang: z.enum(['es', 'en']).optional().default('es'),
+    alternate: z.string().optional(),
+    // Ordena las fichas entre sí cuando se listan.
+    order: z.number().optional().default(99),
+  }),
+});
+
+export const collections = { blog, projects };

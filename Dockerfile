@@ -1,20 +1,18 @@
-# Dockerfile.dev para entorno de desarrollo Astro
-FROM node:18-alpine
+# Dockerfile de desarrollo para Astro
+FROM node:22-alpine
 
-# Instalar pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# pnpm vía corepack, con la versión que fija packageManager en package.json
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+RUN corepack enable
 
-# Directorio de trabajo
 WORKDIR /app
 
-# Copiar archivos de configuración primero
-COPY package.json pnpm-lock.yaml ./
+# Primero lo que define las dependencias, para aprovechar la cache de capas
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
-# Instalar dependencias
 RUN pnpm install --frozen-lockfile
 
-# Exponer el puerto de desarrollo de Astro
+# Puerto de desarrollo de Astro
 EXPOSE 4321
 
-# Comando por defecto: modo desarrollo
-CMD ["npx", "astro", "dev", "--host"]
+CMD ["pnpm", "dev", "--host"]

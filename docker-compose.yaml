@@ -17,11 +17,9 @@ services:
       - ./package.json:/app/package.json
       - ./tsconfig.json:/app/tsconfig.json
       - ./astro.config.mjs:/app/astro.config.mjs
-      - ./tailwind.config.mjs:/app/tailwind.config.mjs
-      - ./uno.config.ts:/app/uno.config.ts
       - ./pnpm-lock.yaml:/app/pnpm-lock.yaml
-      - ./nginx:/app/nginx
-    command: npx astro dev --host
+      - ./pnpm-workspace.yaml:/app/pnpm-workspace.yaml
+    command: pnpm dev --host
     networks:
       - private
 

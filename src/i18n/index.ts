@@ -85,8 +85,8 @@ export const ui = {
     'header.siteLogo': 'Logo del sitio',
     'header.githubLogo': 'Logo de Github',
     // Footer
-    'footer.copyright': 'Copyright © {year} Devolio.',
-    'footer.templateCredit': 'Template creado por',
+    'footer.copyright': 'Copyright © {year}',
+    'footer.signature': 'Diseñado y construido por',
     // Table of Contents
     'toc.title': 'En esta página',
     // About the Author
@@ -96,6 +96,14 @@ export const ui = {
     // Blog post
     'post.publishedOn': 'Publicado el',
     'post.updatedOn': 'Actualizado el',
+    // Ficha de proyecto
+    'projectDetail.back': 'Volver a proyectos',
+    'projectDetail.role': 'Rol',
+    'projectDetail.period': 'Período',
+    'projectDetail.stack': 'Stack',
+    'projectDetail.repo': 'Ver repositorio',
+    'projectDetail.private': 'Repositorio privado',
+    'projectDetail.readMore': 'Ver detalle',
     // Entry gate
     'gate.eyebrow': 'MAGI SYSTEM // TERMINAL DE ACCESO',
     'gate.boot1': 'INICIANDO PROTOCOLO DE ACCESO...',
@@ -126,8 +134,8 @@ export const ui = {
     'header.siteLogo': 'Site logo',
     'header.githubLogo': 'Github logo',
     // Footer
-    'footer.copyright': 'Copyright © {year} Devolio.',
-    'footer.templateCredit': 'Template created by',
+    'footer.copyright': 'Copyright © {year}',
+    'footer.signature': 'Designed and built by',
     // Table of Contents
     'toc.title': 'On This Page',
     // About the Author
@@ -137,6 +145,14 @@ export const ui = {
     // Blog post
     'post.publishedOn': 'Published on',
     'post.updatedOn': 'Updated on',
+    // Project detail
+    'projectDetail.back': 'Back to projects',
+    'projectDetail.role': 'Role',
+    'projectDetail.period': 'Period',
+    'projectDetail.stack': 'Stack',
+    'projectDetail.repo': 'View repository',
+    'projectDetail.private': 'Private repository',
+    'projectDetail.readMore': 'View details',
     // Entry gate
     'gate.eyebrow': 'MAGI SYSTEM // ACCESS TERMINAL',
     'gate.boot1': 'INITIATING ACCESS PROTOCOL...',
