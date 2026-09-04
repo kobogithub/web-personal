@@ -1,3 +1,17 @@
 onlyBuiltDependencies:
   - esbuild
   - sharp
+
+# `tsx` (peer opcional de vite) arrastra esbuild 0.23.1, afectado por
+# GHSA-67mh-4wv8-2f99: cualquier sitio que visites puede mandarle pedidos al
+# dev server de esbuild y leer la respuesta. Nadie publica un fix aguas
+# arriba porque es una dependencia de una dependencia opcional, y el sitio
+# compila estatico, asi que en produccion no corre nada de esto.
+#
+# Igual se fuerza, por dos razones: el dev server SI se expone a la LAN
+# cuando se revisa el sitio desde otro dispositivo, y el repo se muestra como
+# carta de presentacion — cero avisos en la pestana Security es parte de eso
+# (ver issue #71). Sacar este override cuando vite deje de resolver tsx a un
+# esbuild < 0.25.
+overrides:
+  esbuild@<0.25.0: '>=0.25.0'
