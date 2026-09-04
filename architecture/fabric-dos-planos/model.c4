@@ -1,0 +1,156 @@
+// Modelo lógico — acelerador de Microsoft Fabric.
+//
+// La tesis del modelo: una plataforma de datos NO es una cosa que se
+// despliega. Son dos planos con dueños y velocidades de cambio distintas,
+// y cada uno necesita su propio mecanismo:
+//
+//   1. Plano estático  — capacity, workspaces, lakehouses, RBAC, Spark pool
+//      y shortcuts. Cambia rara vez, lo gobierna Terraform, el dueño del
+//      cambio es el equipo de plataforma.
+//   2. Plano dinámico  — los notebooks. Cambian todos los días, no van al
+//      tfstate, y los gobierna un deploy declarativo (fabric-cicd) con
+//      reconciliación de borrados. El dueño del cambio es el data engineer.
+//
+// Fabric Git Integration NO se usa: la sincronización bidireccional compite
+// con la escritura por deploy. El flujo es unidireccional git -> Fabric,
+// hacia los DOS entornos.
+//
+// Spec en spec.c4 · vistas en views.c4.
+
+model {
+
+  // ── Actores ───────────────────────────────────────────────────
+  platform = actor 'Plataforma / Infra' {
+    description 'Despliega y gobierna la infra con Terraform (Service Principal)'
+  }
+  dataEng = actor 'Data Engineer' {
+    description 'Escribe los notebooks de los pipes de datos'
+  }
+
+  // ── Origen de datos externo ───────────────────────────────────
+  extSource = store 'Storage externo' {
+    #external
+    description 'ADLS Gen2 / S3 — origen crudo, expuesto por shortcut sin copiar datos'
+    style { color muted }
+  }
+
+  // ── El acelerador (el repositorio que se copia el día uno) ────
+  repo = system 'Acelerador' {
+    description 'Repo IaC + GitOps: de cero a plataforma sin decisiones pendientes'
+
+    // ── Plano 1: estático ───────────────────────────────────────
+    tf = container 'Plano estático — Terraform' {
+      #estatico
+      description 'infra/modules + composiciones raíz · terraform apply por entorno'
+      style { icon tech:terraform; color blue }
+
+      capacityMod  = component 'fabric-capacity'      { description 'Resource Group + Fabric Capacity (recursos ARM de Azure)' }
+      workspaceMod = component 'fabric-workspace'     { description 'Fabric Workspace — el pegamento entre ARM y la API de Fabric' }
+      lakehouseMod = component 'fabric-lakehouse'     { description 'Lakehouses medallón. Guiones bajos: el displayName es el identificador SQL' }
+      sparkMod     = component 'fabric-spark-config'  { description 'Custom Spark Pool. Techo de executors = autoscale_max_nodes - 1' }
+      shortcutMod  = component 'fabric-shortcut'      { description 'Shortcuts a storage externo — credenciales en una Connection, nunca en el state' }
+      rbacMod      = component 'fabric-workspace-rbac' { #governance; description 'Contributor en dev · Viewer en prd' }
+    }
+
+    // ── Plano 2: dinámico ───────────────────────────────────────
+    svc = container 'Plano dinámico — GitOps' {
+      #dinamico
+      description 'services/ — notebooks. Sin tfstate: el repo es la única verdad para los dos workspaces'
+
+      lab = component 'Lab local — Docker' {
+        #local
+        description 'Spark 3.5 + Delta 3.2 + MinIO: espejo de Fabric Runtime 1.3. No consume capacity'
+      }
+      scaffold = component 'create-notebook.sh · Jsonnet' {
+        description 'Genera SOLO la primera versión del .Notebook/. Nunca se re-corre sobre un ítem ya escrito'
+      }
+      param = component 'parameter.yml' {
+        description 'fabric-cicd: remapea los GUIDs de lakehouse y Spark pool según el entorno'
+      }
+      deployScript = component 'deploy.py — fabric-cicd' {
+        description 'publish_all_items + unpublish_all_orphan_items: publica Y borra lo que ya no está en el repo'
+        style { icon tech:python }
+      }
+    }
+  }
+
+  // ── GitHub: ramas + Actions ───────────────────────────────────
+  github = system 'GitHub' {
+    #external
+    description 'Ramas y Actions. La rama es la que decide el entorno de destino'
+    style { icon tech:github-actions; color muted }
+
+    branchFeat = container 'feature/*'   { #local; description 'Autoría. No toca Fabric' }
+    branchDev  = container 'branch dev'  { #dev;  description 'Integración — deploy automático a DEV' }
+    branchProd = container 'branch prod' { #prd;  description 'Producción. Se llama prod, nunca main' }
+    wfInfra    = container 'terraform-infra.yml' { #cicd; description 'plan en el PR · apply por entorno' }
+    wfDeploy   = container 'deploy-notebook.yml' { #cicd; description 'push a dev o prod: deriva el par (entorno, workspace) en un solo lugar' }
+  }
+
+  // ── Microsoft Azure (ARM) ─────────────────────────────────────
+  azure = system 'Microsoft Azure' {
+    #external
+    description 'Sustrato ARM. El provider azurerm pide token al configurarse, aunque no gestione nada'
+    style { color muted }
+
+    rg       = container 'Resource Group'  { description 'Contenedor ARM de la capacity' }
+    capacity = container 'Fabric Capacity' { description 'F-SKU — el cómputo que respalda los workspaces' }
+  }
+
+  // ── Microsoft Fabric (el destino del despliegue) ──────────────
+  fabric = system 'Microsoft Fabric' {
+    #external
+    description 'OneLake + workspaces. Objetos internos con GUIDs propios, distintos del resource ID de ARM'
+
+    wsDev = container 'Workspace dev' {
+      #dev
+      description 'Solo EJECUCIÓN. Ingenieros Contributor: "ejecutar pero no editar" no existe como rol, lo garantiza la reconciliación'
+      bronzeDev = layer 'Bronze' { description 'Crudo, tal como llegó (por shortcut)' }
+      silverDev = layer 'Silver' { description 'Limpio · tipado · sin duplicados'; style { color blue } }
+      goldDev   = layer 'Gold'   { description 'Modelado por caso de uso'; style { color green } }
+      bronzeDev -> silverDev 'Notebook Silver'
+      silverDev -> goldDev   'Notebook Gold'
+    }
+
+    wsPrd = container 'Workspace prd' {
+      #prd
+      description 'Producción. Ingenieros Viewer: solo escribe el Service Principal de deploy'
+      bronzePrd = layer 'Bronze'
+      silverPrd = layer 'Silver' { style { color blue } }
+      goldPrd   = layer 'Gold'   { style { color green } }
+      bronzePrd -> silverPrd 'Notebook Silver'
+      silverPrd -> goldPrd   'Notebook Gold'
+    }
+  }
+
+  // ── Plano estático: provisioning ──────────────────────────────
+  platform -> repo.tf 'terraform apply, un entorno a la vez'
+  platform -> github.wfInfra 'abre el PR'
+  github.wfInfra -> repo.tf 'plan en el PR · apply al mergear'
+  repo.tf.capacityMod -> azure.rg 'Crea el Resource Group'
+  repo.tf.capacityMod -> azure.capacity 'Provisiona la capacity (ARM)'
+  azure.capacity -> fabric 'Respalda los workspaces'
+  repo.tf.workspaceMod -> fabric.wsDev 'Crea el workspace'
+  repo.tf.workspaceMod -> fabric.wsPrd 'Crea el workspace'
+  repo.tf.lakehouseMod -> fabric.wsDev.bronzeDev 'Crea los lakehouses medallón'
+  repo.tf.lakehouseMod -> fabric.wsPrd.bronzePrd 'Crea los lakehouses medallón'
+  repo.tf.sparkMod -> fabric.wsDev 'Custom Spark Pool + settings'
+  repo.tf.shortcutMod -> fabric.wsDev.bronzeDev 'Crea el shortcut'
+  extSource -> fabric.wsDev.bronzeDev 'Shortcut — sin copiar datos'
+  repo.tf.rbacMod -> fabric.wsDev 'Contributor a los ingenieros'
+  repo.tf.rbacMod -> fabric.wsPrd 'Viewer a los ingenieros'
+
+  // ── Plano dinámico: autoría local y deploy a los dos entornos ─
+  dataEng -> repo.svc.scaffold 'Pide el scaffold inicial'
+  repo.svc.scaffold -> github.branchFeat 'Genera el .Notebook/'
+  dataEng -> repo.svc.lab 'Escribe y prueba el notebook'
+  repo.svc.lab -> github.branchFeat 'Commit de la lógica ya probada'
+  github.branchFeat -> github.branchDev 'PR'
+  github.branchDev -> github.branchProd 'PR de promoción — revisión humana'
+  github.branchDev -> github.wfDeploy 'push dispara el deploy'
+  github.branchProd -> github.wfDeploy 'push dispara el deploy'
+  github.wfDeploy -> repo.svc.deployScript 'Corre deploy.py con (entorno, workspace)'
+  repo.svc.param -> repo.svc.deployScript 'GUIDs del entorno de destino'
+  repo.svc.deployScript -> fabric.wsDev 'publish + reconcilia borrados'
+  repo.svc.deployScript -> fabric.wsPrd 'publish + reconcilia borrados'
+}

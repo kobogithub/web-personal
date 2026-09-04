@@ -1,0 +1,67 @@
+// Vistas del modelo — diagramas del acelerador de Microsoft Fabric.
+//
+// La vista que se publica en el sitio es `index`: los dos planos y cómo cada
+// uno llega a los mismos dos workspaces. Las demás existen para navegar el
+// modelo con `npx likec4 serve`, no se exportan.
+
+views {
+
+  // ── 1. Los dos planos (la vista que se publica) ─────────────────
+  view index {
+    title 'Acelerador de Fabric — dos planos, dos velocidades'
+    include
+      platform, dataEng,
+      repo, repo.tf, repo.svc,
+      github, github.branchFeat, github.branchDev, github.branchProd,
+      github.wfInfra, github.wfDeploy,
+      azure, azure.rg, azure.capacity,
+      fabric, fabric.wsDev, fabric.wsPrd,
+      extSource
+    autoLayout LeftRight
+  }
+
+  // ── 2. Plano estático — qué provisiona cada módulo ──────────────
+  view estatico of repo.tf {
+    title 'Plano estático — Terraform'
+    include
+      platform,
+      repo.tf, repo.tf.*,
+      github.wfInfra,
+      azure, azure.rg, azure.capacity,
+      fabric, fabric.wsDev, fabric.wsPrd,
+      extSource
+    autoLayout LeftRight
+  }
+
+  // ── 3. Plano dinámico — los tres escalones ──────────────────────
+  view dinamico of repo.svc {
+    title 'Plano dinámico — GitOps de tres escalones'
+    include
+      dataEng,
+      repo.svc, repo.svc.*,
+      github.branchFeat, github.branchDev, github.branchProd, github.wfDeploy,
+      fabric.wsDev, fabric.wsPrd
+    autoLayout LeftRight
+  }
+
+  // ── 4. Entornos — dónde cae cada rama y con qué permiso ─────────
+  view entornos {
+    title 'Entornos — dev ejecuta, prd solo mira'
+    include
+      dataEng,
+      github.branchFeat, github.branchDev, github.branchProd,
+      fabric.wsDev, fabric.wsPrd,
+      repo.tf.rbacMod, repo.svc.lab, repo.svc.deployScript
+    autoLayout LeftRight
+  }
+
+  // ── 5. Flujo Medallion ──────────────────────────────────────────
+  view medallion {
+    title 'Arquitectura Medallion — el recorrido del dato'
+    include
+      extSource,
+      fabric.wsDev,
+      fabric.wsDev.bronzeDev, fabric.wsDev.silverDev, fabric.wsDev.goldDev
+    autoLayout LeftRight
+  }
+}

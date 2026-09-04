@@ -1,0 +1,44 @@
+// Especificación — vocabulario del modelo del acelerador de Microsoft Fabric.
+// Spec en archivo dedicado: cambios disparan re-parse completo del proyecto.
+
+specification {
+
+  // ── Element kinds ───────────────────────────────────────────
+  element actor {
+    style {
+      shape person
+      color secondary
+    }
+  }
+  element system
+  element container
+  element component
+
+  // Una capa del medallion dentro de un workspace de Fabric.
+  element layer {
+    style {
+      shape storage
+      color amber
+    }
+  }
+
+  element store {
+    style {
+      shape cylinder
+      color green
+    }
+  }
+
+  // ── Tags ────────────────────────────────────────────────────
+  // El eje que ordena todo el modelo es la VELOCIDAD DE CAMBIO, no la
+  // tecnología: `estatico` cambia rara vez y lo gobierna Terraform;
+  // `dinamico` cambia todos los días y lo gobierna un deploy declarativo.
+  tag estatico    // plano estático — terraform apply, dueño: plataforma
+  tag dinamico    // plano dinámico — git push, dueño: data engineers
+  tag cicd        // GitHub Actions
+  tag governance  // identidad / RBAC
+  tag dev         // entorno dev — Contributor, solo ejecución
+  tag prd         // entorno prd — Viewer, solo escribe el Service Principal
+  tag local       // corre en la máquina: sin capacity consumida
+  tag external    // fuera del perímetro del acelerador (vendor / plataforma)
+}
