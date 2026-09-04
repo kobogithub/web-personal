@@ -1,0 +1,38 @@
+name: Links
+
+# El switcher de idioma estuvo mandando a 404 desde todos los posts durante
+# meses, en los dos sentidos, con el build en verde. Para Astro un `href` es
+# una cadena: nada valida que el destino exista. Este workflow compila el sitio
+# y recorre el HTML generado buscando enlaces internos que no resuelven.
+on:
+  push:
+    branches: [dev, prod]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # La versión de pnpm sale de `packageManager` en package.json; no se
+      # fija acá para que no haya dos fuentes que puedan divergir.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # `pnpm build` corre `astro check` antes de compilar, así que este paso
+      # también cubre los tipos.
+      - run: pnpm build
+
+      - name: Chequear enlaces internos
+        run: pnpm links:check
