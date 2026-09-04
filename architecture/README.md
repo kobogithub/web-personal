@@ -43,6 +43,17 @@ public/architecture/{proyecto}-light.svg
 public/architecture/{proyecto}-dark.svg
 ```
 
+Un diagrama cuyas etiquetas son prosa —y no solo nombres de herramientas—
+agrega una dimensión más, el idioma, y emite cuatro archivos:
+
+```
+public/architecture/{proyecto}-{es|en}-{light|dark}.svg
+```
+
+Es el caso de `fabric-dos-planos`: el eje del modelo es la velocidad de cambio,
+y frases como «cambia rara vez» o «solo ejecutar, no editar» son la mitad del
+mensaje. Un diagrama que solo nombra herramientas no necesita esta variante.
+
 El sitio los intercambia con `dark:hidden` / `hidden dark:block`, el mismo
 patrón que usan los logos de GitHub en el header. Un SVG con colores fijos se
 ve mal en el tema opuesto, y no hay forma limpia de que Graphviz emita
@@ -79,3 +90,7 @@ diagrama. Es el único contenido que recibe quien no puede verlo.
 |---|---|---|
 | Autogasto | `autogasto/` | contexto · interior del backend |
 | Lakehouse Medallion | `lakehouse-medallion/` | contexto · interior del stack local |
+| Acelerador de Fabric | `fabric-dos-planos/` | dos planos · estático · dinámico · entornos · medallion |
+
+> `fabric-dos-planos` no es una ficha de proyecto: alimenta el post del blog
+> del mismo slug. La convención es la misma.

@@ -1,0 +1,5 @@
+{
+  "$schema": "https://likec4.dev/schemas/config.json",
+  "name": "fabric-dos-planos",
+  "title": "Acelerador de Microsoft Fabric — infra estática (Terraform) y notebooks (GitOps)"
+}
