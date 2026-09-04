@@ -1,5 +1,7 @@
 ---
 import { useTranslations, type Lang } from '@src/i18n/index';
+import LinkedInIcon from '@src/components/LinkedInIcon.astro';
+import { SOCIAL_GITHUB, SOCIAL_LINKEDIN } from '@src/consts';
 
 const { lang = 'es' } = Astro.props as { lang?: Lang };
 const t = useTranslations(lang);
@@ -16,7 +18,18 @@ const today = new Date();
 	<div class='py-4 border-t border-magi-line'>
     <div class="md:flex text-sm text-magi-muted prose dark:prose-invert justify-between font-mono">
       <div>{t('footer.copyright').replace('{year}', today.getFullYear().toString())}</div>
-      <div>{t('footer.signature')} <a href="https://github.com/kobogithub" target="_blank" rel="noopener">Kevin Barroso</a></div>
+      <div class="flex items-center gap-4">
+        <span>{t('footer.signature')} <a href={SOCIAL_GITHUB} target="_blank" rel="noopener noreferrer">Kevin Barroso</a></span>
+        <a
+          href={SOCIAL_LINKEDIN}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="no-underline text-magi-muted hover:text-magi-accent transition-colors"
+          aria-label={t('header.linkedin')}
+        >
+          <LinkedInIcon size={18} />
+        </a>
+      </div>
     </div>
 	</div>
 </footer>
