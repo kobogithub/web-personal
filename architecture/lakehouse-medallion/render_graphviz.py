@@ -12,10 +12,12 @@ GitHub en el header — un SVG con colores fijos se ve mal en el tema opuesto.
 Uso: python3 render_graphviz.py
 """
 
-import subprocess
+import sys
 from pathlib import Path
 
-OUT = Path(__file__).parent.parent.parent / "public" / "architecture"
+# El helper vive en architecture/, un nivel arriba de la carpeta del modelo.
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from _render import OUT, write_svg  # noqa: E402
 
 # Paleta MAGI del sitio (ver src/styles/global.css). Se replican acá los
 # valores en vez de leer las custom properties porque Graphviz necesita
@@ -123,16 +125,8 @@ def diagram(c: dict) -> str:
 
 
 def main() -> None:
-    OUT.mkdir(parents=True, exist_ok=True)
     for theme, colors in THEMES.items():
-        target = OUT / f"lakehouse-medallion-{theme}.svg"
-        subprocess.run(
-            ["dot", "-Tsvg", "-o", str(target)],
-            input=diagram(colors),
-            text=True,
-            check=True,
-        )
-        print(f"  {target.relative_to(OUT.parent.parent)}")
+        write_svg(OUT / f"lakehouse-medallion-{theme}.svg", diagram(colors))
 
 
 if __name__ == "__main__":

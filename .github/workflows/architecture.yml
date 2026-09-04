@@ -1,0 +1,64 @@
+name: Architecture
+
+# Los diagramas del sitio se modelan con LikeC4 y se exportan a SVG con
+# Graphviz. El SVG se versiona porque el sitio lo sirve estático y el build de
+# Astro no tiene Graphviz — pero nada obligaba a que el artefacto siguiera al
+# modelo. Esto lo obliga.
+on:
+  push:
+    branches: [dev, prod]
+    paths:
+      - 'architecture/**'
+      - 'public/architecture/**'
+      - '.github/workflows/architecture.yml'
+  pull_request:
+    paths:
+      - 'architecture/**'
+      - 'public/architecture/**'
+      - '.github/workflows/architecture.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Instalar Graphviz
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends graphviz
+          # Queda en el log a propósito: si algún día el chequeo de drift
+          # empieza a fallar de forma inexplicable, la versión de `dot` del
+          # runner es lo primero que hay que mirar.
+          dot -V
+
+      # El modelo es la fuente de verdad. Si no valida, lo demás no importa.
+      - name: Validar los modelos LikeC4
+        run: |
+          status=0
+          for model in architecture/*/; do
+            [ -f "$model/likec4.config.json" ] || continue
+            echo "::group::likec4 validate $model"
+            npx --yes likec4 validate "$model" || status=1
+            echo "::endgroup::"
+          done
+          exit $status
+
+      # Detecta el modelo editado sin reexportar. Compara el texto del
+      # diagrama, no los bytes: la geometría de `dot` cambia entre versiones
+      # de Graphviz y la del runner no es la de la máquina que exportó.
+      - name: Chequear drift entre modelo y SVG versionado
+        run: python3 architecture/check_drift.py
+
+      # Un `<img src="/architecture/...">` es un string, no un import: Astro
+      # compila igual con la ruta rota y el sitio se publica sin la imagen.
+      - name: Chequear referencias del contenido
+        run: python3 architecture/check_references.py

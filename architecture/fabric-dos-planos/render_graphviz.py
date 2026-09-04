@@ -15,10 +15,12 @@ poder leerlo.
 Uso: python3 render_graphviz.py
 """
 
-import subprocess
+import sys
 from pathlib import Path
 
-OUT = Path(__file__).parent.parent.parent / "public" / "architecture"
+# El helper vive en architecture/, un nivel arriba de la carpeta del modelo.
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from _render import OUT, write_svg  # noqa: E402
 NAME = "fabric-dos-planos"
 
 # Paleta MAGI del sitio (ver src/styles/global.css). Se replican acá los
@@ -225,17 +227,9 @@ def diagram(c: dict, t: dict) -> str:
 
 
 def main() -> None:
-    OUT.mkdir(parents=True, exist_ok=True)
     for lang, labels in LANGS.items():
         for theme, colors in THEMES.items():
-            target = OUT / f"{NAME}-{lang}-{theme}.svg"
-            subprocess.run(
-                ["dot", "-Tsvg", "-o", str(target)],
-                input=diagram(colors, labels),
-                text=True,
-                check=True,
-            )
-            print(f"  {target.relative_to(OUT.parent.parent)}")
+            write_svg(OUT / f"{NAME}-{lang}-{theme}.svg", diagram(colors, labels))
 
 
 if __name__ == "__main__":
