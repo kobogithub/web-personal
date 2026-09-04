@@ -7,7 +7,9 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "arch:render": "python3 architecture/render_all.py",
+    "arch:check": "python3 architecture/check_drift.py && python3 architecture/check_references.py"
   },
   "dependencies": {
     "@astrojs/check": "^0.9",
