@@ -4,7 +4,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/atoms/Button.astro';
 ---
 
-<BaseLayout title={'404 · Señal perdida — ' + SITE_TITLE} description={SITE_DESCRIPTION}>
+<!-- Esta página ya es bilingüe: no existe `/en/404/`, así que el switcher
+     manda al home en inglés en vez de a una ruta inexistente. -->
+<BaseLayout
+	title={'404 · Señal perdida — ' + SITE_TITLE}
+	description={SITE_DESCRIPTION}
+	alternateUrl='/en/'
+	alternateLang='en'
+>
 	<div class='container'>
 		<div
 			class='assemble corner-mark border border-magi-line border-t-2 border-t-magi-danger bg-magi-surface max-w-xl mx-auto my-16 p-8 text-center'

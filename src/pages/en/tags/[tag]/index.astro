@@ -3,7 +3,7 @@ import BaseLayout from '@src/layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import PostsByYear from '@src/components/PostsByYear.astro';
-import { slugify } from '@src/utils';
+import { slugify, inLang } from '@src/utils';
 
 type BlogPost = CollectionEntry<'blog'>;
 
@@ -14,7 +14,10 @@ export async function getStaticPaths() {
 	const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())].filter((tag): tag is string => tag !== undefined);
 
 	return uniqueTags.map((tag) => {
-		const filteredPosts = allPosts.filter((post) => post.data.tags?.includes(tag));
+		// El tag se busca sobre la colección entera para que existan las dos
+		// páginas del tag, pero solo se listan los posts en inglés: uno en
+		// español linkeado desde acá daría `/en/{slug-es}/`, que no existe.
+		const filteredPosts = inLang(allPosts, 'en').filter((post) => post.data.tags?.includes(tag));
 		return {
 			params: { tag: slugify(tag) },
 			props: { posts: filteredPosts, tag }
