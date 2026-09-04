@@ -7,6 +7,10 @@ dibujan. El modelo es la fuente de verdad; el SVG es un artefacto derivado.
 
 ```
 architecture/
+├── _render.py               # helper compartido: corre `dot` y normaliza la salida
+├── render_all.py            # renderiza todos los modelos de una
+├── check_drift.py           # ¿algún modelo cambió sin reexportar?
+├── check_references.py      # ¿algún SVG referenciado no existe?
 └── {proyecto}/
     ├── likec4.config.json
     ├── spec.c4              # vocabulario: element kinds, tags
@@ -14,6 +18,10 @@ architecture/
     ├── views.c4             # qué vistas se derivan del modelo
     └── render_graphviz.py   # exporta el SVG estático que consume el sitio
 ```
+
+Agregar un modelo es crear la carpeta con su `render_graphviz.py`. No hay
+ninguna lista que actualizar: `render_all.py` los descubre por glob y el
+workflow de CI itera sobre las carpetas que tengan `likec4.config.json`.
 
 Los SVG exportados **no** viven acá: van a `public/architecture/`, que es lo
 que sirve el sitio.
@@ -30,11 +38,17 @@ el export estático es solo para publicar.
 ## Exportar para el sitio
 
 ```bash
-python3 architecture/{proyecto}/render_graphviz.py
+python3 architecture/render_all.py              # todos
+python3 architecture/{proyecto}/render_graphviz.py   # uno solo
 ```
 
 Requiere Graphviz (`brew install graphviz`). Render nativo con `dot`, sin
 navegador ni headless Chrome.
+
+La salida de `dot` trae un comentario con la versión de Graphviz que la generó.
+`_render.py` lo elimina: cambia con cada actualización de Graphviz aunque el
+diagrama sea idéntico, y con los SVG versionados eso significa diffs espurios
+al exportar desde otra máquina.
 
 Cada diagrama se exporta **dos veces**, una por tema:
 
@@ -94,3 +108,27 @@ diagrama. Es el único contenido que recibe quien no puede verlo.
 
 > `fabric-dos-planos` no es una ficha de proyecto: alimenta el post del blog
 > del mismo slug. La convención es la misma.
+
+## Qué chequea CI
+
+El workflow `.github/workflows/architecture.yml` corre en cada push o PR que
+toque `architecture/` o `public/architecture/`. Tres chequeos:
+
+| Chequeo | Qué atrapa |
+|---|---|
+| `likec4 validate` | Un modelo `.c4` roto. |
+| `check_drift.py` | Un modelo editado cuyo SVG versionado quedó viejo. |
+| `check_references.py` | Un `<img src="/architecture/...">` que apunta a un archivo que no existe. |
+
+El drift se mide comparando **el texto del diagrama, no los bytes**. La
+geometría que emite `dot` cambia entre versiones de Graphviz, y la del runner
+de GitHub no es la de la máquina donde se exportó: un diff de coordenadas
+diría «drift» en cada corrida sin que el modelo haya cambiado. Las etiquetas de
+nodos y aristas, en cambio, son estables.
+
+El precio, dicho de frente: un cambio puramente visual —un color, un
+`rankdir`— no altera el texto y pasa sin detectarse. Se acepta a cambio de un
+chequeo sin falsos positivos, que es la única clase de chequeo que no se
+termina ignorando.
+
+Los tres corren en local igual que en CI, sin argumentos.
