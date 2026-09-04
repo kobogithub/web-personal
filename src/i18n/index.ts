@@ -84,9 +84,12 @@ export const ui = {
     'header.themeMode': 'Modo de tema',
     'header.siteLogo': 'Logo del sitio',
     'header.githubLogo': 'Logo de Github',
+    'header.linkedin': 'Perfil de LinkedIn',
     // Footer
     'footer.copyright': 'Copyright © {year}',
     'footer.signature': 'Diseñado y construido por',
+    'footer.linkedin': 'LinkedIn',
+    'footer.github': 'GitHub',
     // Table of Contents
     'toc.title': 'En esta página',
     // About the Author
@@ -133,9 +136,12 @@ export const ui = {
     'header.themeMode': 'Theme mode',
     'header.siteLogo': 'Site logo',
     'header.githubLogo': 'Github logo',
+    'header.linkedin': 'LinkedIn profile',
     // Footer
     'footer.copyright': 'Copyright © {year}',
     'footer.signature': 'Designed and built by',
+    'footer.linkedin': 'LinkedIn',
+    'footer.github': 'GitHub',
     // Table of Contents
     'toc.title': 'On This Page',
     // About the Author

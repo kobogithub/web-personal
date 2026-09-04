@@ -4,6 +4,8 @@ import { Image } from 'astro:assets';
 import AvaLogo from '@src/assets/img/small-ava.jpg';
 import GithubWhite from '@src/assets/img/github-mark-white.svg';
 import GithubBlack from '@src/assets/img/github-mark.svg';
+import LinkedInIcon from '@src/components/LinkedInIcon.astro';
+import { SOCIAL_LINKEDIN } from '@src/consts';
 import { linkFor, useTranslations, getAlternateLangLink, type Lang } from '@src/i18n/index';
 
 const { lang = 'es' } = Astro.props as { lang?: Lang };
@@ -76,6 +78,15 @@ const menu = [
 				<a class='p-3 text-magi-muted hover:text-magi-accent transition-colors hidden dark:block' href='https://github.com/kobogithub/web-personal' target='_blank'
 					><Image src={GithubWhite} width={22} height={22} alt={t('header.githubLogo')} /></a
 				>
+				<a
+					class='p-3 text-magi-muted hover:text-magi-accent transition-colors'
+					href={SOCIAL_LINKEDIN}
+					target='_blank'
+					rel='noopener noreferrer'
+					aria-label={t('header.linkedin')}
+				>
+					<LinkedInIcon size={22} />
+				</a>
 				<a
 					href={alternateUrl}
 					class='p-3 flex items-center gap-1.5 text-magi-muted hover:text-magi-accent transition-colors'

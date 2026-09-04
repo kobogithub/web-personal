@@ -1,6 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import Ava from '@src/assets/img/ava.jpg';
+import LinkedInIcon from './LinkedInIcon.astro';
+import { SOCIAL_GITHUB, SOCIAL_LINKEDIN } from '@src/consts';
 
 type PicSize = 'sm' | 'md' | 'lg';
 interface Props {
@@ -11,7 +13,7 @@ const { picSize } = Astro.props;
 
 <div class='flex gap-4 items-center leading-tight not-prose'>
 	<a
-		href='https://github.com/kobogithub'
+		href={SOCIAL_GITHUB}
 		target='_blank'
 		rel='noopener noreferrer'
 		class:list={[
@@ -26,7 +28,7 @@ const { picSize } = Astro.props;
 	<div>
 		<div>
 			<a
-				href='https://github.com/kobogithub'
+				href={SOCIAL_GITHUB}
 				class='block font-bold text-inherit hover:text-magi-accent'
 				target='_blank'
 				rel='noopener noreferrer'
@@ -35,5 +37,15 @@ const { picSize } = Astro.props;
 			</a>
 		</div>
 		<small class='avatar__subtitle'>Platform Manager / AI Engineer</small>
+		<a
+			href={SOCIAL_LINKEDIN}
+			target='_blank'
+			rel='noopener noreferrer'
+			class='mt-1 flex items-center gap-1.5 text-magi-muted hover:text-magi-accent transition-colors no-underline'
+			aria-label='LinkedIn'
+		>
+			<LinkedInIcon size={16} />
+			<span class='text-xs font-mono'>LinkedIn</span>
+		</a>
 	</div>
 </div>
