@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import BaseLayout from '@src/layouts/BaseLayout.astro';
-import { slugify } from '@src/utils';
+import { slugify, inLang } from '@src/utils';
 
 type BlogPost = CollectionEntry<'blog'>;
 interface Tag {
@@ -29,7 +29,8 @@ function groupTagsByFirstLetter(tags: Tag[]) {
     }));
 }
 
-const allPosts: BlogPost[] = await getCollection('blog');
+// Sin filtrar, `postCount` contaba cada post dos veces (la versión ES y la EN).
+const allPosts: BlogPost[] = inLang(await getCollection('blog'), 'es');
 const mappedTags: { [key: string]: Tag } = {};
 for (const post of allPosts) {
 	for (const tag of post.data?.tags || []) {

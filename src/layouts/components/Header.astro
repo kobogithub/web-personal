@@ -6,15 +6,27 @@ import GithubWhite from '@src/assets/img/github-mark-white.svg';
 import GithubBlack from '@src/assets/img/github-mark.svg';
 import LinkedInIcon from '@src/components/LinkedInIcon.astro';
 import { SOCIAL_LINKEDIN } from '@src/consts';
-import { linkFor, useTranslations, getAlternateLangLink, type Lang } from '@src/i18n/index';
+import { linkFor, useTranslations, type Lang } from '@src/i18n/index';
 
-const { lang = 'es' } = Astro.props as { lang?: Lang };
+const { lang = 'es', alternateUrl: alternateUrlProp } = Astro.props as {
+  lang?: Lang;
+  alternateUrl?: string;
+};
 const t = useTranslations(lang);
 
 const pathname = Astro.url.pathname;
 
-// Compute alternate URL for the language switcher
-function getAlternateUrl(path: string, currentLang: string): string {
+// URL de la contraparte en el otro idioma, para el switcher.
+//
+// El caso general es una página espejada: la misma ruta con o sin el prefijo
+// `/en`. Pero los posts y las fichas NO son espejos — su contraparte vive en
+// otro slug (`un-solo-interprete` ↔ `un-solo-interprete-en`), que sale del
+// campo `alternate` del frontmatter. Esas páginas resuelven el par contra la
+// colección y lo bajan por `alternateUrl`; cuando llega, manda.
+//
+// Sin esto el switcher armaba `/en` + ruta actual y mandaba a 404 desde
+// cualquier post, en los dos sentidos.
+function mirrorPath(path: string, currentLang: string): string {
   if (currentLang === 'es') {
     // Switching to English: add /en prefix
     return path === '/' ? '/en/' : `/en${path}`;
@@ -24,7 +36,7 @@ function getAlternateUrl(path: string, currentLang: string): string {
   }
 }
 
-const alternateUrl = getAlternateUrl(pathname, lang);
+const alternateUrl = alternateUrlProp ?? mirrorPath(pathname, lang);
 
 const menu = [
   {

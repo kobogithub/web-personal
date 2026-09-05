@@ -8,6 +8,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "links:check": "node scripts/check_links.mjs",
     "arch:render": "python3 architecture/render_all.py",
     "arch:check": "python3 architecture/check_drift.py && python3 architecture/check_references.py"
   },
