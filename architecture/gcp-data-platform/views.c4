@@ -1,0 +1,88 @@
+// Vistas del modelo — plataforma de datos en GCP.
+//
+// La vista que se publica en el post es `index`: la línea principal con los
+// controles colgados de cada tramo. Las demás existen para navegar el modelo
+// con `npx likec4 serve` y no se exportan.
+
+views {
+
+  // ── 1. El camino y sus controles (la vista que se publica) ──────
+  view index {
+    title 'El camino del dato, y quién dice que no en cada tramo'
+    description '''
+      Tres bandas: arriba dónde se escribe cada regla, en el medio el mecanismo
+      que la aplica, abajo por dónde pasa el dato. El control queda entre la
+      regla y el dato porque es ahí donde está: no lo protege desde afuera, se
+      interpone. Las aristas que bajan de la primera banda a la segunda son el
+      punto — casi ninguna regla se aplica donde se escribió.
+    '''
+
+    include
+      analista,
+      apiSaas, planillas,
+      plataforma.iac, plataforma.catalogo, plataforma.ci,
+      plataforma.ingesta, plataforma.bronze, plataforma.dataform,
+      plataforma.silver, plataforma.gold, plataforma.acceso,
+      plataforma.ctrlInmutable, plataforma.ctrlAssertion, plataforma.ctrlPolicyTag,
+      plataforma.ctrlGrant, plataforma.ctrlDoc
+
+    // Dos ausencias respecto del modelo, las dos por legibilidad y no por
+    // contenido — el export estático de `render_graphviz.py` las respeta:
+    //
+    // - `equipoDatos`: sus tres aristas cruzaban el diagrama entero para decir
+    //   algo que no es la tesis. Quién teclea importa menos que dónde termina
+    //   ejecutándose lo que tecleó.
+    // - `ctrlPlan`: es el único de los seis controles que no protege un tramo
+    //   del camino. Frena un `plan`, no un dato. Vive en la vista `controles`.
+    autoLayout LeftRight
+  }
+
+  // ── 2. Solo la línea principal ──────────────────────────────────
+  view flujo of plataforma {
+    title 'La línea principal, sin controles'
+    description 'El recorrido del dato a secas. Sirve para ver qué queda cuando se saca el gobierno: exactamente el diagrama que dibuja todo el mundo.'
+
+    include
+      apiSaas, planillas,
+      plataforma.ingesta, plataforma.bronze, plataforma.dataform,
+      plataforma.silver, plataforma.gold, plataforma.acceso,
+      analista
+
+    autoLayout LeftRight
+  }
+
+  // ── 3. Solo los controles ───────────────────────────────────────
+  view controles of plataforma {
+    title 'Los seis controles y qué devuelve cada uno'
+    description '''
+      El modelo sin el camino. Cada control lleva su error en la descripción:
+      un 412, un Access Denied, un PR que no pasa. Un control cuyo rechazo
+      nadie ve es un comentario en el código.
+    '''
+
+    include
+      plataforma.ctrlInmutable, plataforma.ctrlAssertion, plataforma.ctrlPolicyTag,
+      plataforma.ctrlGrant, plataforma.ctrlDoc, plataforma.ctrlPlan,
+      plataforma.iac, plataforma.catalogo, plataforma.ci, plataforma.dataform,
+      plataforma.ingesta
+
+    autoLayout LeftRight
+  }
+
+  // ── 4. El borde Terraform ↔ Dataform ────────────────────────────
+  view policyTag {
+    title 'El policy tag: creado de un lado, aplicado del otro'
+    description '''
+      La costura más incómoda del modelo. Terraform crea el tag y su id no
+      existe hasta después del apply; Dataform lo aplica a la columna nombrando
+      el nivel, nunca el id. Quien niega la lectura es BigQuery, y no hereda
+      nada del IAM del proyecto.
+    '''
+
+    include
+      plataforma.iac, plataforma.catalogo, plataforma.dataform,
+      plataforma.ctrlPolicyTag, plataforma.silver, plataforma.gold
+
+    autoLayout LeftRight
+  }
+}

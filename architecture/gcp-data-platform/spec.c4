@@ -1,0 +1,58 @@
+// Especificación — vocabulario del modelo de la plataforma de datos en GCP.
+// Spec en archivo dedicado: un cambio acá dispara re-parse de todo el proyecto.
+
+specification {
+
+  // ── Element kinds ───────────────────────────────────────────
+  element actor {
+    style {
+      shape person
+      color secondary
+    }
+  }
+  element system
+  element container
+  element component
+
+  // Una capa del medallion. Es dato en reposo, no un proceso.
+  element layer {
+    style {
+      shape storage
+      color amber
+    }
+  }
+
+  element store {
+    style {
+      shape cylinder
+      color green
+    }
+  }
+
+  // El elemento que da sentido a este modelo.
+  //
+  // Un `control` no es un componente más: es el mecanismo que le puede decir
+  // que no a un paso del camino, y lo que lo define no es dónde corre sino
+  // QUÉ DEVUELVE cuando dice que no. Un control cuyo rechazo nadie ve es un
+  // comentario en el código, y por eso la descripción de cada uno es el error
+  // concreto — un 412, un `Access Denied`, un PR que no pasa.
+  element control {
+    style {
+      shape rectangle
+      color red
+    }
+  }
+
+  // ── Tags ────────────────────────────────────────────────────
+  // El eje del modelo es QUIÉN APLICA cada regla, no qué producto la ofrece.
+  // La distinción que importa: `declarado` es donde la regla se escribe
+  // —Terraform, el `config` de un modelo, un workflow de CI— y `aplicado` es
+  // el motor que la ejecuta en runtime. Casi nunca son la misma pieza, y esa
+  // distancia es la que hace que una regla declarada pueda no aplicarse nunca
+  // sin que nada falle.
+  tag declarado   // donde se escribe la regla
+  tag aplicado    // quién la ejecuta y devuelve el error
+  tag sensible    // toca dato con control de acceso a nivel columna
+  tag external    // fuera del perímetro de la plataforma
+  tag pendiente   // modelado y todavía no implementado — ver el post
+}

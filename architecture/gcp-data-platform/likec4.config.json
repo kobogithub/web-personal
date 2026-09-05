@@ -1,0 +1,5 @@
+{
+  "$schema": "https://likec4.dev/schemas/config.json",
+  "name": "gcp-data-platform",
+  "title": "Plataforma de datos en GCP — el camino del dato y quién dice que no en cada tramo"
+}

@@ -1,0 +1,178 @@
+// Modelo lógico — plataforma de datos Medallion sobre GCP.
+//
+// La tesis del modelo: el camino del dato es la parte fácil y es la que todos
+// los diagramas dibujan. Lo que decide si la plataforma se sostiene es la otra
+// capa —los controles— y la pregunta que la ordena no es "qué servicio va acá"
+// sino:
+//
+//     para cada regla que importa, ¿QUIÉN DICE QUE NO, y qué devuelve?
+//
+// De ahí salen las dos mitades del modelo:
+//
+//   1. La línea principal — fuentes, ingesta, Bronze, transformación, Silver,
+//      Gold, capa de acceso, consumo. Es el recorrido del dato.
+//   2. Los controles — el mecanismo que puede frenar cada tramo. Cada uno
+//      lleva en la descripción el error concreto que devuelve, porque un
+//      control que falla en silencio no es un control.
+//
+// La distancia que el modelo quiere hacer visible: quien ESCRIBE la regla casi
+// nunca es quien la APLICA. Terraform crea el policy tag y quien niega la
+// lectura es BigQuery; el `config` del modelo declara la assertion y quien
+// frena el grafo es Dataform. Esa distancia es la razón por la que una regla
+// puede estar declarada, versionada y revisada, y no aplicarse nunca.
+//
+// Fuente: github.com/kobogithub/gcp_data_platform
+// Spec en spec.c4 · vistas en views.c4.
+
+model {
+
+  // ── Actores ───────────────────────────────────────────────────
+  equipoDatos = actor 'Equipo de datos' {
+    description 'Escribe los modelos y la infra. No aplica en producción a mano'
+  }
+  analista = actor 'Analista' {
+    description 'Consume la capa Gold desde la herramienta de BI'
+  }
+
+  // ── Fuentes ───────────────────────────────────────────────────
+  apiSaas = store 'API SaaS' {
+    #external
+    description 'Entidad paginada — OAuth2 client credentials'
+    style { color muted }
+  }
+  planillas = store 'Google Sheets' {
+    #external
+    #sensible
+    description 'Presupuesto. Entra por snapshot, nunca como tabla externa'
+    style { color muted }
+  }
+
+  // ── La plataforma ─────────────────────────────────────────────
+  plataforma = system 'Plataforma de datos' {
+    description 'Medallion sobre GCP — Terraform para la infra, Dataform para la lógica'
+
+    // ── La línea principal: por acá pasa el dato ───────────────
+    ingesta = container 'Ingesta — Cloud Functions Gen2' {
+      #aplicado
+      description 'Una función por fuente. Extrae y hace append; ninguna transforma'
+      style { color blue }
+    }
+
+    bronze = layer 'Bronze — Cloud Storage' {
+      description 'Crudo, append-only, con el linaje en la metadata del objeto'
+    }
+
+    dataform = container 'Dataform — motor único de transformación' {
+      #aplicado
+      description 'SQLX versionado. El grafo sale de los ref(), y con él el linaje y el orden'
+      style { color blue }
+    }
+
+    silver = layer 'Silver — BigQuery' {
+      #sensible
+      description 'Tipado y reglas de negocio. Acá se aplican los policy tags de columna'
+    }
+
+    gold = layer 'Gold — BigQuery' {
+      #sensible
+      description 'Una tabla por hecho, con el grano declarado'
+    }
+
+    acceso = container 'Capa de acceso' {
+      #pendiente
+      description 'Vistas autorizadas y row-level security. Diseñada, todavía no implementada'
+      style { color slate }
+    }
+
+    // ── Dónde se escriben las reglas ───────────────────────────
+    iac = container 'Terraform — 12 módulos' {
+      #declarado
+      description 'Crea los controles. No aplica ninguno: los instala y se va'
+      style { color indigo }
+    }
+
+    catalogo = container 'Knowledge Catalog' {
+      #declarado
+      description 'Taxonomía de sensibilidad, glosario y perfilado. Nada se carga a mano'
+      style { color indigo }
+    }
+
+    ci = container 'GitHub Actions' {
+      #declarado
+      description 'fmt, validate, compile del grafo y frescura de la documentación'
+      style { color indigo }
+    }
+
+    // ── Los controles: quién dice que no, y qué devuelve ───────
+    //
+    // Cada uno nombra su error a propósito. Es lo único que distingue un
+    // control de una intención documentada.
+    ctrlInmutable = control 'Bronze es inmutable' {
+      #aplicado
+      description 'if_generation_match=0 → GCS responde 412 Precondition Failed y la función explota'
+    }
+
+    ctrlAssertion = control 'Gold reconcilia con Silver' {
+      #aplicado
+      description 'assertion de grano y de reconciliación mes a mes → Dataform no construye lo que depende del modelo que falló'
+    }
+
+    ctrlPolicyTag = control 'La columna es confidencial' {
+      #aplicado
+      #sensible
+      description 'policy tag → BigQuery devuelve Access Denied on policy tag. No se hereda del IAM del proyecto: sin binding no lee nadie, ni el owner'
+    }
+
+    ctrlGrant = control 'El consumo entra solo por Gold' {
+      #aplicado
+      description 'La service account de BI no tiene grant sobre Silver ni sobre Bronze'
+    }
+
+    ctrlDoc = control 'La documentación está al día' {
+      #aplicado
+      description 'generar_diccionario.py --check → el PR no pasa si un modelo cambió y el diccionario quedó viejo'
+    }
+
+    ctrlPlan = control 'El nombre entra en el límite de GCP' {
+      #aplicado
+      description 'validation sobre sa_prefix → el terraform plan falla antes de tocar nada, con el mensaje que dice qué escribir'
+    }
+  }
+
+  // ── La línea principal ────────────────────────────────────────
+  apiSaas -> plataforma.ingesta 'Extracción paginada'
+  planillas -> plataforma.ingesta 'Snapshot de la planilla'
+  plataforma.ingesta -> plataforma.bronze 'Append de un blob nuevo por corrida'
+  plataforma.bronze -> plataforma.dataform 'Lectura del crudo'
+  plataforma.dataform -> plataforma.silver 'Tipa y aplica las reglas'
+  plataforma.silver -> plataforma.gold 'Agrega al grano declarado'
+  plataforma.gold -> plataforma.acceso 'Expone lo publicable'
+  plataforma.acceso -> analista 'Vistas autorizadas + RLS'
+
+  // ── Dónde se escribe cada regla ───────────────────────────────
+  equipoDatos -> plataforma.iac 'terraform apply'
+  equipoDatos -> plataforma.dataform 'Escribe los modelos SQLX'
+  equipoDatos -> plataforma.ci 'Abre el PR'
+  plataforma.iac -> plataforma.catalogo 'Crea la taxonomía y los policy tags'
+
+  // ── Quién instala cada control ────────────────────────────────
+  // Todas estas relaciones cruzan de `declarado` a `aplicado`. Ese cruce es
+  // el contenido del modelo: la regla se escribe de un lado y se ejecuta del
+  // otro, y en el medio hay un `apply` que puede no haber pasado.
+  plataforma.iac -> plataforma.ctrlGrant 'Bindings de IAM por capa'
+  plataforma.iac -> plataforma.ctrlPlan 'Validación de variables'
+  plataforma.catalogo -> plataforma.ctrlPolicyTag 'El id del tag, que no existe hasta después del apply'
+  plataforma.dataform -> plataforma.ctrlPolicyTag 'Lo aplica a la columna, por nivel y nunca por id'
+  plataforma.dataform -> plataforma.ctrlAssertion 'Declara el grano y la reconciliación'
+  plataforma.ci -> plataforma.ctrlDoc 'Corre el chequeo de frescura'
+  plataforma.ingesta -> plataforma.ctrlInmutable 'Sube con la precondición puesta'
+
+  // ── Qué frena cada control ────────────────────────────────────
+  plataforma.ctrlInmutable -> plataforma.bronze 'Rechaza la escritura que pisaría el histórico'
+  plataforma.ctrlAssertion -> plataforma.gold 'Frena el grafo antes de publicar un número malo'
+  plataforma.ctrlPolicyTag -> plataforma.silver 'Niega la lectura de la columna'
+  plataforma.ctrlPolicyTag -> plataforma.gold 'Niega la lectura de la columna'
+  plataforma.ctrlGrant -> plataforma.acceso 'Deja pasar solo lo que expone Gold'
+  plataforma.ctrlDoc -> plataforma.dataform 'Frena el merge del modelo sin documentar'
+  plataforma.ctrlPlan -> plataforma.iac 'Frena el apply con el nombre que GCP no acepta'
+}
