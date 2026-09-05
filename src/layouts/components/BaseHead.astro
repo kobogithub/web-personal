@@ -16,6 +16,11 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image = '/og-image.jpg', lang = 'es', alternateUrl, alternateLang } = Astro.props;
+
+// Hay un feed por idioma. La página declara el suyo, no los dos: un lector que
+// hace autodiscovery se queda con el primero que encuentra, y ofrecerle el del
+// otro idioma es peor que no ofrecer ninguno.
+const feedUrl = new URL(lang === 'en' ? '/en/rss.xml' : '/rss.xml', Astro.site);
 ---
 
 <!-- Confirms JS actually runs before paint; .assemble entrance animations only hide
@@ -38,6 +43,9 @@ const { title, description, image = '/og-image.jpg', lang = 'es', alternateUrl, 
 	<link rel='alternate' hreflang={alternateLang} href={new URL(alternateUrl, Astro.site)} />
 )}
 <link rel='alternate' hreflang={lang} href={canonicalURL} />
+
+<!-- Feed RSS -->
+<link rel='alternate' type='application/rss+xml' title={title} href={feedUrl} />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
