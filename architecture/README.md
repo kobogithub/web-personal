@@ -105,9 +105,16 @@ diagrama. Es el único contenido que recibe quien no puede verlo.
 | Autogasto | `autogasto/` | contexto · interior del backend |
 | Lakehouse Medallion | `lakehouse-medallion/` | contexto · interior del stack local |
 | Acelerador de Fabric | `fabric-dos-planos/` | dos planos · estático · dinámico · entornos · medallion |
+| Plataforma de datos en GCP | `gcp-data-platform/` | camino y controles · solo el camino · solo los controles · el borde del policy tag |
 
-> `fabric-dos-planos` no es una ficha de proyecto: alimenta el post del blog
-> del mismo slug. La convención es la misma.
+> `fabric-dos-planos` y `gcp-data-platform` no son fichas de proyecto: alimentan
+> el post del blog del mismo tema. La convención es la misma.
+
+> En `gcp-data-platform` el export estático publica menos elementos que la vista
+> `index` del modelo: el actor y el control que no protege un tramo del camino
+> quedan afuera porque sus aristas cruzaban el diagrama entero. Es una decisión
+> de legibilidad, está comentada en los dos lados, y el chequeo de drift no la
+> ve — compara render contra render, no render contra modelo.
 
 ## Qué chequea CI
 

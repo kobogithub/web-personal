@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Title: G Pages: 1 -->
+<svg width="2168pt" height="350pt"
+ viewBox="0.00 0.00 2168.01 350.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 346)">
+<title>G</title>
+<g id="clust1" class="cluster">
+<title>cluster_declared</title>
+<polygon fill="#f1ede7" stroke="#5b3383" stroke-width="1.6" points="273,-256 273,-334 1743.5,-334 1743.5,-256 273,-256"/>
+<text text-anchor="middle" x="458.5" y="-321.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#5b3383">WHERE THE RULE IS WRITTEN &#160;· &#160;Terraform, the model config, CI</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_path</title>
+<polygon fill="#eae6e0" stroke="#c9c2cd" points="8,-8 8,-102 2152.01,-102 2152.01,-8 8,-8"/>
+<text text-anchor="middle" x="150" y="-15.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#665d6e">THE PATH OF THE DATA &#160;· &#160;what everyone draws</text>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_deny</title>
+<polygon fill="#f1ede7" stroke="#b02a1e" stroke-width="1.6" points="636,-132 636,-210 1971,-210 1971,-132 636,-132"/>
+<text text-anchor="middle" x="784" y="-197.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#b02a1e">WHO SAYS NO &#160;· &#160;and what it returns when it does</text>
+</g>
+<!-- ci -->
+<g id="node1" class="node">
+<title>ci</title>
+<polygon fill="#ffffff" stroke="#c9c2cd" stroke-width="1.2" stroke-dasharray="5,2" points="500,-306 281,-306 281,-264 500,-264 500,-306"/>
+<text text-anchor="middle" x="390.5" y="-288.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">GitHub Actions</text>
+<text text-anchor="middle" x="390.5" y="-276.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">fmt · validate · compile · freshness</text>
+</g>
+<!-- cDoc -->
+<g id="node13" class="node">
+<title>cDoc</title>
+<polygon fill="#ffffff" stroke="#b02a1e" stroke-width="1.8" points="1062,-182 868,-182 868,-140 1062,-140 1062,-182"/>
+<text text-anchor="middle" x="965" y="-164.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#b02a1e">The docs are current</text>
+<text text-anchor="middle" x="965" y="-152.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#b02a1e">generar_diccionario.py &#45;&#45;check</text>
+</g>
+<!-- ci&#45;&gt;cDoc -->
+<g id="edge11" class="edge">
+<title>ci&#45;&gt;cDoc</title>
+<path fill="none" stroke="#665d6e" stroke-width="1.1" stroke-dasharray="5,2" d="M492.21,-263.98C578.9,-245.78 707.29,-218.6 819,-194 833.03,-190.91 847.82,-187.6 862.36,-184.32"/>
+<polygon fill="#665d6e" stroke="#665d6e" stroke-width="1.1" points="863.4,-187.67 872.38,-182.06 861.86,-180.85 863.4,-187.67"/>
+<text text-anchor="middle" x="720.5" y="-238.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#665d6e"> &#160;installs &#160;</text>
+</g>
+<!-- iac -->
+<g id="node2" class="node">
+<title>iac</title>
+<polygon fill="#ffffff" stroke="#5b3383" stroke-width="1.8" points="1359,-306 1160,-306 1160,-264 1359,-264 1359,-306"/>
+<text text-anchor="middle" x="1259.5" y="-288.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">Terraform — 12 modules</text>
+<text text-anchor="middle" x="1259.5" y="-276.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">installs the controls and leaves</text>
+</g>
+<!-- catalog -->
+<g id="node3" class="node">
+<title>catalog</title>
+<polygon fill="#ffffff" stroke="#5b3383" stroke-width="1.8" points="1735.5,-306 1525.5,-306 1525.5,-264 1735.5,-264 1735.5,-306"/>
+<text text-anchor="middle" x="1630.5" y="-288.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">Knowledge Catalog</text>
+<text text-anchor="middle" x="1630.5" y="-276.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">taxonomy · policy tags · glossary</text>
+</g>
+<!-- iac&#45;&gt;catalog -->
+<g id="edge8" class="edge">
+<title>iac&#45;&gt;catalog</title>
+<path fill="none" stroke="#5b3383" stroke-width="1.1" d="M1359.39,-285C1407.32,-285 1465.16,-285 1515,-285"/>
+<polygon fill="#5b3383" stroke="#5b3383" stroke-width="1.1" points="1515.18,-288.5 1525.18,-285 1515.18,-281.5 1515.18,-288.5"/>
+</g>
+<!-- cGrant -->
+<g id="node16" class="node">
+<title>cGrant</title>
+<polygon fill="#ffffff" stroke="#b02a1e" stroke-width="1.8" points="1963,-182 1777,-182 1777,-140 1963,-140 1963,-182"/>
+<text text-anchor="middle" x="1870" y="-164.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#b02a1e">Consumption enters via Gold</text>
+<text text-anchor="middle" x="1870" y="-152.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#b02a1e">the BI SA has no Silver grant</text>
+</g>
+<!-- iac&#45;&gt;cGrant -->
+<g id="edge9" class="edge">
+<title>iac&#45;&gt;cGrant</title>
+<path fill="none" stroke="#5b3383" stroke-width="1.1" stroke-dasharray="5,2" d="M1359.06,-268.91C1457.02,-252.33 1611.33,-224.65 1743.5,-194 1756,-191.1 1769.16,-187.86 1782.06,-184.57"/>
+<polygon fill="#5b3383" stroke="#5b3383" stroke-width="1.1" points="1783.04,-187.93 1791.85,-182.05 1781.3,-181.15 1783.04,-187.93"/>
+<text text-anchor="middle" x="1630.5" y="-240.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#5b3383"> &#160;installs &#160;</text>
+</g>
+<!-- cTag -->
+<g id="node15" class="node">
+<title>cTag</title>
+<polygon fill="#ffffff" stroke="#b02a1e" stroke-width="1.8" points="1725.5,-182 1535.5,-182 1535.5,-140 1725.5,-140 1725.5,-182"/>
+<text text-anchor="middle" x="1630.5" y="-164.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#b02a1e">The column is confidential</text>
+<text text-anchor="middle" x="1630.5" y="-152.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#b02a1e">policy tag from the taxonomy</text>
+</g>
+<!-- catalog&#45;&gt;cTag -->
+<g id="edge10" class="edge">
+<title>catalog&#45;&gt;cTag</title>
+<path fill="none" stroke="#5b3383" stroke-width="1.1" stroke-dasharray="5,2" d="M1525.28,-282.38C1451.4,-276.58 1371.9,-259.82 1409,-213 1436.54,-178.25 1482.52,-163.97 1525.47,-158.9"/>
+<polygon fill="#5b3383" stroke="#5b3383" stroke-width="1.1" points="1525.85,-162.38 1535.44,-157.88 1525.13,-155.42 1525.85,-162.38"/>
+<text text-anchor="middle" x="1442" y="-225.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#5b3383"> &#160;the id, which doesn&#39;t exist</text>
+<text text-anchor="middle" x="1442" y="-215.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#5b3383">until after the apply &#160;</text>
+</g>
+<!-- sources -->
+<g id="node4" class="node">
+<title>sources</title>
+<path fill="#f7f5f1" stroke="#665d6e" stroke-width="1.2" d="M240,-88.52C240,-91.41 189.8,-93.75 128,-93.75 66.2,-93.75 16,-91.41 16,-88.52 16,-88.52 16,-41.48 16,-41.48 16,-38.59 66.2,-36.25 128,-36.25 189.8,-36.25 240,-38.59 240,-41.48 240,-41.48 240,-88.52 240,-88.52"/>
+<path fill="none" stroke="#665d6e" stroke-width="1.2" d="M240,-88.52C240,-85.64 189.8,-83.3 128,-83.3 66.2,-83.3 16,-85.64 16,-88.52"/>
+<text text-anchor="middle" x="128" y="-68.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">Sources</text>
+<text text-anchor="middle" x="128" y="-56.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">paginated SaaS API · Google Sheets</text>
+</g>
+<!-- ingest -->
+<g id="node5" class="node">
+<title>ingest</title>
+<polygon fill="#ffffff" stroke="#5f7a2e" stroke-width="1.6" points="498,-86 283,-86 283,-44 498,-44 498,-86"/>
+<text text-anchor="middle" x="390.5" y="-68.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">Ingestion — Cloud Functions Gen2</text>
+<text text-anchor="middle" x="390.5" y="-56.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">one per source, none transforms</text>
+</g>
+<!-- sources&#45;&gt;ingest -->
+<g id="edge1" class="edge">
+<title>sources&#45;&gt;ingest</title>
+<path fill="none" stroke="#665d6e" stroke-width="1.1" d="M240.23,-65C250.92,-65 261.78,-65 272.53,-65"/>
+<polygon fill="#665d6e" stroke="#665d6e" stroke-width="1.1" points="272.78,-68.5 282.78,-65 272.78,-61.5 272.78,-68.5"/>
+</g>
+<!-- bronze -->
+<g id="node6" class="node">
+<title>bronze</title>
+<polygon fill="#f7f5f1" stroke="#665d6e" stroke-width="1.2" points="819,-86 626,-86 622,-82 622,-44 815,-44 819,-48 819,-86"/>
+<polyline fill="none" stroke="#665d6e" stroke-width="1.2" points="815,-82 622,-82 "/>
+<polyline fill="none" stroke="#665d6e" stroke-width="1.2" points="815,-82 815,-44 "/>
+<polyline fill="none" stroke="#665d6e" stroke-width="1.2" points="815,-82 819,-86 "/>
+<text text-anchor="middle" x="720.5" y="-68.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">Bronze — Cloud Storage</text>
+<text text-anchor="middle" x="720.5" y="-56.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">raw, append&#45;only, with lineage</text>
+</g>
+<!-- ingest&#45;&gt;bronze -->
+<g id="edge2" class="edge">
+<title>ingest&#45;&gt;bronze</title>
+<path fill="none" stroke="#665d6e" stroke-width="1.1" d="M498.45,-65C534.76,-65 575.33,-65 611.71,-65"/>
+<polygon fill="#665d6e" stroke="#665d6e" stroke-width="1.1" points="611.85,-68.5 621.85,-65 611.85,-61.5 611.85,-68.5"/>
+</g>
+<!-- cImmutable -->
+<g id="node12" class="node">
+<title>cImmutable</title>
+<polygon fill="#ffffff" stroke="#b02a1e" stroke-width="1.8" points="797,-182 644,-182 644,-140 797,-140 797,-182"/>
+<text text-anchor="middle" x="720.5" y="-164.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#b02a1e">Bronze is immutable</text>
+<text text-anchor="middle" x="720.5" y="-152.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#b02a1e">if_generation_match=0</text>
+</g>
+<!-- ingest&#45;&gt;cImmutable -->
+<g id="edge14" class="edge">
+<title>ingest&#45;&gt;cImmutable</title>
+<path fill="none" stroke="#5f7a2e" stroke-width="1.1" stroke-dasharray="5,2" d="M463.48,-86.07C514.96,-101.14 584.34,-121.44 637.88,-137.11"/>
+<polygon fill="#5f7a2e" stroke="#5f7a2e" stroke-width="1.1" points="637.11,-140.53 647.69,-139.98 639.07,-133.81 637.11,-140.53"/>
+<text text-anchor="middle" x="561" y="-137.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#5f7a2e"> &#160;uploads with the</text>
+<text text-anchor="middle" x="561" y="-127.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#5f7a2e">precondition set &#160;</text>
+</g>
+<!-- dataform -->
+<g id="node7" class="node">
+<title>dataform</title>
+<polygon fill="#ffffff" stroke="#5f7a2e" stroke-width="1.8" points="1070,-86 860,-86 860,-44 1070,-44 1070,-86"/>
+<text text-anchor="middle" x="965" y="-68.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">Dataform — single engine</text>
+<text text-anchor="middle" x="965" y="-56.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">versioned SQLX, graph from ref()</text>
+</g>
+<!-- bronze&#45;&gt;dataform -->
+<g id="edge3" class="edge">
+<title>bronze&#45;&gt;dataform</title>
+<path fill="none" stroke="#665d6e" stroke-width="1.1" d="M819.09,-65C829.15,-65 839.45,-65 849.68,-65"/>
+<polygon fill="#665d6e" stroke="#665d6e" stroke-width="1.1" points="849.87,-68.5 859.87,-65 849.87,-61.5 849.87,-68.5"/>
+</g>
+<!-- silver -->
+<g id="node8" class="node">
+<title>silver</title>
+<polygon fill="#f7f5f1" stroke="#665d6e" stroke-width="1.2" points="1343.5,-86 1179.5,-86 1175.5,-82 1175.5,-44 1339.5,-44 1343.5,-48 1343.5,-86"/>
+<polyline fill="none" stroke="#665d6e" stroke-width="1.2" points="1339.5,-82 1175.5,-82 "/>
+<polyline fill="none" stroke="#665d6e" stroke-width="1.2" points="1339.5,-82 1339.5,-44 "/>
+<polyline fill="none" stroke="#665d6e" stroke-width="1.2" points="1339.5,-82 1343.5,-86 "/>
+<text text-anchor="middle" x="1259.5" y="-68.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">Silver — BigQuery</text>
+<text text-anchor="middle" x="1259.5" y="-56.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">typing and business rules</text>
+</g>
+<!-- dataform&#45;&gt;silver -->
+<g id="edge4" class="edge">
+<title>dataform&#45;&gt;silver</title>
+<path fill="none" stroke="#665d6e" stroke-width="1.1" d="M1070.36,-65C1101.32,-65 1135,-65 1165.21,-65"/>
+<polygon fill="#665d6e" stroke="#665d6e" stroke-width="1.1" points="1165.31,-68.5 1175.31,-65 1165.31,-61.5 1165.31,-68.5"/>
+</g>
+<!-- cAssert -->
+<g id="node14" class="node">
+<title>cAssert</title>
+<polygon fill="#ffffff" stroke="#b02a1e" stroke-width="1.8" points="1345.5,-182 1173.5,-182 1173.5,-140 1345.5,-140 1345.5,-182"/>
+<text text-anchor="middle" x="1259.5" y="-164.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#b02a1e">Gold reconciles with Silver</text>
+<text text-anchor="middle" x="1259.5" y="-152.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#b02a1e">grain and total assertions</text>
+</g>
+<!-- dataform&#45;&gt;cAssert -->
+<g id="edge13" class="edge">
+<title>dataform&#45;&gt;cAssert</title>
+<path fill="none" stroke="#5f7a2e" stroke-width="1.1" stroke-dasharray="5,2" d="M1030.19,-86.07C1075.82,-101.04 1137.2,-121.19 1184.82,-136.82"/>
+<polygon fill="#5f7a2e" stroke="#5f7a2e" stroke-width="1.1" points="1183.87,-140.19 1194.46,-139.98 1186.05,-133.54 1183.87,-140.19"/>
+<text text-anchor="middle" x="1115" y="-124.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#5f7a2e"> &#160;declares &#160;</text>
+</g>
+<!-- dataform&#45;&gt;cTag -->
+<g id="edge12" class="edge">
+<title>dataform&#45;&gt;cTag</title>
+<path fill="none" stroke="#5f7a2e" stroke-width="1.1" stroke-dasharray="5,2" d="M1026.73,-43.92C1064.55,-31.92 1114.49,-18.1 1160,-12 1247.66,-0.24 1271.71,2.26 1359,-12 1426.55,-23.03 1454.74,-14.54 1505,-61 1521.67,-76.41 1509.49,-91.42 1525,-108 1535.16,-118.87 1548.04,-127.85 1561.26,-135.14"/>
+<polygon fill="#5f7a2e" stroke="#5f7a2e" stroke-width="1.1" points="1559.95,-138.4 1570.44,-139.91 1563.19,-132.19 1559.95,-138.4"/>
+<text text-anchor="middle" x="1259.5" y="-24.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#5f7a2e"> &#160;applies it by level,</text>
+<text text-anchor="middle" x="1259.5" y="-14.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#5f7a2e">never by id &#160;</text>
+</g>
+<!-- gold -->
+<g id="node9" class="node">
+<title>gold</title>
+<polygon fill="#f7f5f1" stroke="#665d6e" stroke-width="1.2" points="1736,-86 1529,-86 1525,-82 1525,-44 1732,-44 1736,-48 1736,-86"/>
+<polyline fill="none" stroke="#665d6e" stroke-width="1.2" points="1732,-82 1525,-82 "/>
+<polyline fill="none" stroke="#665d6e" stroke-width="1.2" points="1732,-82 1732,-44 "/>
+<polyline fill="none" stroke="#665d6e" stroke-width="1.2" points="1732,-82 1736,-86 "/>
+<text text-anchor="middle" x="1630.5" y="-68.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">Gold — BigQuery</text>
+<text text-anchor="middle" x="1630.5" y="-56.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">one table per fact, declared grain</text>
+</g>
+<!-- silver&#45;&gt;gold -->
+<g id="edge5" class="edge">
+<title>silver&#45;&gt;gold</title>
+<path fill="none" stroke="#665d6e" stroke-width="1.1" d="M1343.77,-65C1394.2,-65 1459.24,-65 1514.52,-65"/>
+<polygon fill="#665d6e" stroke="#665d6e" stroke-width="1.1" points="1514.73,-68.5 1524.73,-65 1514.73,-61.5 1514.73,-68.5"/>
+</g>
+<!-- access -->
+<g id="node10" class="node">
+<title>access</title>
+<polygon fill="#ffffff" stroke="#8a8292" stroke-width="1.2" stroke-dasharray="5,2" points="1963,-92 1777,-92 1777,-38 1963,-38 1963,-92"/>
+<text text-anchor="middle" x="1870" y="-74.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#8a8292">Access layer</text>
+<text text-anchor="middle" x="1870" y="-62.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#8a8292">authorized views + RLS</text>
+<text text-anchor="middle" x="1870" y="-50.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#8a8292">(designed, not implemented)</text>
+</g>
+<!-- gold&#45;&gt;access -->
+<g id="edge6" class="edge">
+<title>gold&#45;&gt;access</title>
+<path fill="none" stroke="#665d6e" stroke-width="1.1" d="M1736.02,-65C1746.19,-65 1756.51,-65 1766.66,-65"/>
+<polygon fill="#665d6e" stroke="#665d6e" stroke-width="1.1" points="1766.74,-68.5 1776.74,-65 1766.74,-61.5 1766.74,-68.5"/>
+</g>
+<!-- bi -->
+<g id="node11" class="node">
+<title>bi</title>
+<ellipse fill="#f7f5f1" stroke="#665d6e" stroke-width="1.2" cx="2074" cy="-65" rx="70.01" ry="21.43"/>
+<text text-anchor="middle" x="2074" y="-62.2" font-family="Helvetica,sans-Serif" font-size="11.00" fill="#1b1520">BI dashboard</text>
+</g>
+<!-- access&#45;&gt;bi -->
+<g id="edge7" class="edge">
+<title>access&#45;&gt;bi</title>
+<path fill="none" stroke="#665d6e" stroke-width="1.1" d="M1963.13,-65C1973.33,-65 1983.64,-65 1993.66,-65"/>
+<polygon fill="#665d6e" stroke="#665d6e" stroke-width="1.1" points="1993.98,-68.5 2003.98,-65 1993.98,-61.5 1993.98,-68.5"/>
+</g>
+<!-- cImmutable&#45;&gt;bronze -->
+<g id="edge15" class="edge">
+<title>cImmutable&#45;&gt;bronze</title>
+<path fill="none" stroke="#b02a1e" stroke-width="1.5" d="M720.5,-139.75C720.5,-127.09 720.5,-110.77 720.5,-96.61"/>
+<polygon fill="#b02a1e" stroke="#b02a1e" stroke-width="1.5" points="724,-96.31 720.5,-86.31 717,-96.31 724,-96.31"/>
+<text text-anchor="middle" x="712.5" y="-110.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#b02a1e"> &#160;412 Precondition Failed &#160;</text>
+</g>
+<!-- cDoc&#45;&gt;dataform -->
+<g id="edge16" class="edge">
+<title>cDoc&#45;&gt;dataform</title>
+<path fill="none" stroke="#b02a1e" stroke-width="1.5" d="M965,-139.75C965,-127.09 965,-110.77 965,-96.61"/>
+<polygon fill="#b02a1e" stroke="#b02a1e" stroke-width="1.5" points="968.5,-96.31 965,-86.31 961.5,-96.31 968.5,-96.31"/>
+<text text-anchor="middle" x="957" y="-110.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#b02a1e"> &#160;the PR doesn&#39;t pass &#160;</text>
+</g>
+<!-- cAssert&#45;&gt;gold -->
+<g id="edge17" class="edge">
+<title>cAssert&#45;&gt;gold</title>
+<path fill="none" stroke="#b02a1e" stroke-width="1.5" d="M1341.48,-139.93C1399.76,-124.77 1478.41,-104.31 1538.8,-88.6"/>
+<polygon fill="#b02a1e" stroke="#b02a1e" stroke-width="1.5" points="1539.91,-91.92 1548.71,-86.02 1538.15,-85.15 1539.91,-91.92"/>
+<text text-anchor="middle" x="1442" y="-142.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#b02a1e"> &#160;Dataform won&#39;t build</text>
+<text text-anchor="middle" x="1442" y="-132.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#b02a1e">what depended on it &#160;</text>
+</g>
+<!-- cTag&#45;&gt;silver -->
+<g id="edge18" class="edge">
+<title>cTag&#45;&gt;silver</title>
+<path fill="none" stroke="#b02a1e" stroke-width="1.5" d="M1583.81,-139.97C1565.17,-130.85 1543.66,-119.6 1525,-108 1515.57,-102.13 1515.32,-97.11 1505,-93 1457.29,-74.01 1400.49,-66.68 1353.65,-64.25"/>
+<polygon fill="#b02a1e" stroke="#b02a1e" stroke-width="1.5" points="1353.66,-60.74 1343.51,-63.79 1353.34,-67.74 1353.66,-60.74"/>
+</g>
+<!-- cTag&#45;&gt;gold -->
+<g id="edge19" class="edge">
+<title>cTag&#45;&gt;gold</title>
+<path fill="none" stroke="#b02a1e" stroke-width="1.5" d="M1630.5,-139.75C1630.5,-127.09 1630.5,-110.77 1630.5,-96.61"/>
+<polygon fill="#b02a1e" stroke="#b02a1e" stroke-width="1.5" points="1634,-96.31 1630.5,-86.31 1627,-96.31 1634,-96.31"/>
+<text text-anchor="middle" x="1617.5" y="-115.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#b02a1e"> &#160;Access Denied on policy tag</text>
+<text text-anchor="middle" x="1617.5" y="-105.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#b02a1e">not even the owner inherits it &#160;</text>
+</g>
+<!-- cGrant&#45;&gt;access -->
+<g id="edge20" class="edge">
+<title>cGrant&#45;&gt;access</title>
+<path fill="none" stroke="#b02a1e" stroke-width="1.5" d="M1870,-139.78C1870,-128.85 1870,-115.19 1870,-102.55"/>
+<polygon fill="#b02a1e" stroke="#b02a1e" stroke-width="1.5" points="1873.5,-102.25 1870,-92.25 1866.5,-102.25 1873.5,-102.25"/>
+<text text-anchor="middle" x="1862" y="-113.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#b02a1e"> &#160;no grant, no query &#160;</text>
+</g>
+</g>
+</svg>
