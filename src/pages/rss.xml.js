@@ -8,9 +8,12 @@ export async function GET(context) {
 		title: SITE_TITLE,
 		description: SITE_DESCRIPTION,
 		site: context.site,
+		// El feed lleva las dos versiones de cada post, y cada una vive en su
+		// propia ruta: las de inglés cuelgan de `/en/`. Armar el link solo con
+		// el id publicaba `/{slug-en}/`, que no existe.
 		items: posts.map((post) => ({
 			...post.data,
-			link: `/${post.id}/`,
+			link: post.data.lang === 'en' ? `/en/${post.id}/` : `/${post.id}/`,
 		})),
 	});
 }

@@ -179,26 +179,11 @@ export function useTranslations(lang: Lang) {
   };
 }
 
-// Get alternative language link
-export function getAlternateLangLink(currentUrl: URL): string {
-  const currentLang = getLangFromUrl(currentUrl);
-  const alternateLang: Lang = currentLang === 'es' ? 'en' : 'es';
-
-  // Get the path without the language prefix
-  let path = currentUrl.pathname;
-
-  // Remove current language prefix if it exists
-  if (currentLang !== defaultLang) {
-    path = path.replace(`/${currentLang}`, '');
-  }
-
-  // Ensure path starts with /
-  if (!path.startsWith('/')) {
-    path = `/${path}`;
-  }
-
-  return linkFor(alternateLang, path);
-}
+// Acá vivía `getAlternateLangLink(url)`, que derivaba la contraparte de una
+// página agregando o sacando el prefijo `/en`. No tenía un solo llamador y
+// tenía el mismo bug que el switcher del Header: los posts y las fichas no son
+// espejos, su par vive en otro slug. La contraparte la resuelve cada página
+// contra la colección y la baja como `alternateUrl`.
 
 // Save language preference to localStorage
 export function saveLanguagePreference(lang: Lang): void {

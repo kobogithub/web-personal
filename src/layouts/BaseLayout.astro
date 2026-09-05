@@ -37,7 +37,7 @@ const { title, description, image, lang = 'es', alternateUrl, alternateLang } = 
 	>
 		<div class="magi-bg-fx" aria-hidden="true"></div>
 		<div id="site-content">
-			<Header lang={lang}/>
+			<Header lang={lang} alternateUrl={alternateUrl} />
 			<main class='py-8 min-h-[calc(100vh-160px)]'>
 				<slot />
 			</main>
