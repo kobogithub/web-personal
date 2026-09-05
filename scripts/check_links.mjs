@@ -30,11 +30,13 @@ if (!existsSync(DIST)) {
 }
 
 const pages = [];
+const feeds = [];
 (function walk(dir) {
 	for (const entry of readdirSync(dir)) {
 		const path = join(dir, entry);
 		if (statSync(path).isDirectory()) walk(path);
 		else if (entry.endsWith('.html')) pages.push(path);
+		else if (entry === 'rss.xml') feeds.push(path);
 	}
 })(DIST);
 
@@ -67,23 +69,22 @@ for (const page of pages) {
 	}
 }
 
-// El feed no es HTML y nadie lo abre navegando, así que sus URLs se rompen sin
-// que se note: llegó a publicar siete posts en rutas inexistentes. Se validan
-// las que apuntan a este mismo sitio.
-const feed = join(DIST, 'rss.xml');
-if (existsSync(feed)) {
+// Los feeds no son HTML y nadie los abre navegando, así que sus URLs se rompen
+// sin que se note: uno llegó a publicar siete posts en rutas inexistentes. Se
+// validan las que apuntan a este mismo sitio.
+for (const feed of feeds) {
 	const xml = readFileSync(feed, 'utf8');
 	const site = xml.match(/<link>(https?:\/\/[^/]+)\//)?.[1];
 	for (const [, link] of xml.matchAll(/<link>([^<]+)<\/link>/g)) {
 		if (!site || !link.startsWith(site)) continue;
 		const path = link.slice(site.length) || '/';
 		if (resolves(path)) continue;
-		record(path, '/rss.xml');
+		record(path, `/${relative(DIST, feed)}`);
 	}
 }
 
 if (broken.size === 0) {
-	console.log(`OK — ${pages.length} páginas, ningún enlace interno roto.`);
+	console.log(`OK — ${pages.length} páginas y ${feeds.length} feeds, ningún enlace interno roto.`);
 	process.exit(0);
 }
 

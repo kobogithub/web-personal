@@ -90,6 +90,7 @@ export const ui = {
     'footer.signature': 'Diseñado y construido por',
     'footer.linkedin': 'LinkedIn',
     'footer.github': 'GitHub',
+    'footer.rss': 'Feed RSS en español',
     // Table of Contents
     'toc.title': 'En esta página',
     // About the Author
@@ -142,6 +143,7 @@ export const ui = {
     'footer.signature': 'Designed and built by',
     'footer.linkedin': 'LinkedIn',
     'footer.github': 'GitHub',
+    'footer.rss': 'RSS feed in English',
     // Table of Contents
     'toc.title': 'On This Page',
     // About the Author
