@@ -175,7 +175,7 @@ def diagram(c: dict, t: dict) -> str:
     return f"""digraph G {{
   rankdir=LR;
   graph [fontname="Helvetica", bgcolor="transparent", compound=true, newrank=true,
-         ranksep=0.85, nodesep=0.38];
+         ranksep=0.55, nodesep=0.34];
   node  [shape=box, style="filled", fontname="Helvetica", fontsize=11,
          color="{c['line']}", fillcolor="{c['surface']}", fontcolor="{c['ink']}", penwidth=1.2, margin="0.18,0.12"];
   edge  [fontname="Helvetica", fontsize=9, color="{c['muted']}", fontcolor="{c['muted']}", penwidth=1.1];
@@ -231,8 +231,9 @@ def diagram(c: dict, t: dict) -> str:
   // habla. Y cada pieza de la banda de arriba comparte columna con el control
   // que instala, para que la arista que las une sea corta y se lea como lo
   // que es: una bajada, no un cruce.
+  {{ rank=same; ingest;               ci;      }}
   {{ rank=same; bronze;   cImmutable;          }}
-  {{ rank=same; dataform; cDoc;       ci;      }}
+  {{ rank=same; dataform; cDoc;                }}
   {{ rank=same; silver;   cAssert;    iac;     }}
   {{ rank=same; gold;     cTag;       catalog; }}
   {{ rank=same; access;   cGrant;              }}
