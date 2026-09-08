@@ -136,6 +136,15 @@ export const skills: Skills[] = [
     icon: 'simple-icons:nginx',
   },
   {
+    name: 'WireGuard',
+    description: {
+      es: 'VPN punto a punto para acceso privado a servicios internos',
+      en: 'Point-to-point VPN for private access to internal services',
+    },
+    tags: ['Networking', 'Security'],
+    icon: 'simple-icons:wireguard',
+  },
+  {
     name: 'Nix',
     description: {
       es: 'Lenguaje de gestor de entorno local para configuraciones en linux',
@@ -372,6 +381,18 @@ export const skills: Skills[] = [
     icon: 'simple-icons:microsoftazure',
   },
   {
+    // Aparecía solo dentro de la descripción de Azure Data Factory. Va como
+    // skill propia: es de lo más difícil de encontrar y es la mitad de origen
+    // de las migraciones.
+    name: 'Informatica PowerCenter',
+    description: {
+      es: 'Lectura de mappings y workflows legacy para migrarlos a pipelines cloud',
+      en: 'Reading legacy mappings and workflows to migrate them to cloud pipelines',
+    },
+    tags: ['Data', 'Migration', 'Legacy'],
+    icon: 'simple-icons:informatica',
+  },
+  {
     name: 'Databricks',
     description: {
       es: 'Pipelines Bronze/Silver/Diamond con PySpark y Databricks Asset Bundles',
@@ -406,6 +427,17 @@ export const skills: Skills[] = [
     },
     tags: ['Data', 'Transformation'],
     icon: 'simple-icons:dbt',
+  },
+  {
+    name: 'Dataform',
+    description: {
+      es: 'Transformaciones SQL versionadas sobre BigQuery, con assertions y release configs por ambiente',
+      en: 'Versioned SQL transformations on BigQuery, with assertions and per-environment release configs',
+    },
+    tags: ['Data', 'Transformation'],
+    // simple-icons no tiene logo de Dataform: es un servicio de GCP, así que
+    // lleva el de la nube, igual que Azure Data Factory lleva el de Azure.
+    icon: 'simple-icons:googlecloud',
   },
   {
     name: 'Apache Iceberg',
@@ -475,6 +507,15 @@ export const skills: Skills[] = [
     icon: 'simple-icons:prisma',
   },
   {
+    name: 'Drizzle ORM',
+    description: {
+      es: 'Esquema y migraciones type-safe sobre PostgreSQL en proyectos TypeScript',
+      en: 'Type-safe schema and migrations on PostgreSQL in TypeScript projects',
+    },
+    tags: ['ORM', 'Backend'],
+    icon: 'simple-icons:drizzle',
+  },
+  {
     name: 'Tailwind CSS',
     description: {
       es: 'Sistemas de diseño con tokens y modo claro/oscuro',
@@ -500,5 +541,58 @@ export const skills: Skills[] = [
     },
     tags: ['Testing', 'QA'],
     icon: 'simple-icons:vitest',
+  },
+
+  // Ingeniería de agentes, arquitectura y distribución.
+  //
+  // La bio del home y del about ya afirma "sistemas multi-agente con MCP" y
+  // "autor de herramientas open-source en Rust". Esta sección es lo que lo
+  // respalda: hasta acá la página se quedaba en OpenAI y LangChain.
+  {
+    name: 'Claude Code',
+    description: {
+      es: 'Frameworks de agentes con skills, subagentes y hooks; ciclo spec-first donde nada se implementa sin especificación aprobada',
+      en: 'Agent frameworks with skills, subagents and hooks; a spec-first cycle where nothing ships without an approved spec',
+    },
+    tags: ['AI', 'Agents'],
+    icon: 'simple-icons:claude',
+  },
+  {
+    name: 'MCP',
+    description: {
+      es: 'Servidores Model Context Protocol para conectar agentes a herramientas y datos internos',
+      en: 'Model Context Protocol servers connecting agents to internal tools and data',
+    },
+    tags: ['AI', 'Agents', 'Integration'],
+    icon: 'simple-icons:modelcontextprotocol',
+  },
+  {
+    name: 'LikeC4',
+    description: {
+      es: 'Modelos C4 versionados junto al código, con los diagramas generados y chequeados en CI',
+      en: 'C4 models versioned alongside the code, with diagrams generated and checked in CI',
+    },
+    tags: ['Architecture', 'Documentation'],
+    // simple-icons no tiene logo de LikeC4 (verificado contra el set instalado).
+    // `tabler:schema` es genérico, no de marca — mismo criterio que Iceberg.
+    icon: 'tabler:schema',
+  },
+  {
+    name: 'Astro',
+    description: {
+      es: 'Sitios de contenido con content collections, i18n y publicación estática desde CI',
+      en: 'Content-driven sites with content collections, i18n and static publishing from CI',
+    },
+    tags: ['Frontend', 'Static Site'],
+    icon: 'simple-icons:astro',
+  },
+  {
+    name: 'Homebrew',
+    description: {
+      es: 'Distribución de CLIs por tap propio, con paquetes .deb y .rpm e instaladores multiplataforma',
+      en: 'CLI distribution through a custom tap, with .deb and .rpm packages and cross-platform installers',
+    },
+    tags: ['Open Source', 'Packaging', 'CLI'],
+    icon: 'simple-icons:homebrew',
   },
 ];
