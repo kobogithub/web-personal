@@ -1,0 +1,53 @@
+---
+import { getCertifications } from '@src/certifications';
+import { useContentTranslations } from '@src/i18n/translations';
+import type { Lang } from '@src/i18n/index';
+
+const { lang = 'es' } = Astro.props as { lang?: Lang };
+const tc = useContentTranslations(lang);
+const certifications = getCertifications(lang);
+---
+
+<div class="space-y-6">
+  {
+    certifications.map((cert) => (
+      <div class="corner-mark assemble border border-magi-line p-6 hover:border-magi-accent transition-colors" data-dir="up">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <h3 class="text-xl font-semibold text-magi-ink mb-2">
+              {cert.name}
+            </h3>
+            <p class="text-base text-magi-muted mb-1">
+              {cert.issuer}
+            </p>
+            <p class="text-sm text-magi-muted font-mono mb-4">
+              {cert.date}
+            </p>
+            {cert.verifyUrl && (
+              <a
+                href={cert.verifyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center text-magi-violet hover:text-magi-accent font-medium"
+              >
+                {tc('about.cert.verify')}
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+              </a>
+            )}
+          </div>
+          {cert.badgeUrl && (
+            <div class="ml-4 flex-shrink-0">
+              <img
+                src={cert.badgeUrl}
+                alt={cert.badgeAlt}
+                class="w-24 h-24 object-contain"
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    ))
+  }
+</div>

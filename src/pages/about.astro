@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Ava from '@src/assets/img/ava.jpg';
 import Prose from '../components/Prose.astro';
 import { useContentTranslations } from '@src/i18n/translations';
+import CertificationList from '@src/components/CertificationList.astro';
 
 const lang = 'es';
 const tc = useContentTranslations(lang);
@@ -129,41 +130,7 @@ const tc = useContentTranslations(lang);
         <div class="mt-12">
           <h2 class="section-title mb-8">{tc('about.certifications')}</h2>
 
-          <div class="space-y-6">
-            <div class="corner-mark assemble border border-magi-line p-6 hover:border-magi-accent transition-colors" data-dir="up">
-              <div class="flex items-start justify-between">
-                <div class="flex-1">
-                  <h3 class="text-xl font-semibold text-magi-ink mb-2">
-                    {tc('about.cert.aws.title')}
-                  </h3>
-                  <p class="text-base text-magi-muted mb-1">
-                    {tc('about.cert.aws.issuer')}
-                  </p>
-                  <p class="text-sm text-magi-muted font-mono mb-4">
-                    {tc('about.cert.aws.date')}
-                  </p>
-                  <a
-                    href="https://www.credly.com/badges/9d6d2abb-b604-44af-b658-cbbe24de0d28"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center text-magi-violet hover:text-magi-accent font-medium"
-                  >
-                    {tc('about.cert.verify')}
-                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                    </svg>
-                  </a>
-                </div>
-                <div class="ml-4 flex-shrink-0">
-                  <img 
-                    src="https://images.credly.com/size/340x340/images/0e284c3f-5164-4b21-8660-0d84737941bc/image.png" 
-                    alt="AWS Certified Solutions Architect - Associate badge"
-                    class="w-24 h-24 object-contain"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+          <CertificationList lang={lang} />
         </div>
         </article>
     </main>
