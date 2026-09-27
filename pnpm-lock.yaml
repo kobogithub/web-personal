@@ -13,7 +13,7 @@ importers:
     dependencies:
       '@astrojs/check':
         specifier: ^0.9
-        version: 0.9.10(prettier-plugin-astro@0.14.1)(prettier@3.9.8)(typescript@5.5.4)
+        version: 0.9.10(prettier-plugin-astro@0.14.1)(prettier@3.9.8)(typescript@6.0.3)
       '@astrojs/markdown-remark':
         specifier: ^7.3.1
         version: 7.3.1
@@ -48,8 +48,8 @@ importers:
         specifier: ^0.35.4
         version: 0.35.4(@types/node@24.13.3)
       typescript:
-        specifier: ^5.5.4
-        version: 5.5.4
+        specifier: ^6.0.3
+        version: 6.0.3
       unist-util-visit:
         specifier: ^5.1.0
         version: 5.1.0
@@ -2287,8 +2287,8 @@ packages:
   typescript-auto-import-cache@0.3.6:
     resolution: {integrity: sha512-RpuHXrknHdVdK7wv/8ug3Fr0WNsNi5l5aB8MYYuXhq2UH5lnEB1htJ1smhtD5VeCsGr2p8mUDtd83LCQDFVgjQ==}
 
-  typescript@5.5.4:
-    resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
+  typescript@6.0.3:
+    resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -2642,12 +2642,12 @@ packages:
 
 snapshots:
 
-  '@astrojs/check@0.9.10(prettier-plugin-astro@0.14.1)(prettier@3.9.8)(typescript@5.5.4)':
+  '@astrojs/check@0.9.10(prettier-plugin-astro@0.14.1)(prettier@3.9.8)(typescript@6.0.3)':
     dependencies:
-      '@astrojs/language-server': 2.16.16(prettier-plugin-astro@0.14.1)(prettier@3.9.8)(typescript@5.5.4)
+      '@astrojs/language-server': 2.16.16(prettier-plugin-astro@0.14.1)(prettier@3.9.8)(typescript@6.0.3)
       chokidar: 4.0.3
       kleur: 4.1.5
-      typescript: 5.5.4
+      typescript: 6.0.3
       yargs: 18.1.0
     transitivePeerDependencies:
       - prettier
@@ -2726,12 +2726,12 @@ snapshots:
       smol-toml: 1.8.0
       unified: 11.0.5
 
-  '@astrojs/language-server@2.16.16(prettier-plugin-astro@0.14.1)(prettier@3.9.8)(typescript@5.5.4)':
+  '@astrojs/language-server@2.16.16(prettier-plugin-astro@0.14.1)(prettier@3.9.8)(typescript@6.0.3)':
     dependencies:
       '@astrojs/compiler': 2.13.1
       '@astrojs/yaml2ts': 0.2.4
       '@jridgewell/sourcemap-codec': 1.6.0
-      '@volar/kit': 2.4.28(typescript@5.5.4)
+      '@volar/kit': 2.4.28(typescript@6.0.3)
       '@volar/language-core': 2.4.28
       '@volar/language-server': 2.4.28
       '@volar/language-service': 2.4.28
@@ -3588,12 +3588,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@volar/kit@2.4.28(typescript@5.5.4)':
+  '@volar/kit@2.4.28(typescript@6.0.3)':
     dependencies:
       '@volar/language-service': 2.4.28
       '@volar/typescript': 2.4.28
       typesafe-path: 0.2.2
-      typescript: 5.5.4
+      typescript: 6.0.3
       vscode-languageserver-textdocument: 1.0.14
       vscode-uri: 3.2.0
 
@@ -5301,7 +5301,7 @@ snapshots:
     dependencies:
       semver: 7.8.5
 
-  typescript@5.5.4: {}
+  typescript@6.0.3: {}
 
   ufo@1.6.4: {}
 
