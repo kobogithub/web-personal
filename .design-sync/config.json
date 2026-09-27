@@ -1,0 +1,25 @@
+{
+  "pkg": "magi-ds",
+  "globalName": "MagiDS",
+  "shape": "package",
+  "buildCmd": "cd design-system && node build.mjs",
+  "srcDir": "src",
+  "tsconfig": "tsconfig.json",
+  "cssEntry": "dist/styles.css",
+  "docsDir": "docs",
+  "overrides": {
+    "SkillsList": {
+      "cardMode": "column"
+    },
+    "PostItem": {
+      "cardMode": "column"
+    },
+    "EntryGate": {
+      "cardMode": "single",
+      "primaryStory": "Portada",
+      "viewport": "900x560"
+    }
+  },
+  "readmeHeader": ".design-sync/conventions.md",
+  "projectId": "d7453499-9b70-472f-886f-439b4320b0e8"
+}
