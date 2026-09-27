@@ -21,7 +21,7 @@ jobs:
 
       # La versión de pnpm sale de `packageManager` en package.json; no se
       # fija acá para que no haya dos fuentes que puedan divergir.
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
 
       - uses: actions/setup-node@v7
         with:

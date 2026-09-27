@@ -135,3 +135,12 @@ dist
 # Astro build cache (settings.json solo guarda un timestamp de chequeo)
 .astro/
 __pycache__/
+
+# design-sync (sync del design system a claude.ai/design)
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules
+design-system/dist/
+design-system/node_modules/
