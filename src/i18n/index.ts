@@ -79,7 +79,7 @@ export const ui = {
       'Blog personal de IA, Cloud, Kubernetes, plataformas de datos y experiencia en Arquitectura de Soluciones',
     // Header
     'header.switchLanguage': 'Cambiar idioma',
-    'header.eyebrow': 'Platform Manager / AI Engineer',
+    'header.eyebrow': 'Platform Engineer / AI Engineer',
     'header.home': 'Inicio',
     'header.themeMode': 'Modo de tema',
     'header.siteLogo': 'Logo del sitio',
@@ -132,7 +132,7 @@ export const ui = {
       'Personal blog about AI, Cloud, Kubernetes, data platforms and Solutions Architecture experience',
     // Header
     'header.switchLanguage': 'Switch language',
-    'header.eyebrow': 'Platform Manager / AI Engineer',
+    'header.eyebrow': 'Platform Engineer / AI Engineer',
     'header.home': 'Home',
     'header.themeMode': 'Theme mode',
     'header.siteLogo': 'Site logo',
