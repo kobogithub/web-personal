@@ -128,9 +128,6 @@ export const translations = {
     'about.utn.task4':
       'Stack tecnológico: Python 3.12+, Docker, AWS/Google Cloud, Transformers, Streamlit, PostgreSQL',
     'about.certifications': 'Certificaciones',
-    'about.cert.aws.title': 'AWS Certified Solutions Architect – Associate',
-    'about.cert.aws.issuer': 'Amazon Web Services',
-    'about.cert.aws.date': 'Octubre 13, 2028',
     'about.cert.verify': 'Verificar certificación',
 
     // Contact page
@@ -305,9 +302,6 @@ export const translations = {
     'about.utn.task4':
       'Tech stack: Python 3.12+, Docker, AWS/Google Cloud, Transformers, Streamlit, PostgreSQL',
     'about.certifications': 'Certifications',
-    'about.cert.aws.title': 'AWS Certified Solutions Architect – Associate',
-    'about.cert.aws.issuer': 'Amazon Web Services',
-    'about.cert.aws.date': 'October 13, 2028',
     'about.cert.verify': 'Verify certification',
 
     // Contact page
