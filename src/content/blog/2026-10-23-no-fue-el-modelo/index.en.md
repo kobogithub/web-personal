@@ -157,7 +157,7 @@ the average price paid per tonne of soybeans, by zone; watch the layer answer
 that it isn't defined; paste the definition into `catalogo.yaml` and save —the
 chat reloads the layer on its own— and ask again.
 
-The file holding that definition still has this line:
+While we were building the demo, the file holding that definition had this line:
 
 ```yaml
 # PENDIENTE DE CONFIRMAR (Kevin): solo LP (no AJ), neto de retenciones y gastos, en dólares.
@@ -165,9 +165,13 @@ The file holding that definition still has this line:
 
 ("Pending confirmation: primary settlements only, net of withholdings and
 expenses, in dollars.") Does the average price include price adjustments? Is it
-net of withholdings? In dollars as of which day? Those are three business
-decisions, and the model can't make any of them. If it does, the number will be
-consistent, it will run, and it will be a model's opinion presented as data.
+net of withholdings? In which currency? Those are three business decisions, and
+the model can't make any of them. If it does, the number will be consistent, it
+will run, and it will be a model's opinion presented as data.
+
+The definition was confirmed exactly as the comment says: primary settlements
+only, no adjustments, net of withholdings and expenses, in dollars. A person
+made that call; the layer just applies it.
 
 ## One source
 
