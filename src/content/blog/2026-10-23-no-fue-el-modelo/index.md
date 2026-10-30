@@ -157,16 +157,20 @@ precio promedio pagado por tonelada de soja, por zona; ver que la capa responde
 que no está definida; pegar la definición en `catalogo.yaml`, guardar —el chat
 recarga la capa solo— y repetir la pregunta.
 
-El archivo que trae esa definición tiene, todavía, esta línea:
+Mientras armábamos la demo, el archivo que trae esa definición tenía esta línea:
 
 ```yaml
 # PENDIENTE DE CONFIRMAR (Kevin): solo LP (no AJ), neto de retenciones y gastos, en dólares.
 ```
 
 ¿El precio promedio incluye los ajustes de precio? ¿Es neto de retenciones? ¿En
-dólares de qué día? Son tres decisiones de negocio, y ninguna la puede tomar el
-modelo. Si la toma, el número va a ser coherente, va a correr, y va a ser la
-opinión de un modelo presentada como un dato.
+qué moneda? Son tres decisiones de negocio, y ninguna la puede tomar el modelo.
+Si la toma, el número va a ser coherente, va a correr, y va a ser la opinión de
+un modelo presentada como un dato.
+
+La definición quedó confirmada tal como dice el comentario: solo liquidaciones
+primarias, sin ajustes, neta de retenciones y gastos, en dólares. La decidió una
+persona; la capa solo la aplica.
 
 ## Una sola fuente
 
