@@ -5,6 +5,7 @@ seoTitle: "A local lakehouse with Airflow, DuckDB and Iceberg: the isolation the
 description: "A medallion lakehouse running entirely on a laptop. The hard part wasn't compute or storage — it was that five services that never meet in the cloud ended up sharing one Python interpreter."
 tags: ["Data Engineering", "Airflow", "dbt", "DuckDB", "Apache Iceberg", "Docker", "Python"]
 pubDate: "Sep 04 2026"
+updatedDate: "Nov 01 2026"
 coverImage: "./cover.png"
 lang: "en"
 alternate: "un-solo-interprete"
@@ -36,14 +37,14 @@ swapped for a local equivalent that speaks the same protocol:
 
 | Role | In the cloud | Here |
 |---|---|---|
-| Object storage | S3 / ADLS | MinIO (S3-compatible) |
+| Object storage | S3 / ADLS | RustFS (S3-compatible) |
 | Query engine | Spark / Snowflake | DuckDB |
 | Table format | Delta / Iceberg | Apache Iceberg |
-| Catalog | Glue / Unity | Lakekeeper (REST) |
+| Catalog | Glue / Unity | RustFS S3 Tables (Iceberg REST) |
 | Orchestration | Managed Airflow | Apache Airflow |
 | Transformation | dbt | dbt |
 
-MinIO speaking S3 is what makes the exercise worth doing: the code that reads
+RustFS speaking S3 is what makes the exercise worth doing: the code that reads
 and writes has no idea it isn't in the cloud. dbt materializes Silver and Gold
 as external parquet straight to object storage —
 
@@ -51,7 +52,7 @@ as external parquet straight to object storage —
 {{ config(materialized='external', location='s3://silver/int_ventas_limpias.parquet') }}
 ```
 
-— and DuckDB loads `httpfs` and points its S3 endpoint at `minio:9000`. None of
+— and DuckDB loads `httpfs` and points its S3 endpoint at `rustfs:9000`. None of
 this is a trick. It's the same configuration you'd use against a real bucket,
 with a different URL.
 
@@ -175,8 +176,16 @@ inside:
 
 ```dockerfile
 FROM python:3.11-slim
-RUN pip install --no-cache-dir "pyiceberg[s3fs,pyarrow]>=0.7" duckdb requests
+RUN pip install --no-cache-dir \
+      "pyiceberg[s3fs,pyarrow]==0.10.0" \
+      "boto3==1.43.117" \
+      "duckdb==2.0.0" \
+      requests
 ```
+
+With exact versions. The first version of this container said
+`pyiceberg>=0.7`: the same ceiling-less `>=` that had just broken Airflow, now
+in my own Dockerfile. Isolating the writer doesn't protect it from itself.
 
 Airflow is still the orchestrator — it triggers the step — but it doesn't
 **host** it. The distinction sounds like a nuance and it's what holds the stack
@@ -187,11 +196,48 @@ It is, literally, rebuilding by hand the isolation you lost by moving
 everything onto one machine. Docker Compose isn't there to make the stack
 convenient to start. It's there so the pieces don't touch.
 
-Along the way the same problem showed up in a milder form: DuckDB reads the
-Iceberg catalog with `ATTACH ... (TYPE iceberg, AUTHORIZATION_TYPE 'none')`.
-Without that parameter it demands OAuth2 against a catalog running on
-`localhost` with no identity behind it. The default assumes the managed world;
-locally you have to say explicitly that there's nobody to authenticate.
+Along the way the same problem showed up in a milder form. With Lakekeeper as
+the catalog, DuckDB read it with `ATTACH ... (TYPE iceberg, AUTHORIZATION_TYPE
+'none')`: without that parameter it demands OAuth2 against a catalog running on
+`localhost` with no identity behind it. The default assumes the managed world.
+Today, with the catalog inside RustFS, the `ATTACH` signs with
+`AUTHORIZATION_TYPE 'sigv4'` and the same S3 credentials: it turns out there
+was someone to authenticate locally after all — just not an OAuth provider.
+
+## Two months later
+
+The stack kept moving, and the changes confirm the thesis from another angle.
+
+**MinIO left the stack.** The community edition was archived in April 2026 and
+I replaced it with RustFS. The dbt and DuckDB code never noticed: the endpoint
+changed, and so did the name of one environment variable. It's the best proof
+that betting on the S3 protocol, not on a product, was the right call.
+
+**The catalog moved into storage.** RustFS ships S3 Tables: an Iceberg REST
+catalog embedded in the object store itself. Lakekeeper and its Postgres moved
+to a fallback profile, because S3 Tables is still in preview (it doesn't
+compact or expire snapshots on its own, and a `DROP TABLE` doesn't delete the
+data).
+
+That seems to contradict everything above: I merged two pieces into one. It
+doesn't. What you can't share is the **interpreter**, not the machine or the
+container. RustFS is a Rust binary without a single Python package inside;
+adding the catalog to it gives nobody a dependency that steps on another.
+Consolidating services is fine. Consolidating dependency resolvers is what
+breaks.
+
+**Airflow moved to the slim image.** The full image ships about 28 providers;
+the DAGs use none of them. With `apache/airflow:slim-2.10.4-python3.11` the
+image went from 2.5 GB to 1.4 GB and idle RAM from 1.58 GiB to 790 MiB. And
+along the way `providers-amazon` and `providers-http` disappeared — exactly the
+packages whose constraints PyIceberg was stepping on. The cheapest way not to
+break someone else's pin is not to have the package. If a DAG ever needs a
+provider, it goes in individually and with `==`.
+
+**Now I know what it weighs.** Measured on a 16 GB Mac: the full stack uses
+~1.35 GiB idle and ~2.5 GiB at peak running the DAG and the notebooks. Six GB
+allocated to Docker is plenty. "Runs on your laptop" stopped being a promise
+and became a number.
 
 ## What this says about "a lakehouse on your laptop"
 
