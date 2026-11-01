@@ -24,7 +24,7 @@ jobs:
       - name: Install, build, and upload your site
         uses: withastro/action@v6
         with:
-          node-version: 22
+          node-version: 24
           # No se declara `package-manager` acá a propósito. Pasarlo sin versión
           # hace que la action le mande `version: latest` a `pnpm/action-setup`,
           # que falla con "Multiple versions of pnpm specified" al chocar con el
