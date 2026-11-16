@@ -19,3 +19,15 @@ overrides:
   # high (< 1.2.2). Mismo criterio que el de esbuild. Sacarlo cuando tailwind
   # suba su dependencia.
   source-map-js@<1.2.2: '>=1.2.2'
+  # Alertas de Dependabot de nov-2026 en dependencias transitivas (zod via
+  # astro, postcss-selector-parser via tailwind, fast-xml-parser). Mismo
+  # criterio que los de arriba. Sacarlos cuando los paquetes que las traen suban.
+  zod@>=4 <4.6.6: ^4.6.6
+  postcss-selector-parser@<6.1.5: ^6.1.5
+  fast-xml-parser@<5.12.0: ^5.12.0
+  # El binding wasm de rolldown acepta `@emnapi/*` 2.0.0-beta.2 y pnpm lo
+  # termina compartiendo con @astrojs/astro2tsx, que usa core 1.x: la mezcla
+  # rompe `astro check` con "this.bridge.setLastError is not a function".
+  # Sacarlo cuando emnapi 2 salga estable.
+  '@emnapi/core': ^1.11.3
+  '@emnapi/runtime': ^1.11.3
